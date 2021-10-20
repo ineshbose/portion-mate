@@ -2,9 +2,9 @@
 <br />
 <div align="center">
 <p align="center">
-  <!--<img alt="Portion Mate logo" src="" width=80%>-->
+  <img alt="Portion Mate logo" src="https://github.com/ineshbose/portion-mate/wiki/assets/logo.png" height="250px">
 
-  <h1 align="center">Portion Mate</h1>
+  <h3 align="center">Portion Mate</h3>
 
   <p align="center">
     <!-- BADGES / SHIELDS -->
@@ -26,7 +26,7 @@ Portion Mate is an application that helps keep track of your food intake. More i
 
 ### Built With
 * [Django](https://www.djangoproject.com/)
-* [ReactNative](https://reactnative.dev/)
+* [React Native](https://reactnative.dev/)
 * [Django REST Framework](https://www.django-rest-framework.org/)
 
 _For more information, please refer to the [Wiki](https://github.com/ineshbose/portion-mate/wiki)._
@@ -41,7 +41,7 @@ _For more information, please refer to the [Wiki](https://github.com/ineshbose/p
 <!-- CONTACT -->
 ## Contact
 
-Inesh Bose - 2504266b@student.gla.ac.uk
+Inesh Bose - 2504266b@student.gla.ac.uk / Inesh.Bose@glasgow.ac.uk
 
 Project Link: [https://github.com/ineshbose/portion-mate/](https://github.com/ineshbose/portion-mate/)
 

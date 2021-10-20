@@ -25,4 +25,59 @@ supervisor: Dr. Oana Andrei
 
 ### 04 October 2021
 
-* *1 hour* Project research into tracking apps
+* *0.5 hours* Project research into tracking apps (types and trending)
+
+### 05 October 2021
+
+* *1 hour* Project research into general tracking apps
+
+### 06 October 2021
+
+* *1 hour* Project research into general tracking apps
+* *1 hour* Project research into period tracking apps
+* *0.5 hour* Go through React Native's website
+
+### 07 October 2021
+
+* *2 hours* Project research into food tracking apps
+* *0.5 hour* Go through React Native's website
+
+### 08 October 2021
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 3
+
+### 11 October 2021
+
+* *2 hours* Setup repository
+
+### 12 October 2021
+
+* *3 hours* Go through React Native's website
+
+### 13 October 2021
+
+* *2 hours* Continue repository setup (wiki, boards)
+
+### 14 October 2021
+
+* *2 hours* Scope down requirements, research, frameworks
+
+### 15 October 2021
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 4
+
+### 18 October 2021
+
+* *1 hour* Research into tools
+
+### 19 October 2021
+
+* *3 hours* Setup tools and continue research
+
+### 20 October 2021
+
+* *4 hours* Polish repository and tools

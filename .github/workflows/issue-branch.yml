@@ -7,10 +7,36 @@ on:
     types: [ closed ]
 
 jobs:
-  create_issue_branch_job:
+  move-to-in-progress:
+    if: github.event.comment.body == '/cib' || github.event.comment.body == '/create-issue-branch'
     runs-on: ubuntu-latest
     steps:
-      - name: Create Issue Branch
+      - name: Close issue
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed',
+            })
+      - name: Reopen issue
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'open',
+            })
+  create-issue-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create issue branch
         uses: robvanderleek/create-issue-branch@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Echo branch name
+        run: echo ${{ steps.Create_Issue_Branch.outputs.branchName }}

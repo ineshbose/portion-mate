@@ -1,1 +1,13 @@
 mode: chatops
+branchName: '${issue.number}-${issue.title}'
+commentMessage: 'Branch [${branchName}](https://github.com/ineshbose/portion-mate/tree/${branchName}/) created for [issue #${issue.number}: ${issue.title}](https://github.com/ineshbose/portion-mate/issues/${issue.number})'
+branches:
+  - label: enhancement
+    prefix: feature/
+  - label: bug
+    prefix: bugfix/
+  - label: question
+    skip: true
+  - label: '*'
+    prefix: issue/
+autoCloseIssue: true
