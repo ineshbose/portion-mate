@@ -81,3 +81,9 @@ supervisor: Dr. Oana Andrei
 ### 20 October 2021
 
 * *4 hours* Polish repository and tools
+
+### 21 October 2021
+
+* *3 hours* Working on specifications and repository
+* *1 hour* Brainstorming on React Native
+* *1 hour* Re-familiarising with Django & DRF
