@@ -1,0 +1,35 @@
+site_name: Portion Mate
+site_url: https://portion-mate-glasgow.readthedocs.io/en/latest/
+site_author: Inesh Bose
+site_description: >-
+    Portion Mate is your mate for your daily portion intake.
+repo_url: https://github.com/ineshbose/portion-mate
+repo_name: portion-mate
+
+plugins:
+    - search
+
+theme:
+    name: material
+    language: en
+    palette:
+      primary: amber
+      accent: orange
+    font:
+      text: Roboto
+    logo: assets/logo.png
+    favicon: assets/favicon.ico
+
+markdown_extensions:
+    - codehilite
+
+
+extra:
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/ineshbose/portion-mate
+        - icon: fontawesome/brands/behance
+          link: /#
+
+nav:
+    - Home: index.md

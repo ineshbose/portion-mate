@@ -87,3 +87,8 @@ supervisor: Dr. Oana Andrei
 * *3 hours* Working on specifications and repository
 * *1 hour* Brainstorming on React Native
 * *1 hour* Re-familiarising with Django & DRF
+
+### 22 October 2021
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+* *1 hour* Setup wireframe on Figma
