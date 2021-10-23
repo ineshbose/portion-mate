@@ -1,5 +1,3 @@
-# Users
-
 ## Personas
 
 *[full name] is a(n) [description].*
@@ -27,4 +25,4 @@ As a mother of a preschooler, I want to enter logs for my child, so that I can m
 
 As a young bachelor, I want to information on diet plans available on the app, so that I can choose to follow one.
 
-As a retired grandma, I want to log food I eat along with any medicines, so that my health is on track and I'm motivated.
+As a retired person, I want to log food I eat along with any medicines, so that my health is on track and I'm motivated.

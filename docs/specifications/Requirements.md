@@ -1,5 +1,3 @@
-# Requirements
-
 ## User Requirements
 
 The software must provide a means of logging user's daily portion count from each food group the user desires.
