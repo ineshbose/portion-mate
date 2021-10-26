@@ -91,4 +91,17 @@ supervisor: Dr. Oana Andrei
 ### 22 October 2021
 
 * *1 hour* Scheduled meet with supervisor and compiled notes
-* *1 hour* Setup wireframe on Figma
+* *1 hour* Setup wireframes on Figma
+
+## Week 5
+
+### 25 October 2021
+
+* *5 hours* Setup wireframes on Figma
+* *1 hour* Planning, Research & Study
+
+### 26 October 2021
+
+* *3 hours* Polish wireframes on Figma
+* *2 hours* Issues #1 and #2
+* *1 hour* Repository polishing
