@@ -6,6 +6,8 @@
   * [08-10-2021](2021-10-08)
   * [15-10-2021](2021-10-15)
   * [22-10-2021](2021-10-22)
+  * [29-10-2021](2021-10-29)
 * Specifications
   * [Requirements](requirements)
   * [Users](users)
+  * [Wireframes](wireframes)

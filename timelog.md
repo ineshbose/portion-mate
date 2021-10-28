@@ -105,3 +105,8 @@ supervisor: Dr. Oana Andrei
 * *3 hours* Polish wireframes on Figma
 * *2 hours* Issues #1 and #2
 * *1 hour* Repository polishing
+
+### 27 October 2021
+
+* *2 hour* Learning React Native
+* *1 hour* Planning & setup

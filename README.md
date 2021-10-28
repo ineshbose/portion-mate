@@ -2,13 +2,13 @@
 <br />
 <div align="center">
 <p align="center">
-  <img alt="Portion Mate logo" src="https://github.com/ineshbose/portion-mate/blob/1337f646496dc166249c305243538daa424540a1/docs/assets/logo.png" height="250px">
+  <img alt="Portion Mate logo" src="https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png" height="250px">
 
   <h3 align="center">Portion Mate</h3>
 
   <p align="center">
-    <a href="https://portion-mate-glasgow.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate-glasgow?style=flat-square"></a>
     <!-- BADGES / SHIELDS -->
+    <a href="https://portion-mate-glasgow.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate-glasgow?style=flat-square"></a>
   </p>
 </p>
 </div>

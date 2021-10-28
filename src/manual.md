@@ -2,7 +2,7 @@
 <br />
 <div align="center">
 <p align="center">
-  <img alt="Portion Mate logo" src="https://github.com/ineshbose/portion-mate/blob/1337f646496dc166249c305243538daa424540a1/docs/assets/logo.png" height="250px">
+  <img alt="Portion Mate logo" src="https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png" height="250px">
 
   <h3 align="center">Portion Mate</h3>
   <h5 align="center">Manual</h5>
