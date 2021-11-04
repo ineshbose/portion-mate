@@ -4,7 +4,7 @@ on:
   issue_comment:
     types: [ created ]
   pull_request:
-    types: [ closed ]
+    types: [ opened, closed ]
 
 jobs:
   move-to-in-progress:
@@ -40,3 +40,79 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Echo branch name
         run: echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
+  move-to-in-review:
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const issueNumber = context.payload.pull_request.head.ref.split('-')[0].split('/')[1];
+            github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body: `
+              ${context.payload.pull_request.body || ''}\n\n${(context.payload.pull_request.body||'').includes(`#${issueNumber}`) ? '' : `Closes #${issueNumber}\n`}
+              <a href="#">
+                <img alt="GitHub pull request check contexts" src="https://img.shields.io/github/status/contexts/pulls/ineshbose/portion-mate/${context.payload.pull_request.number}??label=PR%20check&style=flat-square">
+                <img alt="GitHub branch checks state" src="https://img.shields.io/github/checks-status/ineshbose/portion-mate/${context.payload.pull_request.head.ref}?label=branch%20check&style=flat-square">
+              </a>
+              <a href="https://github.com/ineshbose/portion-mate/commits/${context.payload.pull_request.head.ref}" target="_blank">
+                <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/ineshbose/portion-mate/${context.payload.pull_request.head.ref}?style=flat-square">
+                <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/ineshbose/portion-mate/${context.payload.pull_request.head.ref}?style=flat-square">
+              </a><br/><br/>
+              <a href="https://github.com/ineshbose/portion-mate/issues/${issueNumber}" target="_blank">
+                <img alt="GitHub issue state" src="https://img.shields.io/github/issues/detail/state/ineshbose/portion-mate/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue title" src="https://img.shields.io/github/issues/detail/title/ineshbose/portion-mate/${issueNumber}?label=title&style=flat-square">
+                <img alt="GitHub issue author" src="https://img.shields.io/github/issues/detail/author/ineshbose/portion-mate/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue labels" src="https://img.shields.io/github/issues/detail/label/ineshbose/portion-mate/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue comments" src="https://img.shields.io/github/issues/detail/comments/ineshbose/portion-mate/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue age" src="https://img.shields.io/github/issues/detail/age/ineshbose/portion-mate/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue last update" src="https://img.shields.io/github/issues/detail/last-update/ineshbose/portion-mate/${issueNumber}?style=flat-square">
+              </a>
+              `
+            })
+      - name: Find and update
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const projects = (await github.rest.projects.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })).data;
+            for (const project of projects) {
+              var sourceColumn = {};
+              var targetColumn = {};
+              const columns = (await github.rest.projects.listColumns({
+                project_id: project.id,
+              })).data;
+
+              for (const column of columns) {
+                if (column.name === "In progress") {
+                  sourceColumn = column;
+                }
+                else if (column.name === "Code review") {
+                  targetColumn = column;
+                }
+              }
+
+              const cards = (await github.rest.projects.listCards({
+                column_id: sourceColumn.id,
+              })).data;
+
+              for (const card of cards) {
+                if (
+                  card.content_url == `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/issues/${
+                    context.payload.pull_request.head.ref.split('-')[0].split('/')[1]
+                  }`
+                ) {
+                  github.rest.projects.moveCard({
+                    card_id: card.id,
+                    position: 'bottom',
+                    column_id: targetColumn.id,
+                  });
+                }
+              }
+            }

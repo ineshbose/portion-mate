@@ -6,6 +6,10 @@ supervisor: Dr. Oana Andrei
 ---
 
 # Timelog
+
+<!-- <a href="https://github.com/ineshbose/portion-mate/graphs/commit-activity" target="_blank"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/ineshbose/portion-mate?style=flat-square"></a> -->
+<!-- <a href="https://github.com/ineshbose/portion-mate/commits/" target="_blank"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ineshbose/portion-mate?style=flat-square"></a> -->
+
 *If the details of this project don't show, please see this markdown in raw.*
 
 ## Guidance
@@ -110,3 +114,28 @@ supervisor: Dr. Oana Andrei
 
 * *2 hour* Learning React Native
 * *1 hour* Planning & setup
+
+### 28 October 2021
+
+* *2 hour* Pipeline setup
+* *1 hour* Wiki
+* *1 hour* Wireframe polishing
+
+### 29 October 2021
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 6
+
+### 01 November 2021
+
+* *1 hour* Django research & planning
+* *1 hour* Backlog planning
+
+### 02 November 2021
+
+* *1 hours* Wireframes/UI research & planning
+
+### 03 November 2021
+
+* *2 hour* Issue PR Automation Setup

@@ -9,6 +9,13 @@
   <p align="center">
     <!-- BADGES / SHIELDS -->
     <a href="https://portion-mate-glasgow.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate-glasgow?style=flat-square"></a>
+    <!-- <a href="https://libraries.io/github/ineshbose/portion-mate/" target="_blank"><img alt="Libraries.io dependency status" src="https://img.shields.io/librariesio/github/ineshbose/portion-mate?style=flat-square"></a> -->
+    <!-- <a href="https://app.codacy.com/gh/ineshbose/portion-mate/dashboard" target="_blank"><img alt="Codacy grade" src="https://img.shields.io/codacy/grade/yet-to-open-repo-for-id?style=flat-square"></a> -->
+    <!-- <a href="https://codeclimate.com/github/ineshbose/portion-mate" target="_blank"><img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/ineshbose/portion-mate?style=flat-square"></a> -->
+    <!-- <a href="#">
+      <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/ineshbose/portion-mate?style=flat-square">
+      <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ineshbose/portion-mate?style=flat-square">
+    </a> -->
   </p>
 </p>
 </div>
