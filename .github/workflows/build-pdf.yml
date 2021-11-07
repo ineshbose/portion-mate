@@ -1,0 +1,27 @@
+name: Compile Dissertation
+
+on:
+  push:
+    paths:
+      - 'dissertation/**'
+
+jobs:
+  build-dissertation:
+    runs-on: ubuntu-latest
+    name: Create document
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: l4proj.tex
+          working_directory: dissertation
+      - name: Rename PDF
+        run: |
+          mv dissertation/l4proj.pdf "Inesh Bose - Portion Mate.pdf"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Dissertation
+          path: "Inesh Bose - Portion Mate.pdf"

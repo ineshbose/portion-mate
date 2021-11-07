@@ -112,12 +112,12 @@ supervisor: Dr. Oana Andrei
 
 ### 27 October 2021
 
-* *2 hour* Learning React Native
+* *2 hours* Learning React Native
 * *1 hour* Planning & setup
 
 ### 28 October 2021
 
-* *2 hour* Pipeline setup
+* *2 hours* Pipeline setup
 * *1 hour* Wiki
 * *1 hour* Wireframe polishing
 
@@ -134,8 +134,19 @@ supervisor: Dr. Oana Andrei
 
 ### 02 November 2021
 
-* *1 hours* Wireframes/UI research & planning
+* *1 hour* Wireframes/UI research & planning
 
 ### 03 November 2021
 
-* *2 hour* Issue PR Automation Setup
+* *2 hours* Issue PR Automation Setup
+
+### 04 November 2021
+
+* *3 hours* Wireframes redo
+
+### 05 November 2021
+
+* *2 hours* Wireframes polishing
+* *1 hour* Project research
+* *3 hours* Backend database setup (user authentication model)
+* *2 hours* Setup dissertation build pipeline

@@ -1,3 +1,5 @@
+name: Issue Branching
+
 on:
   issues:
     types: [ assigned ]
@@ -8,7 +10,7 @@ on:
 
 jobs:
   move-to-in-progress:
-    if: github.event.comment.body == '/cib' || github.event.comment.body == '/create-issue-branch'
+    if: startsWith(github.event.comment.body, '/cib') || startsWith(github.event.comment.body, '/create-issue-branch')
     runs-on: ubuntu-latest
     steps:
       - name: Close issue
@@ -49,6 +51,8 @@ jobs:
         with:
           script: |
             const issueNumber = context.payload.pull_request.head.ref.split('-')[0].split('/')[1];
+            const repositoryInfo = `${context.repo.owner}/${context.repo.repo}`;
+            if (issueNumber) {
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -56,63 +60,65 @@ jobs:
               body: `
               ${context.payload.pull_request.body || ''}\n\n${(context.payload.pull_request.body||'').includes(`#${issueNumber}`) ? '' : `Closes #${issueNumber}\n`}
               <a href="#">
-                <img alt="GitHub pull request check contexts" src="https://img.shields.io/github/status/contexts/pulls/ineshbose/portion-mate/${context.payload.pull_request.number}??label=PR%20check&style=flat-square">
-                <img alt="GitHub branch checks state" src="https://img.shields.io/github/checks-status/ineshbose/portion-mate/${context.payload.pull_request.head.ref}?label=branch%20check&style=flat-square">
+                <img alt="GitHub pull request check contexts" src="https://img.shields.io/github/status/contexts/pulls/${repositoryInfo}/${context.payload.pull_request.number}??label=PR%20check&style=flat-square">
+                <img alt="GitHub branch checks state" src="https://img.shields.io/github/checks-status/${repositoryInfo}/${context.payload.pull_request.head.ref}?label=branch%20check&style=flat-square">
               </a>
-              <a href="https://github.com/ineshbose/portion-mate/commits/${context.payload.pull_request.head.ref}" target="_blank">
-                <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/ineshbose/portion-mate/${context.payload.pull_request.head.ref}?style=flat-square">
-                <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/ineshbose/portion-mate/${context.payload.pull_request.head.ref}?style=flat-square">
+              <a href="https://github.com/${repositoryInfo}/commits/${context.payload.pull_request.head.ref}" target="_blank">
+                <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/${repositoryInfo}/${context.payload.pull_request.head.ref}?style=flat-square">
+                <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/${repositoryInfo}/${context.payload.pull_request.head.ref}?style=flat-square">
               </a><br/><br/>
-              <a href="https://github.com/ineshbose/portion-mate/issues/${issueNumber}" target="_blank">
-                <img alt="GitHub issue state" src="https://img.shields.io/github/issues/detail/state/ineshbose/portion-mate/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue title" src="https://img.shields.io/github/issues/detail/title/ineshbose/portion-mate/${issueNumber}?label=title&style=flat-square">
-                <img alt="GitHub issue author" src="https://img.shields.io/github/issues/detail/author/ineshbose/portion-mate/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue labels" src="https://img.shields.io/github/issues/detail/label/ineshbose/portion-mate/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue comments" src="https://img.shields.io/github/issues/detail/comments/ineshbose/portion-mate/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue age" src="https://img.shields.io/github/issues/detail/age/ineshbose/portion-mate/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue last update" src="https://img.shields.io/github/issues/detail/last-update/ineshbose/portion-mate/${issueNumber}?style=flat-square">
+              <a href="https://github.com/${repositoryInfo}/issues/${issueNumber}" target="_blank">
+                <img alt="GitHub issue state" src="https://img.shields.io/github/issues/detail/state/${repositoryInfo}/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue title" src="https://img.shields.io/github/issues/detail/title/${repositoryInfo}/${issueNumber}?label=title&style=flat-square">
+                <img alt="GitHub issue author" src="https://img.shields.io/github/issues/detail/author/${repositoryInfo}/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue labels" src="https://img.shields.io/github/issues/detail/label/${repositoryInfo}/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue comments" src="https://img.shields.io/github/issues/detail/comments/${repositoryInfo}/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue age" src="https://img.shields.io/github/issues/detail/age/${repositoryInfo}/${issueNumber}?style=flat-square">
+                <img alt="GitHub issue last update" src="https://img.shields.io/github/issues/detail/last-update/${repositoryInfo}/${issueNumber}?style=flat-square">
               </a>
               `
-            })
+            });
+            }
       - name: Find and update
         uses: actions/github-script@v5
         with:
           script: |
-            const projects = (await github.rest.projects.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })).data;
-            for (const project of projects) {
-              var sourceColumn = {};
-              var targetColumn = {};
-              const columns = (await github.rest.projects.listColumns({
-                project_id: project.id,
+            const issueNumber = context.payload.pull_request.head.ref.split('-')[0].split('/')[1];
+            if (issueNumber) {
+              const projects = (await github.rest.projects.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
               })).data;
+              for (const project of projects) {
+                var sourceColumn = {};
+                var targetColumn = {};
+                const columns = (await github.rest.projects.listColumns({
+                  project_id: project.id,
+                })).data;
 
-              for (const column of columns) {
-                if (column.name === "In progress") {
-                  sourceColumn = column;
+                for (const column of columns) {
+                  if (column.name === "In progress") {
+                    sourceColumn = column;
+                  }
+                  else if (column.name === "Code review") {
+                    targetColumn = column;
+                  }
                 }
-                else if (column.name === "Code review") {
-                  targetColumn = column;
-                }
-              }
 
-              const cards = (await github.rest.projects.listCards({
-                column_id: sourceColumn.id,
-              })).data;
+                const cards = (await github.rest.projects.listCards({
+                  column_id: sourceColumn.id,
+                })).data;
 
-              for (const card of cards) {
-                if (
-                  card.content_url == `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/issues/${
-                    context.payload.pull_request.head.ref.split('-')[0].split('/')[1]
-                  }`
-                ) {
-                  github.rest.projects.moveCard({
-                    card_id: card.id,
-                    position: 'bottom',
-                    column_id: targetColumn.id,
-                  });
+                for (const card of cards) {
+                  if (
+                    card.content_url == `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/issues/${issueNumber}`
+                  ) {
+                    github.rest.projects.moveCard({
+                      card_id: card.id,
+                      position: 'bottom',
+                      column_id: targetColumn.id,
+                    });
+                  }
                 }
               }
             }
