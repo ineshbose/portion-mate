@@ -92,12 +92,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     Username (email) and password are required. Other fields are optional.
     """
-    #username_validator = UnicodeUsernameValidator()
-
     email = models.EmailField(
         _('email address'),
         unique=True,
-        #validators=[username_validator],
         error_messages={
             'unique': _("An account with that email already exists."),
         },
@@ -132,7 +129,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         upload_to=PathAndRename('profile_images/'),
         blank=True,
     )
-    age = models.ImageField(_('age'), **NULL_BLANK)
+    age = models.IntegerField(_('age'), **NULL_BLANK)
     height = models.FloatField(_('height'), **NULL_BLANK)
     weight = models.FloatField(_('weight'), **NULL_BLANK)
 
@@ -161,3 +158,57 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class PortionItem(models.Model):
+    """
+    A class representing a food/portion item that can be tracked.
+    """
+    name = models.CharField(_('item name'), max_length=150)
+    is_default = models.BooleanField(_('is default?'), default=False)
+
+    class Meta:
+        verbose_name = _('portion item')
+        verbose_name_plural = _('portion items')
+
+    def __str__(self):
+        return self.name
+
+
+class Frequency(models.IntegerChoices):
+    """
+    Options for the frequency on how often the log count should refresh.
+    """
+    DAILY = 1, _('Daily')
+    WEEKLY = 7, _('Weekly')
+
+
+class TrackItem(models.Model):
+    """
+    A class representing a portion item that a user wants to track.
+    """
+    item = models.ForeignKey(PortionItem, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    target = models.IntegerField(_('target'), default=1)
+    order = models.IntegerField(_('order'), **NULL_BLANK)
+    frequency = models.IntegerChoices(_('frequency'), default=Frequency.DAILY)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return super().__str__()
+
+
+class UserLog(models.Model):
+    """
+    A class representing a log.
+    """
+    item = models.ForeignKey(TrackItem)
+    timestamp = models.DateTimeField()
+
+    class Meta:
+        ordering = ['timestamp']
+
+    def __str__(self):
+        return super().__str__()
