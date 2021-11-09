@@ -1,5 +1,5 @@
 """
-ASGI config for portionmate project.
+ASGI config for portion_mate project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portionmate.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portion_mate.settings')
 
 application = get_asgi_application()
