@@ -1,19 +1,30 @@
 from pathlib import Path
+from environ import Env
+from email.utils import getaddresses
+from django.core.management.utils import get_random_secret_key
+
+
+# Initialise environment object
+env = Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file
+Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(=bwc^zm64%dt0zx0jqcte@nx1gft^32$%fr(uvf&mpyqo+4q_'
+SECRET_KEY = env('SECRET_KEY', default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ADMINS = getaddresses(env('ADMINS', default=[]))
+
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', default=[])
 
 
 # Application definition
@@ -44,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'portionmate.urls'
+ROOT_URLCONF = 'portion_mate.urls'
 
 TEMPLATES = [
     {
@@ -62,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'portionmate.wsgi.application'
+WSGI_APPLICATION = 'portion_mate.wsgi.application'
 
 
 # Database
@@ -98,9 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = env('LANGUAGE_CODE', default='en-gb')
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = env('TIME_ZONE', default='Europe/London')
 
 USE_I18N = True
 
