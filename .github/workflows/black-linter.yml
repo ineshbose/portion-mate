@@ -1,0 +1,22 @@
+name: Black style check
+
+on:
+  push:
+    paths:
+      - 'src/backend/**'
+    branches:
+      - develop
+      - master
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  black_linter:
+    name: Black formatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: rickstaa/action-black@v1
+        with:
+          black_args: ". --check"
