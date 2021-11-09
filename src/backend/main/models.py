@@ -191,24 +191,24 @@ class TrackItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     target = models.IntegerField(_('target'), default=1)
     order = models.IntegerField(_('order'), **NULL_BLANK)
-    frequency = models.IntegerChoices(_('frequency'), default=Frequency.DAILY)
+    frequency = models.IntegerField(_('frequency'), default=Frequency.DAILY)
 
     class Meta:
         ordering = ['order']
 
     def __str__(self):
-        return super().__str__()
+        return f'TrackItem({self.user} - {self.item})'
 
 
 class UserLog(models.Model):
     """
     A class representing a log.
     """
-    item = models.ForeignKey(TrackItem)
-    timestamp = models.DateTimeField()
+    item = models.ForeignKey(TrackItem, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(_('timestamp'), default=timezone.now)
 
     class Meta:
         ordering = ['timestamp']
 
     def __str__(self):
-        return super().__str__()
+        return f'UserLog({self.item} - {self.timestamp})'
