@@ -12,7 +12,7 @@ Interactions are not very detailed, for example text fields can't be filled in a
 
 ### Features
 
-* The application is in dark mode, so it is easy on eyes but also feels modern.
+* The application has a default dark mode, so it is easy on eyes but also feels modern, however a user can switch to light mode.
 * The colour palette is not exact at the moment, but the three shades are yellow (#E5AC00), orange (#ED6400) and red (#E53A00) as also seen in the logo which makes it feel warm, but fun-cheerful.
 * Buttons, text, and important elements are clean, simple and big.
 * Main UI layout is similar to many apps with a plus icon in the bottom right, page navigation in the bottom like a toolbar, and general options on the top with the logo.
@@ -23,4 +23,4 @@ Interactions are not very detailed, for example text fields can't be filled in a
 2. For a new user, a basic questionnaire is presented.
 3. Height and weight is taken from the user to get their BMI.
 4. The app then takes you to the main, basic home screen with all portion counts and ability to add an item, journal entry, etc.
-5. There is another page for Resources where users can read into more articles.
+5. There are pages on the bottom bar with Home, Journal (with Calendar view), Stats and Resources.

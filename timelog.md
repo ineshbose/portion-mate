@@ -150,3 +150,29 @@ supervisor: Dr. Oana Andrei
 * *1 hour* Project research
 * *3 hours* Backend database setup (user authentication model)
 * *2 hours* Setup dissertation build pipeline
+
+## Week 7
+
+### 08 November 2021
+
+* *4 hours* Issue [#8](https://github.com/ineshbose/portion-mate/issues/8)
+
+### 09 November 2021
+
+* *2 hours* Issue [#8](https://github.com/ineshbose/portion-mate/issues/8)
+* *0.5 hour* Issue [#14](https://github.com/ineshbose/portion-mate/issues/14)
+* *1 hour* Issue [#10](https://github.com/ineshbose/portion-mate/issues/10)
+* *1 hour* Issue [#12](https://github.com/ineshbose/portion-mate/issues/12)
+
+### 10 November 2021
+
+* *2 hours* Issue [#9](https://github.com/ineshbose/portion-mate/issues/9)
+
+### 11 November 2021
+
+* *1 hour* Issue [#9](https://github.com/ineshbose/portion-mate/issues/9)
+* *1 hour* Routine planning, research & polishing
+
+### 12 November 2021
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
