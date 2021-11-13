@@ -17,6 +17,18 @@ jobs:
       - name: Copy file
         run: |
           cp docs/index.md docs/Home.md
+      - name: List Sidebar
+        run: |
+          shopt -s extglob
+
+          for folder in docs/!(archive|assets|env)/; do
+              fname="${folder#*/}"
+              name="${fname^}"
+              echo "* ${name%?}" >> docs/_Sidebar.md
+            for file in $folder*; do
+              echo "  * [$(basename $file | sed 's/\.[^.]*$//')]($(basename $file | sed 's/\.[^.]*$//'))" >> docs/_Sidebar.md
+            done
+          done
       - name: Upload Documentation to Wiki
         uses: SwiftDocOrg/github-wiki-publish-action@v1
         with:
