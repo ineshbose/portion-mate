@@ -29,9 +29,33 @@ jobs:
               echo "  * [$(basename $file | sed 's/\.[^.]*$//')]($(basename $file | sed 's/\.[^.]*$//'))" >> docs/_Sidebar.md
             done
           done
-      - name: Upload Documentation to Wiki
-        uses: SwiftDocOrg/github-wiki-publish-action@v1
-        with:
-          path: "docs"
+      - name: Publish wiki
+        run: |
+          set -eu
+
+          if [ -z "$GH_TOKEN" ]; then
+              echo "Token is not specified"
+              exit 1
+          fi
+
+          echo "Cloning wiki repository.."
+          git clone "https://$GITHUB_ACTOR:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "wiki_temp_$GITHUB_SHA"
+
+          echo "Copying from $WIKI_DIR.."
+          cp -R "wiki_temp_$GITHUB_SHA/.git" "$WIKI_DIR/"
+
+          echo "Checking for changes.."
+          cd "$WIKI_DIR"
+          git config --local user.email "$(git log -1 --format='%ae')"
+          git config --local user.name "$(git log -1 --format='%an')"
+          git add .
+          if git diff-index --quiet HEAD; then
+              echo "Nothing changed"
+              exit 0
+          fi
+
+          echo "Pushing to wiki.."
+          git commit -m "$(git log -1 --format='%s')" && git push -u "https://$GITHUB_ACTOR:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" master -f
         env:
-          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WIKI_DIR: 'docs'

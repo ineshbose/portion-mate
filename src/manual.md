@@ -9,8 +9,6 @@
 
   <p align="center">
     <!-- BADGES / SHIELDS -->
-    <a href="https://github.com/ineshbose/portion-mate/blob/develop/README.md" target="_blank"><img alt="Repository README" src="https://img.shields.io/badge/repository-README-success?style=flat-square"></a>
-    <a href="https://github.com/ineshbose/portion-mate/blob/develop/src/README.md" target="_blank"><img alt="Source README" src="https://img.shields.io/badge/source-README-success?style=flat-square"></a>
     <a href="https://github.com/ineshbose/portion-mate/wiki" target="_blank"><img alt="Project Wiki" src="https://img.shields.io/badge/project-Wiki-success?style=flat-square"></a>
     <a href="https://portion-mate-glasgow.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate-glasgow?style=flat-square"></a>
   </p>
