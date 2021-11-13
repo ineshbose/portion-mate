@@ -12,7 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Update wiki
     steps:
-    - uses: OrlovM/Wiki-Action@v1
-      with:
-        path: 'docs'
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Copy file
+        run: |
+          cp docs/index.md docs/Home.md
+      - name: Call action and deploy
+        uses: OrlovM/Wiki-Action@v1
+        with:
+          path: 'docs'
+          token: ${{ secrets.GITHUB_TOKEN }}
