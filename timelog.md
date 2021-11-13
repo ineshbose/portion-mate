@@ -176,3 +176,4 @@ supervisor: Dr. Oana Andrei
 ### 12 November 2021
 
 * *1 hour* Scheduled meet with supervisor and compiled notes
+* *0.5 hour* Issue [#19](https://github.com/ineshbose/portion-mate/issues/19)

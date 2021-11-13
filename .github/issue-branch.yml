@@ -1,6 +1,6 @@
 mode: chatops
 branchName: '${issue.number}-${issue.title,}'
-commentMessage: 'Branch [${branchName}](${repository.html_url}/tree/${branchName}/) created for [issue #${issue.number}: ${issue.title}](${issue.url})'
+commentMessage: 'Branch [`${branchName}`](${repository.html_url}/tree/${branchName}/) created for [issue #${issue.number}: ${issue.title}](${issue.url})'
 branches:
   - label: enhancement
     prefix: feature/
