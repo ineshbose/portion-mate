@@ -1,12 +1,10 @@
 name: Issue Branching
 
 on:
-  issues:
-    types: [ assigned ]
   issue_comment:
     types: [ created ]
   pull_request:
-    types: [ opened, closed ]
+    types: [ opened ]
 
 jobs:
   move-to-in-progress:
@@ -34,6 +32,7 @@ jobs:
               state: 'open',
             })
   create-issue-branch:
+    if: startsWith(github.event.comment.body, '/cib') || startsWith(github.event.comment.body, '/create-issue-branch')
     runs-on: ubuntu-latest
     steps:
       - name: Create issue branch
@@ -46,79 +45,50 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
-      - name: Assign issue
+      - name: Get issue number
+        id: get-issue-number
         uses: actions/github-script@v5
         with:
+          script: return context.payload.pull_request.head.ref.split('-')[0].split('/')[1]
+          result-encoding: json
+      - name: Assign issue
+        uses: actions/github-script@v5
+        if: ${{ steps.get-issue-number.outputs.result }}
+        env:
+          ISSUE_NUMBER: ${{ steps.get-issue-number.outputs.result }}
+        with:
           script: |
-            const issueNumber = context.payload.pull_request.head.ref.split('-')[0].split('/')[1];
-            const repositoryInfo = `${context.repo.owner}/${context.repo.repo}`;
-            if (issueNumber) {
+            const { GITHUB_REPOSITORY, ISSUE_NUMBER } = process.env;
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number,
               body: `
-              ${context.payload.pull_request.body || ''}\n\n${(context.payload.pull_request.body||'').includes(`#${issueNumber}`) ? '' : `Closes #${issueNumber}\n`}
+              ${context.payload.pull_request.body || ''}\n\n${(context.payload.pull_request.body||'').includes(`#${ISSUE_NUMBER}`) ? '' : `Closes #${ISSUE_NUMBER}\n`}
               <a href="#">
-                <img alt="GitHub pull request check contexts" src="https://img.shields.io/github/status/contexts/pulls/${repositoryInfo}/${context.payload.pull_request.number}??label=PR%20check&style=flat-square">
-                <img alt="GitHub branch checks state" src="https://img.shields.io/github/checks-status/${repositoryInfo}/${context.payload.pull_request.head.ref}?label=branch%20check&style=flat-square">
+                <img alt="GitHub pull request check contexts" src="https://img.shields.io/github/status/contexts/pulls/${GITHUB_REPOSITORY}/${context.payload.pull_request.number}??label=PR%20check&style=flat-square">
+                <img alt="GitHub branch checks state" src="https://img.shields.io/github/checks-status/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?label=branch%20check&style=flat-square">
               </a>
-              <a href="https://github.com/${repositoryInfo}/commits/${context.payload.pull_request.head.ref}" target="_blank">
-                <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/${repositoryInfo}/${context.payload.pull_request.head.ref}?style=flat-square">
-                <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/${repositoryInfo}/${context.payload.pull_request.head.ref}?style=flat-square">
+              <a href="https://github.com/${GITHUB_REPOSITORY}/commits/${context.payload.pull_request.head.ref}" target="_blank">
+                <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?style=flat-square">
+                <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?style=flat-square">
               </a><br/><br/>
-              <a href="https://github.com/${repositoryInfo}/issues/${issueNumber}" target="_blank">
-                <img alt="GitHub issue state" src="https://img.shields.io/github/issues/detail/state/${repositoryInfo}/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue title" src="https://img.shields.io/github/issues/detail/title/${repositoryInfo}/${issueNumber}?label=title&style=flat-square">
-                <img alt="GitHub issue author" src="https://img.shields.io/github/issues/detail/author/${repositoryInfo}/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue labels" src="https://img.shields.io/github/issues/detail/label/${repositoryInfo}/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue comments" src="https://img.shields.io/github/issues/detail/comments/${repositoryInfo}/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue age" src="https://img.shields.io/github/issues/detail/age/${repositoryInfo}/${issueNumber}?style=flat-square">
-                <img alt="GitHub issue last update" src="https://img.shields.io/github/issues/detail/last-update/${repositoryInfo}/${issueNumber}?style=flat-square">
+              <a href="https://github.com/${GITHUB_REPOSITORY}/issues/${ISSUE_NUMBER}" target="_blank">
+                <img alt="GitHub issue state" src="https://img.shields.io/github/issues/detail/state/${GITHUB_REPOSITORY}/${ISSUE_NUMBER}?style=flat-square">
+                <img alt="GitHub issue title" src="https://img.shields.io/github/issues/detail/title/${GITHUB_REPOSITORY}/${ISSUE_NUMBER}?label=title&style=flat-square">
+                <img alt="GitHub issue author" src="https://img.shields.io/github/issues/detail/author/${GITHUB_REPOSITORY}/${ISSUE_NUMBER}?style=flat-square">
+                <img alt="GitHub issue labels" src="https://img.shields.io/github/issues/detail/label/${GITHUB_REPOSITORY}/${ISSUE_NUMBER}?style=flat-square">
+                <img alt="GitHub issue comments" src="https://img.shields.io/github/issues/detail/comments/${GITHUB_REPOSITORY}/${ISSUE_NUMBER}?style=flat-square">
+                <img alt="GitHub issue age" src="https://img.shields.io/github/issues/detail/age/${GITHUB_REPOSITORY}/${ISSUE_NUMBER}?style=flat-square">
+                <img alt="GitHub issue last update" src="https://img.shields.io/github/issues/detail/last-update/${GITHUB_REPOSITORY}/${ISSUE_NUMBER}?style=flat-square">
               </a>
               `
             });
-            }
       - name: Find and update
-        uses: actions/github-script@v5
+        uses: ineshbose/project-card-action@v1
+        if: ${{ steps.get-issue-number.outputs.result }}
         with:
-          script: |
-            const issueNumber = context.payload.pull_request.head.ref.split('-')[0].split('/')[1];
-            if (issueNumber) {
-              const projects = (await github.rest.projects.listForRepo({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-              })).data;
-              for (const project of projects) {
-                var sourceColumn = {};
-                var targetColumn = {};
-                const columns = (await github.rest.projects.listColumns({
-                  project_id: project.id,
-                })).data;
-
-                for (const column of columns) {
-                  if (column.name === "In progress") {
-                    sourceColumn = column;
-                  }
-                  else if (column.name === "Code review") {
-                    targetColumn = column;
-                  }
-                }
-
-                const cards = (await github.rest.projects.listCards({
-                  column_id: sourceColumn.id,
-                })).data;
-
-                for (const card of cards) {
-                  if (
-                    card.content_url == `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/issues/${issueNumber}`
-                  ) {
-                    github.rest.projects.moveCard({
-                      card_id: card.id,
-                      position: 'bottom',
-                      column_id: targetColumn.id,
-                    });
-                  }
-                }
-              }
-            }
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ steps.get-issue-number.outputs.result }}
+          SOURCE_COLUMN: 'In progress'
+          TARGET_COLUMN: 'Code review'
