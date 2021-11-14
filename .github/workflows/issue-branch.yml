@@ -1,12 +1,10 @@
 name: Issue Branching
 
 on:
-  issues:
-    types: [ assigned ]
   issue_comment:
     types: [ created ]
   pull_request:
-    types: [ opened, closed ]
+    types: [ opened ]
 
 jobs:
   move-to-in-progress:
@@ -34,6 +32,7 @@ jobs:
               state: 'open',
             })
   create-issue-branch:
+    if: startsWith(github.event.comment.body, '/cib') || startsWith(github.event.comment.body, '/create-issue-branch')
     runs-on: ubuntu-latest
     steps:
       - name: Create issue branch
@@ -46,13 +45,19 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
     steps:
-      - name: Assign issue
+      - name: Get issue number
+        id: get-issue-number
         uses: actions/github-script@v5
         with:
+          script: return context.payload.pull_request.head.ref.split('-')[0].split('/')[1]
+          result-encoding: json
+      - name: Assign issue
+        uses: actions/github-script@v5
+        if: ${{ steps.get-issue-number.outputs.result }}
+        with:
           script: |
-            const issueNumber = context.payload.pull_request.head.ref.split('-')[0].split('/')[1];
             const repositoryInfo = `${context.repo.owner}/${context.repo.repo}`;
-            if (issueNumber) {
+            const issueNumber = `${steps.get-issue-number.outputs.result}`;
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -78,47 +83,11 @@ jobs:
               </a>
               `
             });
-            }
       - name: Find and update
-        uses: actions/github-script@v5
+        uses: ineshbose/project-card-action@v1
+        if: ${{ steps.get-issue-number.outputs.result }}
         with:
-          script: |
-            const issueNumber = context.payload.pull_request.head.ref.split('-')[0].split('/')[1];
-            if (issueNumber) {
-              const projects = (await github.rest.projects.listForRepo({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-              })).data;
-              for (const project of projects) {
-                var sourceColumn = {};
-                var targetColumn = {};
-                const columns = (await github.rest.projects.listColumns({
-                  project_id: project.id,
-                })).data;
-
-                for (const column of columns) {
-                  if (column.name === "In progress") {
-                    sourceColumn = column;
-                  }
-                  else if (column.name === "Code review") {
-                    targetColumn = column;
-                  }
-                }
-
-                const cards = (await github.rest.projects.listCards({
-                  column_id: sourceColumn.id,
-                })).data;
-
-                for (const card of cards) {
-                  if (
-                    card.content_url == `https://api.github.com/repos/${context.repo.owner}/${context.repo.repo}/issues/${issueNumber}`
-                  ) {
-                    github.rest.projects.moveCard({
-                      card_id: card.id,
-                      position: 'bottom',
-                      column_id: targetColumn.id,
-                    });
-                  }
-                }
-              }
-            }
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ steps.get-issue-number.outputs.result }}
+          SOURCE_COLUMN: 'In progress'
+          TARGET_COLUMN: 'Code review'

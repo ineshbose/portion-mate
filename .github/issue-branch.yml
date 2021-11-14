@@ -10,7 +10,3 @@ branches:
     skip: true
   - label: '*'
     prefix: issue/
-autoCloseIssue: true
-copyIssueDescriptionToPR: true
-copyIssueLabelsToPR: true
-copyIssueAssigneeToPR: true
