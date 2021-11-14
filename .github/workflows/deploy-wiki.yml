@@ -15,47 +15,11 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Copy file
-        run: |
-          cp docs/index.md docs/Home.md
-      - name: List Sidebar
-        run: |
-          shopt -s extglob
-
-          for folder in docs/!(archive|assets|env)/; do
-              fname="${folder#*/}"
-              name="${fname^}"
-              echo "* ${name%?}" >> docs/_Sidebar.md
-            for file in $folder*; do
-              echo "  * [$(basename $file | sed 's/\.[^.]*$//')]($(basename $file | sed 's/\.[^.]*$//'))" >> docs/_Sidebar.md
-            done
-          done
-      - name: Publish wiki
-        run: |
-          set -eu
-
-          if [ -z "$GH_TOKEN" ]; then
-              echo "Token is not specified"
-              exit 1
-          fi
-
-          echo "Cloning wiki repository.."
-          git clone "https://$GITHUB_ACTOR:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" "wiki_temp_$GITHUB_SHA"
-
-          echo "Copying from $WIKI_DIR.."
-          cp -R "wiki_temp_$GITHUB_SHA/.git" "$WIKI_DIR/"
-
-          echo "Checking for changes.."
-          cd "$WIKI_DIR"
-          git config --local user.email "$(git log -1 --format='%ae')"
-          git config --local user.name "$(git log -1 --format='%an')"
-          git add .
-          if git diff-index --quiet HEAD; then
-              echo "Nothing changed"
-              exit 0
-          fi
-
-          echo "Pushing to wiki.."
-          git commit -m "$(git log -1 --format='%s')" && git push -u "https://$GITHUB_ACTOR:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.wiki.git" master -f
-        env:
+        run: cp docs/index.md docs/Home.md
+      - uses: ineshbose/wiki-action@v1
+        with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WIKI_DIR: 'docs'
+          WIKI_IGNORE: 'requirements.txt index.md .gitignore README.md'
+          AUTO_SIDEBAR: true
+          SIDEBAR_IGNORE: 'archive assets env Home.md'
