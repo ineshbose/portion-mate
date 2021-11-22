@@ -1,0 +1,16 @@
+name: Group Pull Requests
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled]
+
+jobs:
+  group:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'dependencies' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bobvanderlinden/combine-pull-requests@v3
+        with:
+          label: dependencies
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
