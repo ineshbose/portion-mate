@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "main.apps.MainConfig",
     "rest.apps.RestConfig",
     "django_cleanup.apps.CleanupConfig",
+    "django_extensions.apps.DjangoExtensionsConfig",
 ]
 
 AUTH_USER_MODEL = "main.User"
