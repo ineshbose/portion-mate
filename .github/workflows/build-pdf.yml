@@ -3,7 +3,7 @@ name: Compile Dissertation
 on:
   push:
     paths:
-      - 'dissertation/**'
+      - "dissertation/**"
 
 jobs:
   build-dissertation:

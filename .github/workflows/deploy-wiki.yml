@@ -3,7 +3,7 @@ name: Deploy Wiki
 on:
   push:
     paths:
-      - 'docs/**'
+      - "docs/**"
     branches:
       - develop
 
@@ -19,7 +19,7 @@ jobs:
       - uses: ineshbose/wiki-action@v1
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WIKI_DIR: 'docs'
-          WIKI_IGNORE: 'requirements.txt index.md .gitignore README.md'
+          WIKI_DIR: "docs"
+          WIKI_IGNORE: "requirements.txt index.md .gitignore README.md"
           AUTO_SIDEBAR: true
-          SIDEBAR_IGNORE: 'archive assets env Home.md'
+          SIDEBAR_IGNORE: "archive assets env Home.md"
