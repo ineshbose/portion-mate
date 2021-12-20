@@ -211,3 +211,58 @@ supervisor: Dr. Oana Andrei
 ### 19 November 2021
 
 * *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 9
+
+### 22 November 2021
+
+* *1 hour* Issue [#13](https://github.com/ineshbose/portion-mate/issues/13)
+
+### 23 November 2021
+
+* *4 hours* Issue [#13](https://github.com/ineshbose/portion-mate/issues/13)
+
+### 24 November 2021
+
+* *4 hours* Issue [#13](https://github.com/ineshbose/portion-mate/issues/13)
+
+### 25 November 2021
+
+* *1 hour* Issue [#13](https://github.com/ineshbose/portion-mate/issues/13)
+* *1 hour* Research & planning
+
+### 26 November 2021
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 10
+
+No progress on project due to courseworks.
+
+## Week 11
+
+No progress on project due to courseworks and exam.
+
+## Week 12
+
+### 13 December 2021
+
+* *1 hour* Project catch-up
+* *0.5 hour* Issue [#37](https://github.com/ineshbose/portion-mate/issues/37)
+
+### 14 December 2021
+
+* *1 hour* Issue [#37](https://github.com/ineshbose/portion-mate/issues/37)
+
+### 15 December 2021
+
+* *1 hour* Project catch-up & planning
+* *0.5 hour* Issue [#37](https://github.com/ineshbose/portion-mate/issues/37)
+
+### 16 December 2021
+
+* *2 hours* Issue [#37](https://github.com/ineshbose/portion-mate/issues/37)
+
+### 17 December 2021
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
