@@ -41,7 +41,7 @@
 \fi
 
 \usepackage[libertine,bigdelims,vvarbb]{newtxmath} % bb from STIX
-\usepackage[cal=boondoxo]{mathalfa} % mathcal
+% \usepackage[cal=boondoxo]{mathalfa} % mathcal
 
 \usepackage{microtype} % improve typography
 \usepackage{anyfontsize} % allow any size of font
@@ -61,7 +61,7 @@
 \usepackage{listings} % nice code listings
 
 % remove dots from ToC
-\usepackage[titles]{tocloft} 
+\usepackage[titles]{tocloft}
 \renewcommand{\cftdot}{}
 \usepackage[nottoc]{tocbibind}
 
@@ -75,7 +75,7 @@
 \usepackage{lstautogobble}
 \usepackage{listings}
 \lstset{
-    autogobble,    
+    autogobble,
     columns=fullflexible,
     showspaces=false,
     showtabs=false,

@@ -1,9 +1,9 @@
-name: Compile Dissertation
+name: Compile Status Report
 
 on:
   push:
     paths:
-      - "dissertation/**"
+      - "dissertation/status.tex"
 
 jobs:
   build-dissertation:
@@ -15,13 +15,13 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: l4proj.tex
+          root_file: status.tex
           working_directory: dissertation
       - name: Rename PDF
         run: |
-          mv dissertation/l4proj.pdf "Inesh Bose - Portion Mate.pdf"
+          mv dissertation/status.pdf "Inesh Bose - Portion Mate (Status Report).pdf"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Dissertation
-          path: "Inesh Bose - Portion Mate.pdf"
+          name: "Status Report"
+          path: "Inesh Bose - Portion Mate (Status Report).pdf"
