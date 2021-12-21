@@ -1,0 +1,24 @@
+name: ESLint/Prettier/Airbnb style check
+
+on:
+  push:
+    paths:
+      - "src/frontend/**"
+    branches:
+      - develop
+  pull_request:
+    paths:
+      - "src/frontend/**"
+    branches:
+      - develop
+
+jobs:
+  check_linter:
+    name: Check formatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: cd src/frontend && yarn
+      - name: Run ESLint
+        run: npx eslint .
