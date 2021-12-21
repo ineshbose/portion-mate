@@ -45,7 +45,7 @@
 
 \usepackage{microtype} % improve typography
 \usepackage{anyfontsize} % allow any size of font
-\usepackage{amsmath,amsfonts,amsbsy,amssymb}
+% \usepackage{amsmath,amsfonts,amsbsy,amssymb}
 \usepackage[style]{abstract} % abstract styling
 
 % set bibliography styling
@@ -57,7 +57,7 @@
 \usepackage[compact]{titlesec} % section heading formatting
 \usepackage{color} % colors
 \usepackage[table,svgnames]{xcolor}
-\usepackage{parskip} % adjustable line spacing
+% \usepackage{parskip} % adjustable line spacing
 \usepackage{listings} % nice code listings
 
 % remove dots from ToC
@@ -137,7 +137,7 @@ textfont=it,tableposition=above]{caption}
 \renewcommand\maketitle{
   \begin{titlepage}%
       \definecolor{UniBlue}{HTML}{00355F}
-        
+
       \let\footnotesize\small
       \let\footnoterule\relax
       \let\footnote \thanks
@@ -147,32 +147,32 @@ textfont=it,tableposition=above]{caption}
       \includegraphics[width=\linewidth]{images/CompSci_colour.pdf}
       \vskip 0.5em
       \color{UniBlue}
-      {\large \sffamily Honours Individual Project Dissertation}\\ 
+      {\large \sffamily Honours Individual Project Dissertation}\\
 
       % title and author
-      
+
       \vspace{2cm}
         \Large
         \vskip 8em%
-      
+
         \begin{center}
-          
+
           \color{UniBlue}
             \noindent
             {\Huge \scshape  \@title \par}%
-            
-            
-            
-            
-          
+
+
+
+
+
         \end{center}
         \vfill
         {\Large
         \textbf{\@author}\\
         \@date}
-            
 
-    
+
+
   \end{titlepage}%
 
   \setcounter{footnote}{0}%
@@ -215,8 +215,8 @@ textfont=it,tableposition=above]{caption}
     \IfInteger{\thechapter}{\ifnum0=0\thechapter\relax\else\relax {\Huge \thechapter}\ \rule[-0.25em]{0.5pt}{1.5em}\ \fi}
     {\thechapter \ \rule[-0.25em]{0.5pt}{1.5em}\ }}
   %[\titlerule]
-  \titlespacing*{\chapter}      
-  {0pt}{0pt}{15pt}  
+  \titlespacing*{\chapter}
+  {0pt}{0pt}{15pt}
 
 % Educational consent form
 \newcommand{\educationalconsent}{
@@ -225,8 +225,8 @@ textfont=it,tableposition=above]{caption}
           \chapter*{Education Use Consent}
 
           I hereby grant my permission for this project to be stored, distributed and shown to other
-          University of Glasgow students and staff for educational purposes. 
-          \textbf{Please note that you are under no obligation to sign 
+          University of Glasgow students and staff for educational purposes.
+          \textbf{Please note that you are under no obligation to sign
           this declaration, but doing so would help future students.}
 
           \begin{tabular}{@{}llll}
@@ -240,7 +240,7 @@ textfont=it,tableposition=above]{caption}
     \newpage
         \chapter*{Education Use Consent}
         Consent for educational reuse withheld. Do not distribute.
-    \fi 
+    \fi
 
 }
 
@@ -275,7 +275,7 @@ textfont=it,tableposition=above]{caption}
 \titlespacing{\section}{10pt}{1.5\baselineskip}{8pt plus 3pt minus 3pt}
 \titlespacing{\subsection}{10pt}{\baselineskip}{8pt plus 4pt minus 1pt}
 \titleformat{\subsubsection}[runin]{\bfseries }{}{}{}[]
-\titlespacing{\chapter}{0pt}{0pt}{40pt plus 10pt minus 5pt} 
+\titlespacing{\chapter}{0pt}{0pt}{40pt plus 10pt minus 5pt}
 
 % switch to roman numeral for frontmatter
 \pagenumbering{roman}

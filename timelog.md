@@ -266,3 +266,14 @@ No progress on project due to courseworks and exam.
 ### 17 December 2021
 
 * *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 13
+
+### 20 December 2021
+
+* *5 hours* Issue [#13](https://github.com/ineshbose/portion-mate/issues/13)
+
+### 21 December 2021
+
+* *5 hours* Issue [#13](https://github.com/ineshbose/portion-mate/issues/13)
+* *1 hour* Issue [#37](https://github.com/ineshbose/portion-mate/issues/37)

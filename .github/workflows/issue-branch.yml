@@ -49,7 +49,7 @@ jobs:
         id: get-issue-number
         uses: actions/github-script@v5
         with:
-          script: return context.payload.pull_request.head.ref.split('-')[0].split('/')[1]
+          script: return parseInt(context.payload.pull_request.head.ref.split('-')[0].split('/')[1])
           result-encoding: string
       - name: Echo issue number
         run: echo "${{ steps.get-issue-number.outputs.result }}"
