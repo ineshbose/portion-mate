@@ -16,11 +16,7 @@ export function useThemeColor(
   const theme = useColorScheme();
   const colorFromProps = props[theme];
 
-  if (colorFromProps) {
-    return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
-  }
+  return colorFromProps || Colors[theme][colorName];
 }
 
 type ThemeProps = {
@@ -40,7 +36,10 @@ export function Text(props: TextProps) {
 
 export function View(props: ViewProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    'background'
+  );
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
