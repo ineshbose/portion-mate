@@ -1,7 +1,8 @@
 from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import permissions as drf_permissions
 
 from rest import serializers
+from rest import permissions
 from main import models
 
 
@@ -12,7 +13,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = models.User.objects.all().order_by("-date_joined")
     serializer_class = serializers.UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action in ["list"]:
+            self.permission_classes = [drf_permissions.IsAdminUser]
+
+        elif self.action in ["retrieve"]:
+            self.permission_classes = [permissions.IsAdminOrIsSelf]
+
+        return super(self.__class__, self).get_permissions()
 
 
 class PortionItemViewSet(viewsets.ModelViewSet):
@@ -20,9 +29,20 @@ class PortionItemViewSet(viewsets.ModelViewSet):
     API endpoint that allows portion items to be viewed or edited.
     """
 
-    queryset = models.PortionItem.objects.filter(is_default=True)
+    queryset = models.PortionItem.objects.all().order_by("id")
     serializer_class = serializers.PortionItemSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [drf_permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        return (
+            self.queryset.filter(
+                id__in=models.TrackItem.objects.filter(
+                    user=self.request.user
+                ).values_list("item", flat=True)
+            )
+            if self.request.user and self.request.user.is_authenticated
+            else self.queryset.filter(is_default=True)
+        )
 
 
 class TrackItemViewSet(viewsets.ModelViewSet):
@@ -32,7 +52,14 @@ class TrackItemViewSet(viewsets.ModelViewSet):
 
     queryset = models.TrackItem.objects.all().order_by("order")
     serializer_class = serializers.TrackItemSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [drf_permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return (
+            self.queryset
+            if self.request.user.is_staff
+            else self.queryset.filter(user=self.request.user)
+        )
 
 
 class UserLogViewSet(viewsets.ModelViewSet):
@@ -42,4 +69,11 @@ class UserLogViewSet(viewsets.ModelViewSet):
 
     queryset = models.UserLog.objects.all().order_by("-timestamp")
     serializer_class = serializers.UserLogSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [drf_permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return (
+            self.queryset
+            if self.request.user.is_staff
+            else self.queryset.filter(item__user=self.request.user)
+        )
