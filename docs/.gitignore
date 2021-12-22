@@ -1,0 +1,26 @@
+# Dependencies
+/node_modules
+/__pycache__
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Build files
+/build
+/MANIFEST
+/site
+
+# Distribution files
+/dist
+/mkdocs_material.egg-info
+
+# Caches and logs
+*.cpuprofile
+*.log
+*.tsbuildinfo
+.cache
+.eslintcache

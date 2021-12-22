@@ -1,0 +1,17 @@
+# Tracking .gitkeep files
+!**/.gitkeep
+
+# Husky hooks
+.husky/.gitignore
+.husky/_
+
+# macOS internals
+.DS_Store
+
+# Temporary files
+TODO
+tmp
+
+# IDEs
+.vscode
+.idea

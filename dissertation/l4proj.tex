@@ -2,7 +2,7 @@
 
 \documentclass{l4proj}
 
-    
+
 %
 % put any additional packages here
 %
@@ -22,9 +22,9 @@
 \begin{abstract}
     Every abstract follows a similar pattern. Motivate; set aims; describe work; explain results.
     \vskip 0.5em
-    ``XYZ is bad. This project investigated ABC to determine if it was better. 
+    ``XYZ is bad. This project investigated ABC to determine if it was better.
     ABC used XXX and YYY to implement ZZZ. This is particularly interesting as XXX and YYY have
-    never been used together. It was found that  
+    never been used together. It was found that
     ABC was 20\% better than XYZ, though it caused rabies in half of subjects.''
 \end{abstract}
 
@@ -32,11 +32,11 @@
 
 % EDUCATION REUSE CONSENT FORM
 % If you consent to your project being shown to future students for educational purposes
-% then insert your name and the date below to  sign the education use form that appears in the front of the document. 
+% then insert your name and the date below to  sign the education use form that appears in the front of the document.
 % You must explicitly give consent if you wish to do so.
 % If you sign, your project may be included in the Hall of Fame if it scores particularly highly.
 %
-% Please note that you are under no obligation to sign 
+% Please note that you are under no obligation to sign
 % this declaration, but doing so would help future students.
 %
 %\def\consentname {My Name} % your full name
@@ -52,15 +52,15 @@
 %% Notes on formatting
 %==============================================================================
 % The first page, abstract and table of contents are numbered using Roman numerals and are not
-% included in the page count. 
+% included in the page count.
 %
 % From now on pages are numbered
 % using Arabic numerals. Therefore, immediately after the first call to \chapter we need the call
-% \pagenumbering{arabic} and this should be called once only in the document. 
+% \pagenumbering{arabic} and this should be called once only in the document.
 %
 % Do not alter the bibliography style.
 %
-% The first Chapter should then be on page 1. You are allowed 40 pages for a 40 credit project and 30 pages for a 
+% The first Chapter should then be on page 1. You are allowed 40 pages for a 40 credit project and 30 pages for a
 % 20 credit report. This includes everything numbered in Arabic numerals (excluding front matter) up
 % to but excluding the appendices and bibliography.
 %
@@ -72,19 +72,19 @@
 % IMPORTANT
 % The chapter headings here are **suggestions**. You don't have to follow this model if
 % it doesn't fit your project. Every project should have an introduction and conclusion,
-% however. 
+% however.
 %
 %==================================================================================================================================
 \chapter{Introduction}
 
 % reset page numbering. Don't remove this!
-\pagenumbering{arabic} 
+\pagenumbering{arabic}
 
 
 Why should the reader care about what are you doing and what are you actually doing?
 \section{Guidance}
 
-\textbf{Motivate} first, then state the general problem clearly. 
+\textbf{Motivate} first, then state the general problem clearly.
 
 \section{Writing guidance}
 \subsection{Who is the reader?}
@@ -139,13 +139,13 @@ read these, but they will improve how you write.
 \item If you are referring implicitly to references, use: ``There are many good books on writing \citep{Orw68, Wil09, Pin15}.''
 \end{itemize}
 
-There is a complete guide on good citation practice by Peter Coxhead available here: \url{http://www.cs.bham.ac.uk/~pxc/refs/index.html}. 
+There is a complete guide on good citation practice by Peter Coxhead available here: \url{http://www.cs.bham.ac.uk/~pxc/refs/index.html}.
 If you are unsure about how to cite online sources, please see this guide: \url{https://student.unsw.edu.au/how-do-i-cite-electronic-sources}.
 
 \subsection{Plagiarism warning}
 
 \begin{highlight_title}{WARNING}
-    
+
     If you include material from other sources without full and correct attribution, you are commiting plagiarism. The penalties for plagiarism are severe.
     Quote any included text and cite it correctly. Cite all images, figures, etc. clearly in the caption of the figure.
 \end{highlight_title}
@@ -155,14 +155,14 @@ If you are unsure about how to cite online sources, please see this guide: \url{
 \chapter{Background}
 What did other people do, and how is it relevant to what you want to do?
 \section{Guidance}
-\begin{itemize}    
+\begin{itemize}
     \item
       Don't give a laundry list of references.
     \item
       Tie everything you say to your problem.
     \item
       Present an argument.
-    \item Think critically; weigh up the contribution of the background and put it in context.    
+    \item Think critically; weigh up the contribution of the background and put it in context.
     \item
       \textbf{Don't write a tutorial}; provide background and cite
       references for further information.
@@ -172,11 +172,11 @@ What did other people do, and how is it relevant to what you want to do?
 \chapter{Analysis/Requirements}
 What is the problem that you want to solve, and how did you arrive at it?
 \section{Guidance}
-Make it clear how you derived the constrained form of your problem via a clear and logical process. 
+Make it clear how you derived the constrained form of your problem via a clear and logical process.
 
 %==================================================================================================================================
 \chapter{Design}
-How is this problem to be approached, without reference to specific implementation details? 
+How is this problem to be approached, without reference to specific implementation details?
 \section{Guidance}
 Design should cover the abstract design in such a way that someone else might be able to do what you did, but with a different language or library or tool.
 
@@ -203,16 +203,16 @@ You may include multiple figures in one float, as in Figure \ref{fig:synthetic},
 % Figures are important. Use them well.
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{images/relu.pdf}    
+    \includegraphics[width=0.5\linewidth]{images/relu.pdf}
 
     \caption{In figure captions, explain what the reader is looking at: ``A schematic of the rectifying linear unit, where $a$ is the output amplitude,
-    $d$ is a configurable dead-zone, and $Z_j$ is the input signal'', as well as why the reader is looking at this: 
-    ``It is notable that there is no activation \emph{at all} below 0, which explains our initial results.'' 
+    $d$ is a configurable dead-zone, and $Z_j$ is the input signal'', as well as why the reader is looking at this:
+    ``It is notable that there is no activation \emph{at all} below 0, which explains our initial results.''
     \textbf{Use vector image formats (.pdf) where possible}. Size figures appropriately, and do not make them over-large or too small to read.
     }
 
     % use the notation fig:name to cross reference a figure
-    \label{fig:relu} 
+    \label{fig:relu}
 \end{figure}
 
 
@@ -223,15 +223,15 @@ You may include multiple figures in one float, as in Figure \ref{fig:synthetic},
         \caption{Synthetic image, black on white.}
         \label{fig:syn1}
     \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
       %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{images/synthetic_2.png}
         \caption{Synthetic image, white on black.}
         \label{fig:syn2}
     \end{subfigure}
-    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
-    %(or a blank line to force the subfigure onto a new line)    
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    %(or a blank line to force the subfigure onto a new line)
     \caption{Synthetic test images for edge detection algorithms. \subref{fig:syn1} shows various gray levels that require an adaptive algorithm. \subref{fig:syn2}
     shows more challenging edge detection tests that have crossing lines. Fusing these into full segments typically requires algorithms like the Hough transform.
     This is an example of using subfigures, with \texttt{subref}s in the caption.
@@ -242,13 +242,13 @@ You may include multiple figures in one float, as in Figure \ref{fig:synthetic},
 
 \subsection{Equations}
 
-Equations should be typeset correctly and precisely. Make sure you get parenthesis sizing correct, and punctuate equations correctly 
-(the comma is important and goes \textit{inside} the equation block). Explain any symbols used clearly if not defined earlier. 
+Equations should be typeset correctly and precisely. Make sure you get parenthesis sizing correct, and punctuate equations correctly
+(the comma is important and goes \textit{inside} the equation block). Explain any symbols used clearly if not defined earlier.
 
 For example, we might define:
 \begin{equation}
     \hat{f}(\xi) = \frac{1}{2}\left[ \int_{-\infty}^{\infty} f(x) e^{2\pi i x \xi} \right],
-\end{equation}    
+\end{equation}
 where $\hat{f}(\xi)$ is the Fourier transform of the time domain signal $f(x)$.
 
 \subsection{Algorithms}
@@ -279,20 +279,20 @@ Algorithms can be set using \texttt{algorithm2e}, as in Algorithm \ref{alg:metro
             }
         }
     }
-    
-\caption{The Metropolis-Hastings MCMC algorithm for drawing samples from arbitrary probability distributions, 
+
+\caption{The Metropolis-Hastings MCMC algorithm for drawing samples from arbitrary probability distributions,
 specialised for normal proposal distributions $q(x^\prime|x) = \mathcal{N}(x, \sigma^2)$. The symmetry of the normal distribution means the acceptance rule takes the simplified form.}\label{alg:metropolis}
 \end{algorithm}
 
 \subsection{Tables}
 
 If you need to include tables, like Table \ref{tab:operators}, use a tool like https://www.tablesgenerator.com/ to generate the table as it is
-extremely tedious otherwise. 
+extremely tedious otherwise.
 
-\begin{table}[]
+\begin{table}
     \caption{The standard table of operators in Python, along with their functional equivalents from the \texttt{operator} package. Note that table
     captions go above the table, not below. Do not add additional rules/lines to tables. }\label{tab:operators}
-    %\tt 
+    %\tt
     \rowcolors{2}{}{gray!3}
     \begin{tabular}{@{}lll@{}}
     %\toprule
@@ -336,10 +336,10 @@ extremely tedious otherwise.
 
 Avoid putting large blocks of code in the report (more than a page in one block, for example). Use syntax highlighting if possible, as in Listing \ref{lst:callahan}.
 
-\begin{lstlisting}[language=python, float, caption={The algorithm for packing the $3\times 3$ outer-totalistic binary CA successor rule into a 
+\begin{lstlisting}[language=python, float, caption={The algorithm for packing the $3\times 3$ outer-totalistic binary CA successor rule into a
     $16\times 16\times 16\times 16$ 4 bit lookup table, running an equivalent, notionally 16-state $2\times 2$ CA.}, label=lst:callahan]
     def create_callahan_table(rule="b3s23"):
-        """Generate the lookup table for the cells."""        
+        """Generate the lookup table for the cells."""
         s_table = np.zeros((16, 16, 16, 16), dtype=np.uint8)
         birth, survive = parse_rule(rule)
 
@@ -371,7 +371,7 @@ Avoid putting large blocks of code in the report (more than a page in one block,
 \end{lstlisting}
 
 %==================================================================================================================================
-\chapter{Evaluation} 
+\chapter{Evaluation}
 How good is your solution? How well did you solve the general problem, and what evidence do you have to support that?
 
 \section{Guidance}
@@ -404,20 +404,20 @@ See the file \texttt{guide\_to\_visualising.pdf} for further information and gui
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.0\linewidth]{images/boxplot_finger_distance.pdf}    
+    \includegraphics[width=1.0\linewidth]{images/boxplot_finger_distance.pdf}
 
     \caption{Average number of fingers detected by the touch sensor at different heights above the surface, averaged over all gestures. Dashed lines indicate
-    the true number of fingers present. The Box plots include bootstrapped uncertainty notches for the median. It is clear that the device is biased toward 
+    the true number of fingers present. The Box plots include bootstrapped uncertainty notches for the median. It is clear that the device is biased toward
     undercounting fingers, particularly at higher $z$ distances.
     }
 
     % use the notation fig:name to cross reference a figure
-    \label{fig:boxplot} 
+    \label{fig:boxplot}
 \end{figure}
 
 
 %==================================================================================================================================
-\chapter{Conclusion}    
+\chapter{Conclusion}
 Summarise the whole project for a lazy reader who didn't read the rest (e.g. a prize-awarding committee).
 \section{Guidance}
 \begin{itemize}
@@ -425,7 +425,7 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
         Summarise briefly and fairly.
     \item
         You should be addressing the general problem you introduced in the
-        Introduction.        
+        Introduction.
     \item
         Include summary of concrete results (``the new compiler ran 2x
         faster'')
@@ -436,9 +436,9 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
 
 %==================================================================================================================================
 %
-% 
+%
 %==================================================================================================================================
-%  APPENDICES  
+%  APPENDICES
 
 \begin{appendices}
 
@@ -467,7 +467,7 @@ submitted separately.
 \end{appendices}
 
 %==================================================================================================================================
-%   BIBLIOGRAPHY   
+%   BIBLIOGRAPHY
 
 % The bibliography style is abbrvnat
 % The bibliography always appears last, after the appendices.

@@ -1,0 +1,12 @@
+name: Main GitHub Action
+on: [push]
+
+jobs:
+  basic-action:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "🎉 This job was automatically triggered by a ${{ github.event_name }} event."
+          echo "🐧 It is now running on a ${{ runner.os }} server hosted by GitHub."
+          echo "🔎 The name of the branch is ${{ github.ref }} of the repository ${{ github.repository }}."
+          echo "🍏 This job's status is ${{ job.status }}."

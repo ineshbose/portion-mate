@@ -1,0 +1,25 @@
+name: Deploy Wiki
+
+on:
+  push:
+    paths:
+      - "docs/**"
+    branches:
+      - develop
+
+jobs:
+  update-wiki:
+    runs-on: ubuntu-latest
+    name: Update wiki
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Copy file
+        run: cp docs/index.md docs/Home.md
+      - uses: ineshbose/wiki-action@v1
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WIKI_DIR: "docs"
+          WIKI_IGNORE: "requirements.txt index.md .gitignore README.md"
+          AUTO_SIDEBAR: true
+          SIDEBAR_IGNORE: "archive assets env Home.md"

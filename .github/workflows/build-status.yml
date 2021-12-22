@@ -1,0 +1,27 @@
+name: Compile Status Report
+
+on:
+  push:
+    paths:
+      - "dissertation/status.tex"
+
+jobs:
+  build-dissertation:
+    runs-on: ubuntu-latest
+    name: Create document
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: status.tex
+          working_directory: dissertation
+      - name: Rename PDF
+        run: |
+          mv dissertation/status.pdf "Inesh Bose - Portion Mate (Status Report).pdf"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: "Status Report"
+          path: "Inesh Bose - Portion Mate (Status Report).pdf"

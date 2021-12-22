@@ -1,0 +1,61 @@
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+<p align="center">
+  <img alt="Portion Mate logo" src="https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png" height="250px">
+
+  <h3 align="center">Portion Mate</h3>
+  <h5 align="center">Source Code Manual</h5>
+
+  <p align="center">
+    <!-- BADGES / SHIELDS -->
+    <a href="https://github.com/ineshbose/portion-mate/wiki" target="_blank"><img alt="Project Wiki" src="https://img.shields.io/badge/project-Wiki-success?style=flat-square"></a>
+    <a href="https://portion-mate-glasgow.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate-glasgow?style=flat-square"></a>
+  </p>
+</p>
+</div>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+
+* **`git`** *(optional)*: To have a copy of this code, you can clone it using [Git](https://git-scm.com/), however you can also [download a ZIP](https://github.com/ineshbose/portion-mate/archive/develop.zip) of the repository.
+```sh
+$ git clone https://github.com/ineshbose/portion-mate
+$ cd portion-mate/src   # treat src as root
+```
+
+* **`pip`**: The backend uses Django, and therefore dependencies can be installed using [`pip`](https://packaging.python.org/tutorials/installing-packages/).
+```sh
+$ python3 -m venv backend/env               # optional
+$ source ./backend/env/scripts/activate     # activate environment
+$ pip install -r ./backend/requirements.txt # install dependencies
+```
+
+* **`yarn` / `npm`**: The frontend uses React Native, and therefore dependencies can be handled using either [`npm`](https://www.npmjs.com/) or [`yarn`](https://yarnpkg.com/) (preferred).
+```sh
+$ yarn install --cwd frontend
+$ npm install --prefix /frontend    # if you don't use yarn
+```
+
+### Running
+
+This will require you to run backend and frontend separately using two terminals.
+
+* Backend
+```sh
+$ python ./backend/manage.py runserver
+```
+
+* Frontend
+```sh
+$ yarn start --cwd frontend
+$ npm start --prefix /frontend      # if you don't use yarn
+```
