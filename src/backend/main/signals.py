@@ -39,7 +39,7 @@ def user_created_hook(instance, *args, **kwargs):
     }
 
     for portion_item in models.PortionItem.objects.filter(is_default=True):
-        models.TrackItem.objects.create(
+        models.TrackItem.objects.update_or_create(
             item=portion_item,
             user=instance,
             target=EATWELL_MAP.get(portion_item.name, 1),

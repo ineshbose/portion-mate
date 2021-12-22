@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "rest.apps.RestConfig",
     "django_cleanup.apps.CleanupConfig",
     "django_extensions.apps.DjangoExtensionsConfig",
+    "rest_framework.apps.RestFrameworkConfig",
 ]
 
 AUTH_USER_MODEL = "main.User"
@@ -136,3 +137,11 @@ MEDIA_ROOT = Path.joinpath(BASE_DIR, "media/")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# REST Framework
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
