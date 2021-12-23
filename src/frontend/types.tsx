@@ -26,7 +26,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
-  TabOne: undefined;
+  Home: undefined;
   TabTwo: undefined;
 };
 
@@ -35,3 +35,39 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;
+
+export type ModelID = number | string;
+
+export type User = {
+  id: ModelID;
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  picture: string | null;
+  age: number | null;
+  height: number | null;
+  weight: number | null;
+  items?: TrackItem[];
+};
+
+export type PortionItem = {
+  id: ModelID;
+  name: string;
+  is_default: boolean;
+};
+
+export type TrackItem = {
+  id: ModelID;
+  item?: PortionItem | ModelID;
+  user?: User | ModelID;
+  target: number;
+  order: number | undefined;
+  frequency: number;
+  logs?: UserLog[];
+};
+
+export type UserLog = {
+  id: ModelID;
+  item?: TrackItem | ModelID;
+  timestamp: string | Date;
+};
