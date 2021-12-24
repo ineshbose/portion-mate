@@ -27,9 +27,18 @@ import {
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { Text, View } from '../components/Themed';
-import { Header, Avatar } from 'react-native-elements';
+import { Header, Avatar, ButtonGroup } from 'react-native-elements';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
+
+const headerButtonIcons: {
+  [route: string]: React.ComponentProps<typeof MaterialIcons>['name'];
+} = {
+  Home: 'edit',
+  Journal: 'calendar-today',
+  Stats: 'calendar-today',
+  Resources: 'star',
+};
 
 export default function Navigation({
   colorScheme,
@@ -87,7 +96,7 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarLabelPosition: 'below-icon',
-        header: () => {
+        header: ({ route }) => {
           return (
             <Header
               backgroundColor="transparent"
@@ -108,10 +117,29 @@ function BottomTabNavigator() {
                 </View>
               }
               rightComponent={
-                <Avatar
-                  rounded
-                  title={'IB'}
-                  source={{ uri: 'https://picsum.photos/200' }}
+                <ButtonGroup
+                  buttons={[
+                    <MaterialIcons
+                      key="action"
+                      name={headerButtonIcons[route.name]}
+                      color={Colors[colorScheme].tint}
+                      size={30}
+                    />,
+                    <Avatar
+                      key="profile"
+                      rounded
+                      title={'IB'}
+                      source={{ uri: 'https://picsum.photos/200' }}
+                    />,
+                  ]}
+                  containerStyle={{
+                    backgroundColor: 'rgb(0, 0, 0, 0)',
+                    borderWidth: 0,
+                  }}
+                  buttonContainerStyle={{
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                  }}
                 />
               }
             />
