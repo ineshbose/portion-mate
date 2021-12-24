@@ -12,7 +12,7 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Image, Pressable } from 'react-native';
+import { ColorSchemeName, Image } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -23,22 +23,15 @@ import StatsPage from '../screens/StatsPage';
 import {
   RootStackParamList,
   RootTabParamList,
-  RootTabScreenProps,
+  RouteActionIcon,
+  TabConfig,
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { Text, View } from '../components/Themed';
-import { Header, Avatar, ButtonGroup } from 'react-native-elements';
+import { Header, Avatar } from 'react-native-elements';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
-
-const headerButtonIcons: {
-  [route: string]: React.ComponentProps<typeof MaterialIcons>['name'];
-} = {
-  Home: 'edit',
-  Journal: 'calendar-today',
-  Stats: 'calendar-today',
-  Resources: 'star',
-};
+import { IconButtonGroup } from '../components/IconButtonGroup';
 
 export default function Navigation({
   colorScheme,
@@ -87,8 +80,39 @@ function RootNavigator() {
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
+const headerButtonIcons: RouteActionIcon = {
+  Home: 'edit',
+  Journal: 'calendar-today',
+  Stats: 'calendar-today',
+  Resources: 'star',
+};
+
+const tabs: TabConfig[] = [
+  {
+    name: 'Home',
+    component: HomePage,
+    icon: 'home',
+  },
+  {
+    name: 'Journal',
+    component: JournalPage,
+    icon: 'book',
+  },
+  {
+    name: 'Stats',
+    component: StatsPage,
+    icon: 'bar-chart',
+  },
+  {
+    name: 'Resources',
+    component: ResourcesPage,
+    icon: 'menu-book',
+  },
+];
+
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+  const [action, setAction] = React.useState('');
 
   return (
     <BottomTab.Navigator
@@ -117,11 +141,13 @@ function BottomTabNavigator() {
                 </View>
               }
               rightComponent={
-                <ButtonGroup
+                <IconButtonGroup
                   buttons={[
                     <MaterialIcons
                       key="action"
-                      name={headerButtonIcons[route.name]}
+                      name={
+                        headerButtonIcons[route.name as keyof RootTabParamList]
+                      }
                       color={Colors[colorScheme].tint}
                       size={30}
                     />,
@@ -132,14 +158,9 @@ function BottomTabNavigator() {
                       source={{ uri: 'https://picsum.photos/200' }}
                     />,
                   ]}
-                  containerStyle={{
-                    backgroundColor: 'rgb(0, 0, 0, 0)',
-                    borderWidth: 0,
-                  }}
-                  buttonContainerStyle={{
-                    borderRightWidth: 0,
-                    borderLeftWidth: 0,
-                  }}
+                  onPress={() =>
+                    setAction(action === route.name ? '' : route.name)
+                  }
                 />
               }
             />
@@ -148,60 +169,30 @@ function BottomTabNavigator() {
         headerShown: true,
       }}
     >
-      <BottomTab.Screen
-        name="Home"
-        component={HomePage}
-        options={({ navigation }: RootTabScreenProps<'Home'>) => ({
-          title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            ></Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="Journal"
-        component={JournalPage}
-        options={{
-          title: 'Journal',
-          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Stats"
-        component={StatsPage}
-        options={{
-          title: 'Stats',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="bar-chart" color={color} />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        name="Resources"
-        component={ResourcesPage}
-        options={{
-          title: 'Resources',
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="menu-book" color={color} />
-          ),
-        }}
-      />
+      {tabs.map((tab) => (
+        <BottomTab.Screen
+          key={tab.name}
+          name={tab.name}
+          component={(args) =>
+            tab.component({
+              isAction: action === tab.name,
+              colorScheme,
+              ...args,
+            })
+          }
+          options={{
+            title: tab.name,
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                size={30}
+                style={{ marginBottom: -3 }}
+                name={tab.icon}
+                color={color}
+              />
+            ),
+          }}
+        />
+      ))}
     </BottomTab.Navigator>
   );
-}
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof MaterialIcons>['name'];
-  color: string;
-}) {
-  return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
