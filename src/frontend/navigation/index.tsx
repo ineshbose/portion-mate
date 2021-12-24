@@ -12,13 +12,13 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Image, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
+import HomePage from '../screens/HomePage';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import {
   RootStackParamList,
@@ -26,6 +26,8 @@ import {
   RootTabScreenProps,
 } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { Text, View } from '../components/Themed';
+import { Header, Avatar } from 'react-native-elements';
 
 export default function Navigation({
   colorScheme,
@@ -79,17 +81,48 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        header: () => {
+          return (
+            <Header
+              backgroundColor="transparent"
+              leftComponent={
+                <View>
+                  <Text>
+                    <Image
+                      style={{
+                        height: 30,
+                        width: 30,
+                      }}
+                      source={{
+                        uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
+                      }}
+                    />
+                    <Text style={{ fontSize: 18 }}>Portion Mate</Text>
+                  </Text>
+                </View>
+              }
+              rightComponent={
+                <Avatar
+                  rounded
+                  title={'IB'}
+                  source={{ uri: 'https://picsum.photos/200' }}
+                />
+              }
+            />
+          );
+        },
+        headerShown: true,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        name="Home"
+        component={HomePage}
+        options={({ navigation }: RootTabScreenProps<'Home'>) => ({
+          title: 'Home',
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
