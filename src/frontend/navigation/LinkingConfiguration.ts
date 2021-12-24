@@ -20,9 +20,19 @@ const linking: LinkingOptions<RootStackParamList> = {
               HomePage: 'one',
             },
           },
-          TabTwo: {
+          Journal: {
             screens: {
-              TabTwoScreen: 'two',
+              JournalPage: 'two',
+            },
+          },
+          Stats: {
+            screens: {
+              StatsPage: 'three',
+            },
+          },
+          Resources: {
+            screens: {
+              ResourcesPage: 'four',
             },
           },
         },
