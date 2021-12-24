@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   NavigationContainer,
@@ -19,7 +19,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import HomePage from '../screens/HomePage';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import StatsPage from '../screens/StatsPage';
 import {
   RootStackParamList,
   RootTabParamList,
@@ -28,6 +28,8 @@ import {
 import LinkingConfiguration from './LinkingConfiguration';
 import { Text, View } from '../components/Themed';
 import { Header, Avatar } from 'react-native-elements';
+import JournalPage from '../screens/JournalPage';
+import ResourcesPage from '../screens/ResourcesPage';
 
 export default function Navigation({
   colorScheme,
@@ -84,6 +86,7 @@ function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarLabelPosition: 'below-icon',
         header: () => {
           return (
             <Header
@@ -129,23 +132,36 @@ function BottomTabNavigator() {
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
+            ></Pressable>
           ),
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Journal"
+        component={JournalPage}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Journal',
+          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Stats"
+        component={StatsPage}
+        options={{
+          title: 'Stats',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="bar-chart" color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Resources"
+        component={ResourcesPage}
+        options={{
+          title: 'Resources',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="menu-book" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -156,8 +172,8 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof MaterialIcons>['name'];
   color: string;
 }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <MaterialIcons size={30} style={{ marginBottom: -3 }} {...props} />;
 }

@@ -1,9 +1,30 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { View } from '../components/Themed';
+import { Text, View } from '../components/Themed';
 import { RootTabScreenProps, TrackItem, PortionItem, UserLog } from '../types';
+
+const frequencyDisplay: { [frequency: number]: string } = {
+  1: 'd',
+  7: 'w',
+  30: 'm',
+  365: 'y',
+};
+
+const getFrequencyDisplay = (frequency: number) => {
+  return (
+    frequencyDisplay[frequency] ||
+    (frequency % 365 === 0
+      ? `${frequency / 365}${frequencyDisplay[365]}`
+      : frequency % 30 === 0
+      ? `${frequency / 30}${frequencyDisplay[30]}`
+      : frequency % 7 === 0
+      ? `${frequency / 7}${frequencyDisplay[7]}`
+      : `${frequency}d`)
+  );
+};
 
 const list: TrackItem[] = [
   {
@@ -94,14 +115,27 @@ export default function HomePage({
             {item.item && (
               <ListItem.Title>{(item.item as PortionItem).name}</ListItem.Title>
             )}
+            <Text>
+              {Array.from(Array(item.target), (e, i) => (
+                <ListItem.CheckBox
+                  checkedIcon="times"
+                  key={i}
+                  checked={i < (item.logs as UserLog[]).length}
+                />
+              ))}
+            </Text>
           </ListItem.Content>
-          {Array.from(Array(item.target), (e, i) => (
-            <ListItem.CheckBox
-              checkedIcon="times"
-              key={i}
-              checked={i < (item.logs as UserLog[]).length}
+          <ListItem.Content right>
+            <ListItem.Subtitle>
+              {item.target}/{getFrequencyDisplay(item.frequency)}
+            </ListItem.Subtitle>
+            <ListItem.ButtonGroup
+              buttons={[
+                <MaterialIcons key="remove" name="remove" />,
+                <MaterialIcons key="add" name="add" />,
+              ]}
             />
-          ))}
+          </ListItem.Content>
         </ListItem>
       ))}
     </View>
