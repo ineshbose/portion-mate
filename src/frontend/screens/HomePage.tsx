@@ -4,7 +4,15 @@ import { ListItem } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps, TrackItem, PortionItem, UserLog } from '../types';
+import {
+  TrackItem,
+  PortionItem,
+  UserLog,
+  ComponentTabArguments,
+  ColorScheme,
+} from '../types';
+import Colors from '../constants/Colors';
+import { IconButtonGroup } from '../components/IconButtonGroup';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -104,37 +112,77 @@ const list: TrackItem[] = [
 ];
 
 export default function HomePage({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  navigation,
-}: RootTabScreenProps<'Home'>) {
+  isAction,
+  colorScheme,
+}: ComponentTabArguments) {
   return (
     <View style={styles.container}>
       {list.map((item) => (
-        <ListItem key={item.id} bottomDivider>
+        <ListItem
+          key={item.id}
+          bottomDivider
+          containerStyle={{
+            backgroundColor: Colors[colorScheme as ColorScheme].background,
+          }}
+        >
           <ListItem.Content>
             {item.item && (
-              <ListItem.Title>{(item.item as PortionItem).name}</ListItem.Title>
+              <ListItem.Title
+                style={{ color: Colors[colorScheme as ColorScheme].text }}
+              >
+                {(item.item as PortionItem).name}
+              </ListItem.Title>
             )}
             <Text>
-              {Array.from(Array(item.target), (e, i) => (
-                <ListItem.CheckBox
-                  checkedIcon="times"
-                  key={i}
-                  checked={i < (item.logs as UserLog[]).length}
-                />
-              ))}
+              {isAction ? (
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {item.target}
+                  <IconButtonGroup
+                    buttons={[
+                      <MaterialIcons key="add" name="add" />,
+                      <MaterialIcons key="remove" name="remove" />,
+                    ]}
+                  />
+                </Text>
+              ) : (
+                Array.from(Array(item.target), (e, i) => (
+                  <ListItem.CheckBox
+                    checkedIcon="times"
+                    key={i}
+                    checked={i < (item.logs as UserLog[]).length}
+                  />
+                ))
+              )}
             </Text>
           </ListItem.Content>
           <ListItem.Content right>
-            <ListItem.Subtitle>
-              {item.target}/{getFrequencyDisplay(item.frequency)}
-            </ListItem.Subtitle>
-            <ListItem.ButtonGroup
-              buttons={[
-                <MaterialIcons key="remove" name="remove" />,
-                <MaterialIcons key="add" name="add" />,
-              ]}
-            />
+            {isAction ? (
+              <IconButtonGroup
+                buttons={[
+                  <MaterialIcons key="delete" name="delete" />,
+                  <MaterialIcons key="reorder" name="reorder" />,
+                ]}
+              />
+            ) : (
+              <View>
+                <ListItem.Subtitle
+                  style={{ color: Colors[colorScheme as ColorScheme].tint }}
+                >
+                  {item.target}/{getFrequencyDisplay(item.frequency)}
+                </ListItem.Subtitle>
+                <IconButtonGroup
+                  buttons={[
+                    <MaterialIcons key="remove" name="remove" />,
+                    <MaterialIcons key="add" name="add" />,
+                  ]}
+                />
+              </View>
+            )}
           </ListItem.Content>
         </ListItem>
       ))}
