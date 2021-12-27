@@ -32,6 +32,8 @@ import { Header, Avatar } from 'react-native-elements';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { IconButtonGroup } from '../components/IconButtonGroup';
+import LoginForm from '../screens/Auth/LoginForm';
+import RegisterForm from '../screens/Auth/RegisterForm';
 
 export default function Navigation({
   colorScheme,
@@ -66,6 +68,16 @@ function RootNavigator() {
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: 'Oops!' }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginForm}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterForm}
+        options={{ headerShown: false }}
       />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
