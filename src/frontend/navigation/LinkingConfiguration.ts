@@ -15,24 +15,18 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Root: {
         screens: {
-          Home: {
+          BottomTab: {
             screens: {
-              HomePage: 'one',
+              Home: {},
+              Journal: 'journal',
+              Stats: 'stats',
+              Resources: 'resources',
             },
           },
-          Journal: {
+          Auth: {
             screens: {
-              JournalPage: 'two',
-            },
-          },
-          Stats: {
-            screens: {
-              StatsPage: 'three',
-            },
-          },
-          Resources: {
-            screens: {
-              ResourcesPage: 'four',
+              Login: 'login',
+              Register: 'register',
             },
           },
         },

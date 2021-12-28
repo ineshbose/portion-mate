@@ -21,9 +21,14 @@ declare global {
 export type ColorScheme = NonNullable<ColorSchemeName>;
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  Root: NavigatorScreenParams<RootLinkParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
+};
+
+export type RootLinkParamList = {
+  BottomTab: NavigatorScreenParams<RootTabParamList> | undefined;
+  Auth: NavigatorScreenParams<RootAuthParamList> | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -36,11 +41,19 @@ export type RootTabParamList = {
   Resources: undefined;
 };
 
+export type RootAuthParamList = {
+  Login: undefined;
+  Register: undefined;
+};
+
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;
+
+export type RootAuthScreenProps<Screen extends keyof RootAuthParamList> =
+  NativeStackScreenProps<RootAuthParamList, Screen>;
 
 export type RouteActionIcon = {
   [route in keyof RootTabParamList]: React.ComponentProps<
