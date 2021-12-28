@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import { Button, Card, Input } from 'react-native-elements';
-import { RootStackScreenProps } from '../../types';
+import { RootAuthScreenProps } from '../../types';
 import FormStyle from './FormStyle';
 import Logo from './Logo';
 
 export default function LoginForm({
   navigation,
-}: RootStackScreenProps<'Login'>) {
+}: RootAuthScreenProps<'Login'>) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
