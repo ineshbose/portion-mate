@@ -4,15 +4,11 @@ import { ListItem } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { Text, View } from '../components/Themed';
-import {
-  TrackItem,
-  PortionItem,
-  UserLog,
-  ComponentTabArguments,
-  ColorScheme,
-} from '../types';
+import { ComponentTabArguments, ColorScheme } from '../types';
 import Colors from '../constants/Colors';
 import { IconButtonGroup } from '../components/IconButtonGroup';
+import { getTrackItems } from '../api';
+import { PortionItem, TrackItem, UserLog } from '../api/types';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -34,90 +30,26 @@ const getFrequencyDisplay = (frequency: number) => {
   );
 };
 
-const list: TrackItem[] = [
-  {
-    id: 1,
-    item: {
-      id: 1,
-      name: 'Carbohydrates',
-      is_default: true,
-    },
-    target: 6,
-    order: 1,
-    frequency: 1,
-    logs: [
-      {
-        id: 1,
-        timestamp: '2021-12-23T01:02:00Z',
-      },
-      {
-        id: 2,
-        timestamp: '2021-12-23T01:02:00Z',
-      },
-    ],
-  },
-  {
-    id: 2,
-    item: {
-      id: 2,
-      name: 'Fruits & Vegetables',
-      is_default: true,
-    },
-    target: 6,
-    order: 2,
-    frequency: 1,
-    logs: [
-      {
-        id: 3,
-        timestamp: '2021-12-23T01:02:00Z',
-      },
-    ],
-  },
-  {
-    id: 3,
-    item: {
-      id: 3,
-      name: 'Protein',
-      is_default: true,
-    },
-    target: 3,
-    order: 3,
-    frequency: 1,
-    logs: [],
-  },
-  {
-    id: 4,
-    item: {
-      id: 4,
-      name: 'Dairy',
-      is_default: true,
-    },
-    target: 3,
-    order: 4,
-    frequency: 1,
-    logs: [],
-  },
-  {
-    id: 5,
-    item: {
-      id: 5,
-      name: 'Oils & Fats',
-      is_default: true,
-    },
-    target: 1,
-    order: 5,
-    frequency: 1,
-    logs: [],
-  },
-];
-
 export default function HomePage({
   isAction,
   colorScheme,
 }: ComponentTabArguments) {
+  const [trackItems, setTrackItems] = React.useState<TrackItem[]>([]);
+
+  const getItems = async () => {
+    const response = await getTrackItems();
+    const json = response;
+    console.log(json);
+    setTrackItems(json);
+  };
+
+  React.useEffect(() => {
+    getItems();
+  }, []);
+
   return (
     <View style={styles.container}>
-      {list.map((item) => (
+      {trackItems.map((item) => (
         <ListItem
           key={item.id}
           bottomDivider

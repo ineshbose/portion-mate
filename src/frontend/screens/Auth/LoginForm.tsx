@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import { Button, Card, Input } from 'react-native-elements';
+import { getToken } from '../../api/auth';
 import { RootAuthScreenProps } from '../../types';
 import FormStyle from './FormStyle';
 import Logo from './Logo';
@@ -25,7 +26,11 @@ export default function LoginForm({
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="log in" buttonStyle={FormStyle.submit} />
+      <Button
+        title="log in"
+        buttonStyle={FormStyle.submit}
+        onPress={() => getToken(email, password)}
+      />
       <Button
         title="create account"
         onPress={() => navigation.navigate('Register')}
