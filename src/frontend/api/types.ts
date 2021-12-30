@@ -1,6 +1,9 @@
-export type JWTData = {
-  access: string;
-  refresh?: string;
+export type AuthResponse = {
+  access_token: string;
+  expires_in: number;
+  refresh_token: string;
+  scope: string;
+  token_type: string;
 };
 
 export type PaginationData<T> = {

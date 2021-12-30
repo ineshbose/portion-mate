@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django_extensions.apps.DjangoExtensionsConfig",
     "rest_framework.apps.RestFrameworkConfig",
     "corsheaders.apps.CorsHeadersAppConfig",
+    "oauth2_provider.apps.DOTConfig",
 ]
 
 AUTH_USER_MODEL = "main.User"
@@ -149,6 +150,16 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
     ),
+}
+
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    "SCOPES": {
+        "read": "Read scope",
+        "write": "Write scope",
+        "groups": "Access to your groups",
+    },
+    "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
 }
