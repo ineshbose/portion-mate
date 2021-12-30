@@ -32,11 +32,12 @@ $ git clone https://github.com/ineshbose/portion-mate
 $ cd portion-mate/src   # treat src as root
 ```
 
-* **`pip`**: The backend uses Django, and therefore dependencies can be installed using [`pip`](https://packaging.python.org/tutorials/installing-packages/).
+* **`poetry` / `pip`**: The backend uses Django, and therefore dependencies can be installed using either [`pip`](https://packaging.python.org/tutorials/installing-packages/) or [`poetry`]() (preferred).
 ```sh
 $ python3 -m venv backend/env               # optional
 $ source ./backend/env/scripts/activate     # activate environment
-$ pip install -r ./backend/requirements.txt # install dependencies
+$ poetry install
+$ pip install -r ./backend/requirements.txt # if you don't use poetry
 ```
 
 * **`yarn` / `npm`**: The frontend uses React Native, and therefore dependencies can be handled using either [`npm`](https://www.npmjs.com/) or [`yarn`](https://yarnpkg.com/) (preferred).
