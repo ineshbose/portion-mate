@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { storeObject } from './store';
-import { AuthResponse } from './types';
+import { AuthError, AuthResponse } from './types';
 import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
 
 export const getToken = async (username: string, password: string) => {
@@ -18,6 +18,6 @@ export const getToken = async (username: string, password: string) => {
     await storeObject('auth_token', response.data);
     return response.data;
   } catch (e) {
-    return false;
+    throw axios.isAxiosError(e) ? (e.response?.data as AuthError) : e;
   }
 };

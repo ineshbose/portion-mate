@@ -6,6 +6,11 @@ export type AuthResponse = {
   token_type: string;
 };
 
+export type AuthError = {
+  error: string;
+  error_description: string;
+};
+
 export type PaginationData<T> = {
   count: number;
   next: string | null;

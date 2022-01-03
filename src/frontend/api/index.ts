@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getObject } from './store';
-import { JWTData, PaginationData, TrackItem } from './types';
+import { AuthResponse, PaginationData, TrackItem } from './types';
 
 const list: TrackItem[] = [
   {
@@ -86,7 +86,7 @@ export const getTrackItems = async () => {
       {
         headers: {
           Authorization: `Bearer ${
-            ((await getObject('auth_token')) as JWTData).access
+            ((await getObject('auth_token')) as AuthResponse).access_token
           }`,
         },
       }

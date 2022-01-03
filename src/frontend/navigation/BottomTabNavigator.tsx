@@ -16,14 +16,14 @@ import { IconButtonGroup } from '../components/IconButtonGroup';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-const headerButtonIcons: RouteActionIcon = {
+const headerButtonIcons: RouteActionIcon<RootTabParamList> = {
   Home: 'edit',
   Journal: 'calendar-today',
   Stats: 'calendar-today',
   Resources: 'star',
 };
 
-const tabs: TabConfig[] = [
+const tabs: TabConfig<RootTabParamList>[] = [
   {
     name: 'Home',
     component: HomePage,

@@ -33,7 +33,7 @@ const getFrequencyDisplay = (frequency: number) => {
 export default function HomePage({
   isAction,
   colorScheme,
-}: ComponentTabArguments) {
+}: ComponentTabArguments<'Home'>) {
   const [trackItems, setTrackItems] = React.useState<TrackItem[]>([]);
 
   const getItems = async () => {
