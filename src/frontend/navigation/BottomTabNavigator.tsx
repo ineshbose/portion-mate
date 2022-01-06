@@ -86,6 +86,9 @@ export default function BottomTabNavigator() {
                       }
                       color={Colors[colorScheme].tint}
                       size={30}
+                      onPress={() =>
+                        setAction(action === route.name ? '' : route.name)
+                      }
                     />,
                     <Avatar
                       key="profile"
@@ -94,9 +97,6 @@ export default function BottomTabNavigator() {
                       source={{ uri: 'https://picsum.photos/200' }}
                     />,
                   ]}
-                  onPress={() =>
-                    setAction(action === route.name ? '' : route.name)
-                  }
                 />
               }
             />

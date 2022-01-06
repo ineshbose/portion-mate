@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { NativeScrollEvent, ScrollView, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -30,6 +30,15 @@ const getFrequencyDisplay = (frequency: number) => {
   );
 };
 
+const isCloseToBottom = (props: NativeScrollEvent) => {
+  const paddingToBottom = 20;
+  const { layoutMeasurement, contentOffset, contentSize } = props;
+  return (
+    layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom
+  );
+};
+
 export default function HomePage({
   isAction,
   colorScheme,
@@ -37,10 +46,8 @@ export default function HomePage({
   const [trackItems, setTrackItems] = React.useState<TrackItem[]>([]);
 
   const getItems = async () => {
-    const response = await getTrackItems();
-    const json = response;
-    console.log(json);
-    setTrackItems(json);
+    const items = await getTrackItems();
+    setTrackItems(items);
   };
 
   React.useEffect(() => {
@@ -48,7 +55,15 @@ export default function HomePage({
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      onScroll={(props) => {
+        if (isCloseToBottom(props.nativeEvent)) {
+          // paginate
+        }
+      }}
+      scrollEventThrottle={400}
+    >
       {trackItems.map((item) => (
         <ListItem
           key={item.id}
@@ -118,7 +133,7 @@ export default function HomePage({
           </ListItem.Content>
         </ListItem>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 

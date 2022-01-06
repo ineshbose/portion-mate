@@ -34,7 +34,11 @@ export default function LoginForm({
         buttonStyle={FormStyle.submit}
         onPress={() =>
           getToken(email as string, password as string)
-            .then(() => navigation.navigate('Root', { screen: 'BottomTab' }))
+            .then(() =>
+              navigation.navigate('Root', {
+                screen: 'BottomTab',
+              })
+            )
             .catch(setError)
         }
       />
