@@ -36,3 +36,11 @@ export const getObject = async (key: string) => {
     // error reading value
   }
 };
+
+export const removeItem = async (key: string) => {
+  try {
+    await AsyncStorage.removeItem(`@${key}`);
+  } catch (e) {
+    // error removing value
+  }
+};
