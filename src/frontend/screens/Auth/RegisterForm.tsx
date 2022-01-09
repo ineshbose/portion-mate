@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
-import { Button, Card, Input } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
 import { RootAuthScreenProps } from '../../types';
+import AuthForm from './AuthForm';
 import FormStyle from './FormStyle';
-import Logo from './Logo';
 
 export default function RegisterForm({
   navigation,
@@ -14,8 +13,7 @@ export default function RegisterForm({
   const [confirmPassword, setConfirmPassword] = React.useState('');
 
   return (
-    <Card containerStyle={FormStyle.container}>
-      <Logo />
+    <AuthForm>
       <Input
         placeholder="email"
         containerStyle={FormStyle.input}
@@ -43,12 +41,16 @@ export default function RegisterForm({
         }
         secureTextEntry
       />
-      <Button title="register" buttonStyle={FormStyle.submit} />
+      <Button
+        title="register"
+        buttonStyle={FormStyle.submit}
+        onPress={() => console.log(email, name)}
+      />
       <Button
         title="log into existing account"
         onPress={() => navigation.navigate('Login')}
         buttonStyle={FormStyle.switch}
       />
-    </Card>
+    </AuthForm>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from '@react-navigation/native';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
+import { AuthProvider } from '../contexts/Auth';
 
 import LinkingConfiguration from './LinkingConfiguration';
 import StackNavigator from './StackNavigator';
@@ -20,11 +21,13 @@ export default function Navigation({
   colorScheme: ColorSchemeName;
 }) {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-    >
-      <StackNavigator />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer
+        linking={LinkingConfiguration}
+        theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      >
+        <StackNavigator />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }

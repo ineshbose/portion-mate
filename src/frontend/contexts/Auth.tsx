@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         setAuthToken(authData);
       } catch (e) {
         // handle error
+        throw e;
       }
     };
 
@@ -37,6 +38,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       setAuthToken(authData);
     } catch (e) {
       // handle error
+      throw e;
     }
   };
 
