@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getObject } from './store';
-import { AuthToken, PaginationData, TrackItem } from './types';
+import { AuthToken, PaginationData, TrackItem } from '../types/api';
 
 const list: TrackItem[] = [
   {

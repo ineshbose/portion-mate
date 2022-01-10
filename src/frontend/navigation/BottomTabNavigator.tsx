@@ -7,7 +7,11 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import HomePage from '../screens/HomePage';
 import StatsPage from '../screens/StatsPage';
-import { RootTabParamList, RouteActionIcon, TabConfig } from '../types';
+import {
+  RootTabParamList,
+  RouteActionIcon,
+  TabConfig,
+} from '../types/navigation';
 import { Text, View } from '../components/Themed';
 import { Header, Avatar } from 'react-native-elements';
 import JournalPage from '../screens/JournalPage';

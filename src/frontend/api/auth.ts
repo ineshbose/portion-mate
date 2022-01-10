@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { storeObject, getObject } from './store';
-import { AuthError, AuthToken } from './types';
+import { AuthError, AuthToken } from '../types/api';
 import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
 
 const TOKEN_URL = 'http://127.0.0.1:8000/api/auth/o/token/';
