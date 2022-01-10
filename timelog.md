@@ -277,3 +277,52 @@ No progress on project due to courseworks and exam.
 
 * *5 hours* Issue [#13](https://github.com/ineshbose/portion-mate/issues/13)
 * *1 hour* Issue [#37](https://github.com/ineshbose/portion-mate/issues/37)
+
+### 22 December 2021
+
+* *8 hours* Issue [#33](https://github.com/ineshbose/portion-mate/issues/33)
+* *2 hours* Planning & research
+
+### 23 December 2021
+
+* *5 hours* Issue [#34](https://github.com/ineshbose/portion-mate/issues/34)
+
+### 24 December 2021
+
+* *4 hours* Issue [#53](https://github.com/ineshbose/portion-mate/issues/53)
+* *3 hours* Issue [#54](https://github.com/ineshbose/portion-mate/issues/54)
+* *2 hours* Issue [#55](https://github.com/ineshbose/portion-mate/issues/55)
+
+## Week 14
+
+Time taken off to unwind and relax for Christmas and New Year.
+
+## Week 15
+
+### 03 January 2022
+
+* *3 hours* Issue [#59](https://github.com/ineshbose/portion-mate/issues/59)
+
+### 04 January 2022
+
+* *1.5 hours* Issue [#68](https://github.com/ineshbose/portion-mate/issues/68)
+* *2 hours* Issue [#70](https://github.com/ineshbose/portion-mate/issues/70)
+
+### 05 January 2022
+
+* *3 hours* Issue [#70](https://github.com/ineshbose/portion-mate/issues/70)
+
+### 06 January 2022
+
+* *8 hours* Issue [#67](https://github.com/ineshbose/portion-mate/issues/67)
+
+### 07 January 2022
+
+* *10 hours* Issue [#67](https://github.com/ineshbose/portion-mate/issues/67)
+
+## Week 16
+
+### 10 January 2022
+
+* *1 hour* Issue [#75](https://github.com/ineshbose/portion-mate/issues/75)
+* *1 hour* Issue [#77](https://github.com/ineshbose/portion-mate/issues/77)
