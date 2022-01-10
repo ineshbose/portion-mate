@@ -8,6 +8,7 @@ import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import {
   CompositeScreenProps,
   NavigatorScreenParams,
+  ParamListBase,
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ColorSchemeName } from 'react-native';
@@ -20,11 +21,23 @@ declare global {
 
 export type ColorScheme = NonNullable<ColorSchemeName>;
 
+export type MaterialIconsOptions = React.ComponentProps<
+  typeof MaterialIcons
+>['name'];
+
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootLinkParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
 };
+
+export type NavProps<
+  List extends ParamListBase,
+  Route extends string
+> = CompositeScreenProps<
+  NativeStackScreenProps<List, Route>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 export type RootLinkParamList = {
   BottomTab: NavigatorScreenParams<RootTabParamList> | undefined;
@@ -53,12 +66,10 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
   >;
 
 export type RootAuthScreenProps<Screen extends keyof RootAuthParamList> =
-  NativeStackScreenProps<RootAuthParamList, Screen>;
+  NavProps<RootAuthParamList, Screen>;
 
-export type RouteActionIcon = {
-  [route in keyof RootTabParamList]: React.ComponentProps<
-    typeof MaterialIcons
-  >['name'];
+export type RouteActionIcon<List> = {
+  [route in keyof List]: MaterialIconsOptions;
 };
 
 export type TabExtraArguments = {
@@ -66,49 +77,20 @@ export type TabExtraArguments = {
   colorScheme?: ColorScheme;
 };
 
-export type ComponentTabArguments = TabExtraArguments &
-  RootTabScreenProps<'Home'>;
+export type ComponentTabArguments<Screen extends keyof RootTabParamList> =
+  TabExtraArguments & RootTabScreenProps<Screen>;
 
-export type ComponentTab = (args: ComponentTabArguments) => JSX.Element;
+export type ComponentTab<Screen extends keyof RootTabParamList> = (
+  args: ComponentTabArguments<Screen>
+) => JSX.Element;
 
-export type TabConfig = {
-  name: keyof RootTabParamList;
-  component: ComponentTab;
-  icon: React.ComponentProps<typeof MaterialIcons>['name'];
-};
-
-export type ModelID = number | string;
-
-export type User = {
-  id: ModelID;
-  email: string;
-  first_name: string | null;
-  last_name: string | null;
-  picture: string | null;
-  age: number | null;
-  height: number | null;
-  weight: number | null;
-  items?: TrackItem[];
-};
-
-export type PortionItem = {
-  id: ModelID;
-  name: string;
-  is_default: boolean;
-};
-
-export type TrackItem = {
-  id: ModelID;
-  item?: PortionItem | ModelID;
-  user?: User | ModelID;
-  target: number;
-  order: number | undefined;
-  frequency: number;
-  logs?: UserLog[];
-};
-
-export type UserLog = {
-  id: ModelID;
-  item?: TrackItem | ModelID;
-  timestamp: string | Date;
-};
+export type TabConfig<
+  List extends RootTabParamList,
+  Name extends keyof List = keyof List
+> = Name extends keyof RootTabParamList // List
+  ? {
+      name: Name;
+      component: ComponentTab<Name>;
+      icon: MaterialIconsOptions;
+    }
+  : never;

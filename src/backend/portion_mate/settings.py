@@ -26,6 +26,9 @@ ADMINS = getaddresses(env("ADMINS", default=[]))
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=[])
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:19006",
+]
 
 # Application definition
 
@@ -41,11 +44,14 @@ INSTALLED_APPS = [
     "django_cleanup.apps.CleanupConfig",
     "django_extensions.apps.DjangoExtensionsConfig",
     "rest_framework.apps.RestFrameworkConfig",
+    "corsheaders.apps.CorsHeadersAppConfig",
+    "oauth2_provider.apps.DOTConfig",
 ]
 
 AUTH_USER_MODEL = "main.User"
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -74,7 +80,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "portion_mate.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -144,4 +149,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+    ),
+}
+
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    "SCOPES": {
+        "read": "Read scope",
+        "write": "Write scope",
+        "groups": "Access to your groups",
+    },
+    "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
 }

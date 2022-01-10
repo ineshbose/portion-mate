@@ -1,19 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
-import { Button, Card, Input } from 'react-native-elements';
+import { Button, Card, Input, Text } from 'react-native-elements';
+import { AuthError } from '../../api/types';
+import { useAuth } from '../../contexts/Auth';
 import { RootAuthScreenProps } from '../../types';
+import AuthForm from './AuthForm';
 import FormStyle from './FormStyle';
-import Logo from './Logo';
 
 export default function LoginForm({
   navigation,
 }: RootAuthScreenProps<'Login'>) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const { signIn } = useAuth();
+  const [email, setEmail] = React.useState<string>();
+  const [password, setPassword] = React.useState<string>();
+  const [error, setError] = React.useState<AuthError>();
 
   return (
-    <Card containerStyle={FormStyle.container}>
-      <Logo />
+    <AuthForm>
+      {error && (
+        <Card>
+          <Text>{error?.error_description}</Text>
+        </Card>
+      )}
       <Input
         placeholder="email"
         containerStyle={FormStyle.input}
@@ -25,12 +32,18 @@ export default function LoginForm({
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="log in" buttonStyle={FormStyle.submit} />
+      <Button
+        title="log in"
+        buttonStyle={FormStyle.submit}
+        onPress={() =>
+          signIn(email as string, password as string).catch(setError)
+        }
+      />
       <Button
         title="create account"
         onPress={() => navigation.navigate('Register')}
         buttonStyle={FormStyle.switch}
       />
-    </Card>
+    </AuthForm>
   );
 }

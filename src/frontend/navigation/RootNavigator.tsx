@@ -3,22 +3,30 @@ import * as React from 'react';
 import { RootLinkParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import AuthNavigator from './AuthNavigator';
+import { useAuth } from '../contexts/Auth';
 
 const Root = createNativeStackNavigator<RootLinkParamList>();
 
 export default function RootNavigator() {
-  return (
+  const { authToken, loading } = useAuth();
+
+  return loading ? (
+    <></>
+  ) : (
     <Root.Navigator>
-      <Root.Screen
-        name="BottomTab"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Root.Screen
-        name="Auth"
-        component={AuthNavigator}
-        options={{ headerShown: false }}
-      />
+      {authToken?.access_token ? (
+        <Root.Screen
+          name="BottomTab"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
+        />
+      ) : (
+        <Root.Screen
+          name="Auth"
+          component={AuthNavigator}
+          options={{ headerShown: false }}
+        />
+      )}
     </Root.Navigator>
   );
 }

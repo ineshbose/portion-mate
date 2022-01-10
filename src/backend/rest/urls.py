@@ -12,4 +12,5 @@ router.register(r"userlogs", views.UserLogViewSet)
 urlpatterns = [
     path("", include(router.urls)),
     path("auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("auth/o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
 ]

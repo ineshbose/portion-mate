@@ -1,18 +1,14 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { NativeScrollEvent, ScrollView, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { Text, View } from '../components/Themed';
-import {
-  TrackItem,
-  PortionItem,
-  UserLog,
-  ComponentTabArguments,
-  ColorScheme,
-} from '../types';
+import { ComponentTabArguments, ColorScheme } from '../types';
 import Colors from '../constants/Colors';
 import { IconButtonGroup } from '../components/IconButtonGroup';
+import { getTrackItems } from '../api';
+import { PortionItem, TrackItem, UserLog } from '../api/types';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -34,90 +30,41 @@ const getFrequencyDisplay = (frequency: number) => {
   );
 };
 
-const list: TrackItem[] = [
-  {
-    id: 1,
-    item: {
-      id: 1,
-      name: 'Carbohydrates',
-      is_default: true,
-    },
-    target: 6,
-    order: 1,
-    frequency: 1,
-    logs: [
-      {
-        id: 1,
-        timestamp: '2021-12-23T01:02:00Z',
-      },
-      {
-        id: 2,
-        timestamp: '2021-12-23T01:02:00Z',
-      },
-    ],
-  },
-  {
-    id: 2,
-    item: {
-      id: 2,
-      name: 'Fruits & Vegetables',
-      is_default: true,
-    },
-    target: 6,
-    order: 2,
-    frequency: 1,
-    logs: [
-      {
-        id: 3,
-        timestamp: '2021-12-23T01:02:00Z',
-      },
-    ],
-  },
-  {
-    id: 3,
-    item: {
-      id: 3,
-      name: 'Protein',
-      is_default: true,
-    },
-    target: 3,
-    order: 3,
-    frequency: 1,
-    logs: [],
-  },
-  {
-    id: 4,
-    item: {
-      id: 4,
-      name: 'Dairy',
-      is_default: true,
-    },
-    target: 3,
-    order: 4,
-    frequency: 1,
-    logs: [],
-  },
-  {
-    id: 5,
-    item: {
-      id: 5,
-      name: 'Oils & Fats',
-      is_default: true,
-    },
-    target: 1,
-    order: 5,
-    frequency: 1,
-    logs: [],
-  },
-];
+const isCloseToBottom = (props: NativeScrollEvent) => {
+  const paddingToBottom = 20;
+  const { layoutMeasurement, contentOffset, contentSize } = props;
+  return (
+    layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom
+  );
+};
 
 export default function HomePage({
   isAction,
   colorScheme,
-}: ComponentTabArguments) {
+}: ComponentTabArguments<'Home'>) {
+  const [trackItems, setTrackItems] = React.useState<TrackItem[]>([]);
+
+  const getItems = async () => {
+    const items = await getTrackItems();
+    setTrackItems(items);
+  };
+
+  React.useEffect(() => {
+    getItems();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      {list.map((item) => (
+    <ScrollView
+      style={styles.container}
+      onScroll={(props) => {
+        if (isCloseToBottom(props.nativeEvent)) {
+          // paginate
+        }
+      }}
+      scrollEventThrottle={400}
+    >
+      {trackItems.map((item) => (
         <ListItem
           key={item.id}
           bottomDivider
@@ -186,7 +133,7 @@ export default function HomePage({
           </ListItem.Content>
         </ListItem>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 

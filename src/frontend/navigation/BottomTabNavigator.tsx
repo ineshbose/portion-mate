@@ -13,17 +13,18 @@ import { Header, Avatar } from 'react-native-elements';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { IconButtonGroup } from '../components/IconButtonGroup';
+import { useAuth } from '../contexts/Auth';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-const headerButtonIcons: RouteActionIcon = {
+const headerButtonIcons: RouteActionIcon<RootTabParamList> = {
   Home: 'edit',
   Journal: 'calendar-today',
   Stats: 'calendar-today',
   Resources: 'star',
 };
 
-const tabs: TabConfig[] = [
+const tabs: TabConfig<RootTabParamList>[] = [
   {
     name: 'Home',
     component: HomePage,
@@ -48,6 +49,7 @@ const tabs: TabConfig[] = [
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
+  const { signOut } = useAuth();
   const [action, setAction] = React.useState('');
 
   return (
@@ -86,17 +88,18 @@ export default function BottomTabNavigator() {
                       }
                       color={Colors[colorScheme].tint}
                       size={30}
+                      onPress={() =>
+                        setAction(action === route.name ? '' : route.name)
+                      }
                     />,
                     <Avatar
                       key="profile"
                       rounded
                       title={'IB'}
                       source={{ uri: 'https://picsum.photos/200' }}
+                      onPress={signOut}
                     />,
                   ]}
-                  onPress={() =>
-                    setAction(action === route.name ? '' : route.name)
-                  }
                 />
               }
             />
