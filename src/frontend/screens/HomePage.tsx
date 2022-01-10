@@ -8,7 +8,7 @@ import { ComponentTabArguments, ColorScheme } from '../types';
 import Colors from '../constants/Colors';
 import { IconButtonGroup } from '../components/IconButtonGroup';
 import { getTrackItems } from '../api';
-import { PortionItem, TrackItem, UserLog } from '../api/types';
+import { PortionItem, TrackItem, UserLog } from '../types/api';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',

@@ -3,7 +3,6 @@
  * https://reactnavigation.org/docs/typescript/
  */
 
-import { MaterialIcons } from '@expo/vector-icons';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import {
   CompositeScreenProps,
@@ -11,19 +10,13 @@ import {
   ParamListBase,
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ColorSchemeName } from 'react-native';
+import { ColorScheme, MaterialIconsOptions } from '../types';
 
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
   }
 }
-
-export type ColorScheme = NonNullable<ColorSchemeName>;
-
-export type MaterialIconsOptions = React.ComponentProps<
-  typeof MaterialIcons
->['name'];
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootLinkParamList> | undefined;

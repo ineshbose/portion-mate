@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getToken } from '../api/auth';
 import { getObject, removeItem } from '../api/store';
-import { AuthToken } from '../api/types';
+import { AuthToken } from '../types/api';
 
 type AuthContextType = {
   authToken?: AuthToken;

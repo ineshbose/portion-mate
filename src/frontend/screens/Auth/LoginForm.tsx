@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Card, Input, Text } from 'react-native-elements';
-import { AuthError } from '../../api/types';
+import { AuthError } from '../../types/api';
 import { useAuth } from '../../contexts/Auth';
 import { RootAuthScreenProps } from '../../types';
 import AuthForm from './AuthForm';
