@@ -11,7 +11,7 @@ env = Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Take environment variables from .env file
-Env.read_env(BASE_DIR / ".env")
+Env.read_env(BASE_DIR / "../.env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -24,7 +24,7 @@ DEBUG = env("DEBUG", default=False)
 
 ADMINS = getaddresses(env("ADMINS", default=[]))
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=[])
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=["http://127.0.0.1"])
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:19006",
@@ -61,7 +61,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "portion_mate.urls"
+ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
@@ -79,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "portion_mate.wsgi.application"
+WSGI_APPLICATION = "server.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
