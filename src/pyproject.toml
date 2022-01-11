@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "portion-mate-src"
+version = "1.0.0"
+description = ""
+authors = []
+packages = [
+    { include = "server" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2"
+django-cleanup = "^5.2.0"
+django-environ = "^0.8.1"
+django-extensions = "^3.1.5"
+djangorestframework = "^3.13.1"
+Pillow = "^8.4.0"
+django-oauth-toolkit = "^1.6.1"
+django-cors-headers = "^3.10.1"
+
+[tool.poetry.dev-dependencies]
+black = "^21.10b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

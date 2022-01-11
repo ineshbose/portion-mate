@@ -15,3 +15,7 @@ tmp
 # IDEs
 .vscode
 .idea
+
+# Dependencies
+env
+node_modules
