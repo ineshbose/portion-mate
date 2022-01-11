@@ -1,0 +1,15 @@
+{
+  "name": "portion-mate",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "workspaces": ["src"],
+  "scripts": {
+    "start": "expo start src",
+    "android": "expo start src --android",
+    "ios": "expo start src --ios",
+    "web": "expo start src --web",
+    "eject": "expo eject src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

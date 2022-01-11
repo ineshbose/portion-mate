@@ -6,7 +6,6 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    sys.path.append("server")
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
     try:
         from django.core.management import execute_from_command_line
@@ -22,4 +21,5 @@ def main():
 
 
 if __name__ == "__main__":
+    sys.path.append("server")
     main()

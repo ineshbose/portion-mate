@@ -34,16 +34,16 @@ $ cd portion-mate/src   # treat src as root
 
 * **`poetry` / `pip`**: The backend uses Django, and therefore dependencies can be installed using either [`pip`](https://packaging.python.org/tutorials/installing-packages/) or [`poetry`]() (preferred).
 ```sh
-$ python3 -m venv backend/env               # optional
-$ source ./backend/env/scripts/activate     # activate environment
+$ python3 -m venv env               # optional
+$ source ./env/scripts/activate     # activate environment
 $ poetry install
-$ pip install -r ./backend/requirements.txt # if you don't use poetry
+$ pip install -r requirements.txt # if you don't use poetry
 ```
 
 * **`yarn` / `npm`**: The frontend uses React Native, and therefore dependencies can be handled using either [`npm`](https://www.npmjs.com/) or [`yarn`](https://yarnpkg.com/) (preferred).
 ```sh
-$ yarn install --cwd frontend
-$ npm install --prefix /frontend    # if you don't use yarn
+$ yarn install
+$ npm install    # if you don't use yarn
 ```
 
 ### Running
@@ -52,11 +52,11 @@ This will require you to run backend and frontend separately using two terminals
 
 * Backend
 ```sh
-$ python ./backend/manage.py runserver
+$ python manage.py
 ```
 
 * Frontend
 ```sh
-$ yarn start --cwd frontend
-$ npm start --prefix /frontend      # if you don't use yarn
+$ yarn start
+$ npm start      # if you don't use yarn
 ```

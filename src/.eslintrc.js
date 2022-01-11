@@ -21,7 +21,7 @@ module.exports = {
     'prettier',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['backend'],
+  ignorePatterns: ['backend', 'env'],
   rules: {
     'import/namespace': 'off',
     'no-use-before-define': 'off',
