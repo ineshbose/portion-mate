@@ -3,12 +3,18 @@ name: ESLint/Prettier/Airbnb style check
 on:
   push:
     paths:
-      - "src/frontend/**"
+      - "**/*.js"
+      - "**/*.ts"
+      - "**/*.jsx"
+      - "**/*.tsx"
     branches:
       - develop
   pull_request:
     paths:
-      - "src/frontend/**"
+      - "**/*.js"
+      - "**/*.ts"
+      - "**/*.jsx"
+      - "**/*.tsx"
     branches:
       - develop
 
@@ -19,6 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
-        run: cd src/frontend && yarn
+        run: cd src && yarn
       - name: Run ESLint
         run: npx eslint .
