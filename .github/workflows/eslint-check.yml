@@ -25,6 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
-        run: cd src && yarn
+        run: yarn
       - name: Run ESLint
-        run: npx eslint .
+        run: npx eslint src

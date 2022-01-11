@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "portion-mate"
-version = "0.1.0"
+name = "portion-mate-src"
+version = "1.0.0"
 description = ""
 authors = []
+packages = [
+    { include = "server" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"

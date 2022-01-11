@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "portion-mate"
+version = "1.0.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.8"
+portion-mate-src = { path = "./src", develop = true }
+
+[tool.poetry.dev-dependencies]
+black = "^21.10b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
