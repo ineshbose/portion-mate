@@ -11,6 +11,12 @@ jobs:
     if: startsWith(github.event.comment.body, '/cib') || startsWith(github.event.comment.body, '/create-issue-branch')
     runs-on: ubuntu-latest
     steps:
+      - name: View context && event attributes
+        uses: actions/github-script@v5
+        with:
+          script: |
+            console.log(context)
+            console.log(github.event)
       - name: Close issue
         uses: actions/github-script@v5
         with:
