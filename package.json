@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "private": true,
-  "workspaces": ["src"],
+  "workspaces": [
+    "src"
+  ],
   "scripts": {
     "start": "expo start src",
     "android": "expo start src --android",
@@ -11,5 +13,20 @@
     "web": "expo start src --web",
     "eject": "expo eject src",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "lint-staged": "^12.1.7",
+    "yorkie": "^2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint src --fix"
+    ],
+    "src/**/*.py": [
+      "black ."
+    ]
   }
 }
