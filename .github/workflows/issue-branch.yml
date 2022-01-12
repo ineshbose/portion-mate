@@ -11,12 +11,6 @@ jobs:
     if: startsWith(github.event.comment.body, '/cib') || startsWith(github.event.comment.body, '/create-issue-branch')
     runs-on: ubuntu-latest
     steps:
-      - name: View context && event attributes
-        uses: actions/github-script@v5
-        with:
-          script: |
-            console.log(context)
-            console.log(github.event)
       - name: Close issue
         uses: actions/github-script@v5
         with:
@@ -36,6 +30,7 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
               state: 'open',
+              assignees: [context.payload.comment.user.login],
             })
   create-issue-branch:
     if: startsWith(github.event.comment.body, '/cib') || startsWith(github.event.comment.body, '/create-issue-branch')
@@ -74,10 +69,10 @@ jobs:
               pull_number: context.payload.pull_request.number,
               body: `
               ${context.payload.pull_request.body || ''}\n\n${(context.payload.pull_request.body||'').includes(`#${ISSUE_NUMBER}`) ? '' : `Closes #${ISSUE_NUMBER}\n`}
-              <a href="#">
+              <!--<a href="#">
                 <img alt="GitHub pull request check contexts" src="https://img.shields.io/github/status/contexts/pulls/${GITHUB_REPOSITORY}/${context.payload.pull_request.number}??label=PR%20check&style=flat-square">
                 <img alt="GitHub branch checks state" src="https://img.shields.io/github/checks-status/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?label=branch%20check&style=flat-square">
-              </a>
+              </a>-->
               <a href="https://github.com/${GITHUB_REPOSITORY}/commits/${context.payload.pull_request.head.ref}" target="_blank">
                 <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?style=flat-square">
                 <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?style=flat-square">
@@ -93,6 +88,20 @@ jobs:
               </a>
               `
             });
+            if ((context.payload.pull_request.additions + context.payload.pull_request.deletions) >= 100) {
+              github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number,
+                reviewers: [context.repo.owner],
+              });
+              github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: `Pull request is too large and therefore requires review of the repository owner (@${context.repo.owner}).`,
+              });
+            }
       - name: Find and update
         uses: ineshbose/project-card-action@v1
         if: ${{ steps.get-issue-number.outputs.result }}

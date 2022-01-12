@@ -330,3 +330,8 @@ Time taken off to unwind and relax for Christmas and New Year.
 ### 11 January 2022
 
 * *4 hours* Issue [#71](https://github.com/ineshbose/portion-mate/issues/71)
+* *2 hours* Issue [#52](https://github.com/ineshbose/portion-mate/issues/52)
+
+### 12 January 2022
+
+* *0.5 hours* Issue [#52](https://github.com/ineshbose/portion-mate/issues/52)
