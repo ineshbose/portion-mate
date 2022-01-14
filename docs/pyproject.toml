@@ -1,16 +1,19 @@
 [tool.poetry]
-name = "portion-mate"
+name = "portion-mate-docs"
 version = "1.0.0"
 description = ""
 authors = []
+packages = [
+    { include = "meetings/**/*.ts" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-portion-mate-src = { path = "./src", develop = true }
-portion-mate-docs = { path = "./docs", develop = true }
+mkdocs = "^1.2.3"
+mkdocs-material = "^7.3.4"
+mkdocs-material-extensions = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
-black = "^21.10b0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

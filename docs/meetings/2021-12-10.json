@@ -1,0 +1,18 @@
+{
+  "datetime": "10-12-2021 11:30",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Status Report",
+      "description": [
+        "Gather expectation",
+        "Format"
+      ]
+    }
+  ],
+  "discussion": [],
+  "actions": [],
+  "notes": ""
+}

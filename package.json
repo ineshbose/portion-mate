@@ -4,7 +4,8 @@
   "main": "src/index.js",
   "private": true,
   "workspaces": [
-    "src"
+    "src",
+    "docs"
   ],
   "scripts": {
     "start": "expo start src",
@@ -27,6 +28,9 @@
     ],
     "src/**/*.py": [
       "black ."
+    ],
+    "docs/**/*.{js,jsx,ts,tsx}": [
+      "eslint docs --fix"
     ]
   }
 }

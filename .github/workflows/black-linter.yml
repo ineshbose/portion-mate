@@ -3,12 +3,12 @@ name: Black style check
 on:
   push:
     paths:
-      - "**.py"
+      - "src/**/*.py"
     branches:
       - develop
   pull_request:
     paths:
-      - "**.py"
+      - "src/**/*.py"
     branches:
       - develop
 
