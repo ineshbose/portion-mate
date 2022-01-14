@@ -1,0 +1,31 @@
+{
+  "datetime": "12-11-2021 11:30",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Updated wireframes",
+      "description": [
+        "Redesigned based on feedback",
+        "Better flow and more options"
+      ]
+    },
+    {
+      "item": "Repository update",
+      "description": [
+        "More workflows/pipelines",
+        "Backend code making good progress"
+      ]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Wireframe feedback",
+      "who": "oanaandrei",
+      "notes": "The wireframes are much more improved now - the checkboxes with `+` and `-` were very handy to log additional or remove some for the day as well even though the edit option is provided. Along with that, a Journal entry integrating with the logs is very appreciated. The level of detail in the models were impressive and notes should not be forgotten while compiling dissertation."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}

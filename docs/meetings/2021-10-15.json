@@ -1,0 +1,35 @@
+{
+  "datetime": "15-10-2021 11:30",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Repository setup",
+      "description": [
+        "Using the provided template",
+        "Centralised files",
+        "Includes meeting notes, dissertation, source"
+      ]
+    },
+    {
+      "item": "Share more research",
+      "description": ["Scoped requirements", "Designed models/entities"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Requirements",
+      "who": "ineshbose",
+      "notes": "The requirements were formalised, however more will come up over the course as the app is being developed. Along with that, an ER diagram was designed to understand how logging will work through a linear three model system. This will be the structure in the backend (and) database through Django."
+    }
+  ],
+  "actions": [
+    {
+      "item": "Confirm Access to Repository",
+      "who": "oanaandrei",
+      "done": true
+    }
+  ],
+  "notes": ""
+}

@@ -3,18 +3,12 @@ name: ESLint/Prettier/Airbnb style check
 on:
   push:
     paths:
-      - "**/*.js"
-      - "**/*.ts"
-      - "**/*.jsx"
-      - "**/*.tsx"
+      - "src/**/*.[jt]sx?"
     branches:
       - develop
   pull_request:
     paths:
-      - "**/*.js"
-      - "**/*.ts"
-      - "**/*.jsx"
-      - "**/*.tsx"
+      - "src/**/*.[jt]sx?"
     branches:
       - develop
 

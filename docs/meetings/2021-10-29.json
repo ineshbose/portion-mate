@@ -1,0 +1,32 @@
+{
+  "datetime": "29-10-2021 11:30",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Documentation system",
+      "description": [
+        "On the Wiki",
+        "On the main repository",
+        "ReadTheDocs - also allows public distribution of assets"
+      ]
+    },
+    {
+      "item": "Research",
+      "description": [
+        "Wireframes designed",
+        "Issues/ideas started to be created on the repository"
+      ]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Wireframes",
+      "who": "ineshbose",
+      "notes": "Dr. Andrei disagrees about dark mode being the better design - choice is essential! The \"daily\" wording and text seemed to be too repetitive and redundant, and while the `+` and `-` buttons are easy, it does not offer the satisfaction of a tick in a checkbox - that should be incorporated in the wireframes."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}

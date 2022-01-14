@@ -17,5 +17,12 @@ tmp
 .idea
 
 # Dependencies
-env
-node_modules
+/node_modules
+/__pycache__
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
