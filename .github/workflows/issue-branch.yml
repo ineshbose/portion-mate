@@ -89,12 +89,14 @@ jobs:
               `
             });
             if ((context.payload.pull_request.additions + context.payload.pull_request.deletions) >= 100) {
-              github.rest.pulls.requestReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: context.payload.pull_request.number,
-                reviewers: [context.repo.owner],
-              });
+              if (context.repo.owner !== context.payload.pull_request.user.login) {
+                github.rest.pulls.requestReviewers({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.payload.pull_request.number,
+                  reviewers: [context.repo.owner],
+                });
+              }
               github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,

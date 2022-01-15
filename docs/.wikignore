@@ -1,0 +1,10 @@
+index.md
+.gitignore
+README.md
+**/*.t.md
+**/*.ts
+**/*.json
+*.json
+*.toml
+*.txt
+node_modules

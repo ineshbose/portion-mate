@@ -1,8 +1,7 @@
----
-datetime: ${datetime}
-purpose: ${purpose}
-location: ${location}
----
+
+| Date/Time   | Purpose    | Location    |
+| ----------- | ---------- | ----------- |
+| ${datetime} | ${purpose} | ${location} |
 
 
 ## Attendees

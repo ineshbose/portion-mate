@@ -15,16 +15,14 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Install dependencies and run script
-        working-directory: ./docs
         run: |
           yarn
-          npx ts-node meetings/generate.ts meetings/ meetings/meetings.t.md
+          npx ts-node docs/meetings/generate.ts docs/meetings/ docs/meetings/meetings.t.md
       - name: Copy file
         run: cp docs/index.md docs/Home.md
       - uses: ineshbose/wiki-action@v1
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WIKI_DIR: "docs"
-          WIKI_IGNORE: "requirements.txt index.md .gitignore README.md *.t.md *.ts *.js"
           AUTO_SIDEBAR: true
           SIDEBAR_IGNORE: "archive assets env Home.md"
