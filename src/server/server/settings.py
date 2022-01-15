@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main.apps.MainConfig",
     "rest.apps.RestConfig",
+    "graph.apps.GraphConfig",
     "django_cleanup.apps.CleanupConfig",
     "django_extensions.apps.DjangoExtensionsConfig",
     "rest_framework.apps.RestFrameworkConfig",
     "corsheaders.apps.CorsHeadersAppConfig",
     "oauth2_provider.apps.DOTConfig",
+    "graphene_django",
 ]
 
 AUTH_USER_MODEL = "main.User"
@@ -151,6 +153,7 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+        "rest_framework.authentication.SessionAuthentication",
     ),
 }
 
@@ -162,4 +165,11 @@ OAUTH2_PROVIDER = {
         "groups": "Access to your groups",
     },
     "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
+}
+
+
+# Graphene
+
+GRAPHENE = {
+    "SCHEMA": "graph.schema.schema",
 }
