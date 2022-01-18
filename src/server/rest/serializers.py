@@ -1,5 +1,8 @@
 from datetime import timedelta
+from distutils.log import error
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from main import models
 
@@ -56,7 +59,24 @@ class UserSerializer(DynamicFieldsModelSerializer):
             "height",
             "weight",
             "items",
+            "password",
         ]
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        password = validated_data.pop("password")
+        instance = super().create(validated_data)
+
+        try:
+            validate_password(password)
+        except ValidationError as errors:
+            instance.delete()
+            raise serializers.ValidationError({"password": list(errors)})
+
+        instance.set_password(password)
+        instance.save()
+
+        return instance
 
 
 class PortionItemSerializer(DynamicFieldsModelSerializer):

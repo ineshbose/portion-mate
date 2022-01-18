@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { Button, Input } from 'react-native-elements';
-import { RootAuthScreenProps } from '../../types';
+import { RootAuthScreenProps } from '../../types/navigation';
+import { useAuth } from '../../contexts/Auth';
 import AuthForm from './AuthForm';
 import FormStyle from './FormStyle';
 
 export default function RegisterForm({
   navigation,
 }: RootAuthScreenProps<'Register'>) {
-  const [email, setEmail] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const { signUp } = useAuth();
+  const [email, setEmail] = React.useState<string>('');
+  const [forename, setForename] = React.useState<string>('');
+  const [surname, setSurname] = React.useState<string>('');
+  const [password, setPassword] = React.useState<string>('');
+  const [confirmPassword, setConfirmPassword] = React.useState<string>('');
+  const [error, setError] = React.useState<any>();
 
   return (
     <AuthForm>
@@ -18,16 +22,23 @@ export default function RegisterForm({
         placeholder="email"
         containerStyle={FormStyle.input}
         onChangeText={setEmail}
+        errorMessage={error?.email}
       />
       <Input
-        placeholder="full name"
+        placeholder="forename"
         containerStyle={FormStyle.input}
-        onChangeText={setName}
+        onChangeText={setForename}
+      />
+      <Input
+        placeholder="surname"
+        containerStyle={FormStyle.input}
+        onChangeText={setSurname}
       />
       <Input
         placeholder="password"
         containerStyle={FormStyle.input}
         onChangeText={setPassword}
+        errorMessage={error?.password}
         secureTextEntry
       />
       <Input
@@ -36,7 +47,7 @@ export default function RegisterForm({
         onChangeText={setConfirmPassword}
         errorMessage={
           confirmPassword && confirmPassword !== password
-            ? 'does not match with your password'
+            ? 'Does not match with your password.'
             : ''
         }
         secureTextEntry
@@ -44,7 +55,11 @@ export default function RegisterForm({
       <Button
         title="register"
         buttonStyle={FormStyle.submit}
-        onPress={() => console.log(email, name)}
+        onPress={() =>
+          password && confirmPassword === password
+            ? signUp(email, password, forename, surname).catch(setError)
+            : {}
+        }
       />
       <Button
         title="log into existing account"
