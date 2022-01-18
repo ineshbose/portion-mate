@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { getObject } from './store';
 import { AuthToken, PaginationData, TrackItem } from '../types/api';
+import { API_BASE } from 'react-native-dotenv';
+
+export const axiosInstance = axios.create({
+  baseURL: API_BASE,
+});
+
+console.log(API_BASE);
+console.log(axiosInstance);
 
 const list: TrackItem[] = [
   {
@@ -81,8 +89,8 @@ const list: TrackItem[] = [
 
 export const getTrackItems = async () => {
   try {
-    const response = await axios.get<PaginationData<TrackItem>>(
-      'http://127.0.0.1:8000/api/trackitem/',
+    const response = await axiosInstance.get<PaginationData<TrackItem>>(
+      '/trackitem/',
       {
         headers: {
           Authorization: `Bearer ${
