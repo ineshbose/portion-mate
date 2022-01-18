@@ -2,12 +2,11 @@ import axios from 'axios';
 import { storeObject, getObject, removeItem } from './store';
 import { AuthError, AuthToken, FormError, User } from '../types/api';
 import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
-
-const TOKEN_URL = 'http://127.0.0.1:8000/api/auth/o';
+import { axiosInstance } from '.';
 
 export const getToken = async (username: string, password: string) => {
   try {
-    const response = await axios.post<AuthToken>(`${TOKEN_URL}/token/`, {
+    const response = await axiosInstance.post<AuthToken>('/auth/o/token/', {
       username,
       password,
       grant_type: 'password',
@@ -17,6 +16,7 @@ export const getToken = async (username: string, password: string) => {
     await storeObject('auth_token', response.data);
     return response.data;
   } catch (e) {
+    console.log(e);
     throw axios.isAxiosError(e) ? (e.response?.data as AuthError) : e;
   }
 };
@@ -24,7 +24,7 @@ export const getToken = async (username: string, password: string) => {
 export const refreshToken = async () => {
   try {
     const authToken = (await getObject('auth_token')) as AuthToken;
-    const response = await axios.post<AuthToken>(`${TOKEN_URL}/token/`, {
+    const response = await axiosInstance.post<AuthToken>('/auth/o/token/', {
       refresh_token: authToken.refresh_token,
       grant_type: 'refresh_token',
       client_id: CLIENT_ID,
@@ -40,7 +40,7 @@ export const refreshToken = async () => {
 export const revokeToken = async () => {
   try {
     const authToken = (await getObject('auth_token')) as AuthToken;
-    await axios.post<AuthToken>(`${TOKEN_URL}/revoke_token/`, {
+    await axiosInstance.post<AuthToken>('/auth/o/revoke_token/', {
       token: authToken.access_token,
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
