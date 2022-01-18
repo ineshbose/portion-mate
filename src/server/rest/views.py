@@ -3,7 +3,7 @@ from rest_framework import permissions as drf_permissions
 
 from rest import serializers
 from rest import permissions
-from main import models
+from mate import models
 from auth.models import User
 
 

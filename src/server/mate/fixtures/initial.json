@@ -1,0 +1,42 @@
+[
+  {
+    "model": "mate.portionitem",
+    "pk": 1,
+    "fields": {
+      "name": "Carbohydrates",
+      "is_default": true
+    }
+  },
+  {
+    "model": "mate.portionitem",
+    "pk": 2,
+    "fields": {
+      "name": "Fruits & Vegetables",
+      "is_default": true
+    }
+  },
+  {
+    "model": "mate.portionitem",
+    "pk": 3,
+    "fields": {
+      "name": "Protein",
+      "is_default": true
+    }
+  },
+  {
+    "model": "mate.portionitem",
+    "pk": 4,
+    "fields": {
+      "name": "Dairy",
+      "is_default": true
+    }
+  },
+  {
+    "model": "mate.portionitem",
+    "pk": 5,
+    "fields": {
+      "name": "Oils & Fats",
+      "is_default": true
+    }
+  }
+]

@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from main import models
+from mate import models
 
 
 class PortionItemType(DjangoObjectType):

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "auth.apps.AuthConfig",
-    "main.apps.MainConfig",
+    "mate.apps.MateConfig",
     "rest.apps.RestConfig",
     "graph.apps.GraphConfig",
     "django_cleanup.apps.CleanupConfig",
