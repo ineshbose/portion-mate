@@ -11,6 +11,10 @@ export type AuthError = {
   error_description: string;
 };
 
+export type FormError = {
+  [field: string]: string | string[];
+};
+
 export type PaginationData<T> = {
   count: number;
   next: string | null;

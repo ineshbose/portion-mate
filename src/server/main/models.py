@@ -129,7 +129,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     picture = models.ImageField(
         _("profile picture"),
         upload_to=PathAndRename("profile_images/"),
-        blank=True,
+        **NULL_BLANK,
     )
     age = models.IntegerField(_("age"), **NULL_BLANK)
     height = models.FloatField(_("height"), **NULL_BLANK)

@@ -90,6 +90,7 @@ class Migration(migrations.Migration):
                     "picture",
                     models.ImageField(
                         blank=True,
+                        null=True,
                         upload_to=main.models.PathAndRename("profile_images/"),
                         verbose_name="profile picture",
                     ),

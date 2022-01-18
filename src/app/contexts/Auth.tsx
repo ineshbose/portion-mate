@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { getToken } from '../api/auth';
-import { getObject, removeItem } from '../api/store';
+import { createUser, getToken, revokeToken } from '../api/auth';
+import { getObject } from '../api/store';
 import { AuthToken } from '../types/api';
 
 type AuthContextType = {
   authToken?: AuthToken;
   loading: boolean;
   signIn: (u: string, p: string) => Promise<void>;
+  signUp: (u: string, p: string, f?: string, s?: string) => Promise<void>;
   signOut: () => void;
 };
 
@@ -42,13 +43,30 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
   };
 
+  const signUp = async (
+    email: string,
+    password: string,
+    forename?: string,
+    surname?: string
+  ) => {
+    try {
+      await createUser(email, password, forename, surname);
+      await signIn(email, password);
+    } catch (e) {
+      // handle error
+      throw e;
+    }
+  };
+
   const signOut = async () => {
+    await revokeToken();
     setAuthToken(undefined);
-    removeItem('auth_token');
   };
 
   return (
-    <AuthContext.Provider value={{ authToken, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ authToken, loading, signIn, signUp, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
