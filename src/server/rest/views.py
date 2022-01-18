@@ -4,6 +4,7 @@ from rest_framework import permissions as drf_permissions
 from rest import serializers
 from rest import permissions
 from main import models
+from auth.models import User
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -11,7 +12,7 @@ class UserViewSet(viewsets.ModelViewSet):
     API endpoint that allows users to be viewed or edited.
     """
 
-    queryset = models.User.objects.all().order_by("-date_joined")
+    queryset = User.objects.all().order_by("-date_joined")
     serializer_class = serializers.UserSerializer
 
     def get_permissions(self):

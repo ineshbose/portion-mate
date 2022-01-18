@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.utils.translation import gettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+
 from . import models
+from auth.models import User
 
 
 class TrackItemInline(admin.TabularInline):
@@ -12,7 +14,7 @@ class LogItemInline(admin.TabularInline):
     model = models.UserLog
 
 
-@admin.register(models.User)
+@admin.register(User)
 class MainUserAdmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),

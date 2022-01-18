@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "auth.apps.AuthConfig",
     "main.apps.MainConfig",
     "rest.apps.RestConfig",
     "graph.apps.GraphConfig",
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     "graphene_django",
 ]
 
-AUTH_USER_MODEL = "main.User"
+AUTH_USER_MODEL = "auth.User"
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
