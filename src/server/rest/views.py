@@ -1,4 +1,7 @@
-from rest_framework import viewsets
+from rest_framework import status
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions as drf_permissions
 
 from rest import serializers
@@ -6,7 +9,7 @@ from rest import permissions
 from main import models
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
@@ -21,10 +24,14 @@ class UserViewSet(viewsets.ModelViewSet):
         elif self.action in ["retrieve"]:
             self.permission_classes = [permissions.IsAdminOrIsSelf]
 
-        return super(self.__class__, self).get_permissions()
+        return super(UserViewSet, self).get_permissions()
+
+    @action(methods=["GET", "POST"], detail=True)
+    def items(self, request, pk=None, *args, **kwargs):
+        return Response(status=status.HTTP_200_OK)
 
 
-class PortionItemViewSet(viewsets.ModelViewSet):
+class PortionItemViewSet(ModelViewSet):
     """
     API endpoint that allows portion items to be viewed or edited.
     """
@@ -45,7 +52,7 @@ class PortionItemViewSet(viewsets.ModelViewSet):
         )
 
 
-class TrackItemViewSet(viewsets.ModelViewSet):
+class TrackItemViewSet(ModelViewSet):
     """
     API endpoint that allows track items to be viewed or edited.
     """
@@ -62,7 +69,7 @@ class TrackItemViewSet(viewsets.ModelViewSet):
         )
 
 
-class UserLogViewSet(viewsets.ModelViewSet):
+class UserLogViewSet(ModelViewSet):
     """
     API endpoint that allows user portion logs to be viewed or edited.
     """

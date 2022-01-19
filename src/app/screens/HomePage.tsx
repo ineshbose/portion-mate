@@ -4,11 +4,12 @@ import { ListItem } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 
 import { Text, View } from '../components/Themed';
-import { ComponentTabArguments, ColorScheme } from '../types';
+import { ColorScheme } from '../types';
+import { ComponentTabArguments } from '../types/navigation';
 import Colors from '../constants/Colors';
 import { IconButtonGroup } from '../components/IconButtonGroup';
 import { getTrackItems } from '../api';
-import { PortionItem, TrackItem, UserLog } from '../types/api';
+import { PortionItem, TrackItems, UserLogs } from '../types/api';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -43,11 +44,11 @@ export default function HomePage({
   isAction,
   colorScheme,
 }: ComponentTabArguments<'Home'>) {
-  const [trackItems, setTrackItems] = React.useState<TrackItem[]>([]);
+  const [trackItems, setTrackItems] = React.useState<TrackItems>([]);
 
   const getItems = async () => {
     const items = await getTrackItems();
-    setTrackItems(items);
+    setTrackItems(items as TrackItems);
   };
 
   React.useEffect(() => {
@@ -101,7 +102,7 @@ export default function HomePage({
                   <ListItem.CheckBox
                     checkedIcon="times"
                     key={i}
-                    checked={i < (item.logs as UserLog[]).length}
+                    checked={i < (item.logs as UserLogs).length}
                   />
                 ))
               )}
@@ -127,6 +128,14 @@ export default function HomePage({
                     <MaterialIcons key="remove" name="remove" />,
                     <MaterialIcons key="add" name="add" />,
                   ]}
+                  onPress={(value) => {
+                    switch (value) {
+                      case 0:
+                        return 'remove';
+                      case 1:
+                        return 'ok';
+                    }
+                  }}
                 />
               </View>
             )}

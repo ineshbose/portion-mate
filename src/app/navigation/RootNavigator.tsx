@@ -8,11 +8,9 @@ import { useAuth } from '../contexts/Auth';
 const Root = createNativeStackNavigator<RootLinkParamList>();
 
 export default function RootNavigator() {
-  const { authToken, loading } = useAuth();
+  const { authToken } = useAuth();
 
-  return loading ? (
-    <></>
-  ) : (
+  return (
     <Root.Navigator>
       {authToken?.access_token ? (
         <Root.Screen

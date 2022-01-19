@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const signOut = async () => {
-    await revokeToken();
+    await revokeToken(authToken);
     setAuthToken(undefined);
   };
 

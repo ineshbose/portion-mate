@@ -9,7 +9,7 @@ import FormStyle from './FormStyle';
 export default function LoginForm({
   navigation,
 }: RootAuthScreenProps<'Login'>) {
-  const { signIn } = useAuth();
+  const { loading, signIn } = useAuth();
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const [error, setError] = React.useState<AuthError>();
@@ -34,6 +34,7 @@ export default function LoginForm({
       />
       <Button
         title="log in"
+        loading={loading}
         buttonStyle={FormStyle.submit}
         onPress={() => signIn(email, password).catch(setError)}
       />

@@ -8,7 +8,7 @@ import FormStyle from './FormStyle';
 export default function RegisterForm({
   navigation,
 }: RootAuthScreenProps<'Register'>) {
-  const { signUp } = useAuth();
+  const { loading, signUp } = useAuth();
   const [email, setEmail] = React.useState<string>('');
   const [forename, setForename] = React.useState<string>('');
   const [surname, setSurname] = React.useState<string>('');
@@ -54,6 +54,7 @@ export default function RegisterForm({
       />
       <Button
         title="register"
+        loading={loading}
         buttonStyle={FormStyle.submit}
         onPress={() =>
           password && confirmPassword === password
