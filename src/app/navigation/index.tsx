@@ -10,24 +10,26 @@ import {
 } from '@react-navigation/native';
 import * as React from 'react';
 import { ColorSchemeName } from 'react-native';
-import { AuthProvider } from '../contexts/Auth';
+import { ContextProvider } from '../contexts/AppContext';
 
 import LinkingConfiguration from './LinkingConfiguration';
 import StackNavigator from './StackNavigator';
 
-export default function Navigation({
-  colorScheme,
-}: {
+type NavProps = {
   colorScheme: ColorSchemeName;
-}) {
+};
+
+export default function Navigation(props: NavProps) {
+  const { colorScheme } = props;
+
   return (
-    <AuthProvider>
+    <ContextProvider>
       <NavigationContainer
         linking={LinkingConfiguration}
         theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
       >
         <StackNavigator />
       </NavigationContainer>
-    </AuthProvider>
+    </ContextProvider>
   );
 }

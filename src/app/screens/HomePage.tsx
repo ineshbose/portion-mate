@@ -40,10 +40,8 @@ const isCloseToBottom = (props: NativeScrollEvent) => {
   );
 };
 
-export default function HomePage({
-  isAction,
-  colorScheme,
-}: ComponentTabArguments<'Home'>) {
+export default function HomePage(props: ComponentTabArguments<'Home'>) {
+  const { isAction, colorScheme } = props;
   const [trackItems, setTrackItems] = React.useState<TrackItems>([]);
 
   const getItems = async () => {
@@ -58,8 +56,8 @@ export default function HomePage({
   return (
     <ScrollView
       style={styles.container}
-      onScroll={(props) => {
-        if (isCloseToBottom(props.nativeEvent)) {
+      onScroll={(e) => {
+        if (isCloseToBottom(e.nativeEvent)) {
           // paginate
         }
       }}

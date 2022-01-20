@@ -3,7 +3,7 @@ import { storeObject, getObject, removeItem } from './store';
 import { AuthError, AuthToken } from '../types/api';
 import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
 import { axiosInstance } from '.';
-import { useAuth } from '../contexts/Auth';
+import { useAppContext } from '../contexts/AppContext';
 
 const API_PATH = '/auth/o/';
 
@@ -25,7 +25,7 @@ export const addRefreshInterceptor = () => {
             error.config.headers.retry = 'true';
             return refreshToken().then(() => axiosInstance(error.config));
           } else {
-            useAuth().signOut();
+            useAppContext().signOut();
           }
         }
       }

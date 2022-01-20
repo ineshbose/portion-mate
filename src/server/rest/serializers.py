@@ -39,7 +39,7 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(DynamicFieldsModelSerializer):
-    items = serializers.SerializerMethodField()
+    # items = serializers.SerializerMethodField()
 
     def get_items(self, obj):
         return TrackItemSerializer(
@@ -57,7 +57,7 @@ class UserSerializer(DynamicFieldsModelSerializer):
             "age",
             "height",
             "weight",
-            "items",
+            # "items",
             "password",
         ]
         extra_kwargs = {"password": {"write_only": True}}

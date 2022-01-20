@@ -43,6 +43,7 @@ class TrackItemViewSet(ModelViewSet):
     queryset = models.TrackItem.objects.all().order_by("order")
     serializer_class = serializers.TrackItemSerializer
     permission_classes = [drf_permissions.IsAuthenticated]
+    pagination_class = None
 
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)

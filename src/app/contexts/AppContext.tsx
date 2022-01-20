@@ -5,25 +5,27 @@ import {
   revokeToken,
   updateAuthHeaderAndStore,
 } from '../api/auth';
+import { getTrackItems } from '../api/items';
 import { getObject } from '../api/store';
 import { createUser, getUser } from '../api/user';
-import { AuthToken, User } from '../types/api';
+import { AuthToken, TrackItems, User } from '../types/api';
 
-type AuthContextType = {
+type AppContextType = {
   authToken?: AuthToken;
   user?: User;
+  items?: TrackItems;
   loading: boolean;
+  helpers: { [name: string]: Function };
   signIn: Function;
   signUp: Function;
   signOut: Function;
 };
 
-export const AuthContext = React.createContext<AuthContextType>(
-  {} as AuthContextType
-);
+const AppContext = React.createContext<AppContextType>({} as AppContextType);
 
-export const AuthProvider = ({ children }: { children: JSX.Element }) => {
+export const ContextProvider = ({ children }: { children: JSX.Element }) => {
   const [authToken, setAuthToken] = React.useState<AuthToken>();
+  const [items, setItems] = React.useState<TrackItems>([]);
   const [user, setUser] = React.useState<User>();
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -80,20 +82,34 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     setAuthToken(undefined);
   };
 
+  const getUserItems = async () => {
+    const itemData = (await getTrackItems()) as TrackItems;
+    setItems(itemData);
+  };
+
   return (
-    <AuthContext.Provider
-      value={{ authToken, user, loading, signIn, signUp, signOut }}
+    <AppContext.Provider
+      value={{
+        authToken,
+        user,
+        items,
+        loading,
+        signIn,
+        signUp,
+        signOut,
+        helpers: { signIn, signUp, signOut, getUserItems },
+      }}
     >
       {children}
-    </AuthContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = React.useContext(AuthContext);
+export const useAppContext = () => {
+  const context = React.useContext(AppContext);
 
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAppContext must be used within an ContextProvider');
   }
 
   return context;

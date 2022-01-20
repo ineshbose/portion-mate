@@ -19,7 +19,7 @@ import StatsPage from '../screens/StatsPage';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { IconButtonGroup } from '../components/IconButtonGroup';
-import { useAuth } from '../contexts/Auth';
+import { useAppContext } from '../contexts/AppContext';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -55,7 +55,7 @@ const tabs: TabConfig<RootTabParamList>[] = [
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-  const { signOut } = useAuth();
+  const { signOut } = useAppContext();
   const [action, setAction] = React.useState('');
 
   return (
@@ -103,7 +103,7 @@ export default function BottomTabNavigator() {
                       rounded
                       title={'IB'}
                       source={{ uri: 'https://picsum.photos/200' }}
-                      onPress={signOut}
+                      onPress={() => signOut()}
                     />,
                   ]}
                 />

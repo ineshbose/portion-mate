@@ -3,12 +3,12 @@ import * as React from 'react';
 import { RootLinkParamList } from '../types/navigation';
 import BottomTabNavigator from './BottomTabNavigator';
 import AuthNavigator from './AuthNavigator';
-import { useAuth } from '../contexts/Auth';
+import { useAppContext } from '../contexts/AppContext';
 
 const Root = createNativeStackNavigator<RootLinkParamList>();
 
 export default function RootNavigator() {
-  const { authToken } = useAuth();
+  const { authToken } = useAppContext();
 
   return (
     <Root.Navigator>
