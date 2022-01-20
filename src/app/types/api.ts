@@ -23,25 +23,23 @@ export type PaginationData<T> = {
   results: T[];
 };
 
-export type GetData<T> = PaginationData<T> | T;
+export type FetchData<T> = PaginationData<T> | T[];
 
-export type PostData<T, R extends keyof T> = Partial<Omit<T, 'id'>> & {
-  R: T[R];
+export type CreateData<T, R extends keyof T> = Partial<Omit<T, 'id'>> & {
+  [P in R]: T[R];
 };
 
-export type PatchData<T extends { id: ModelID }> = Partial<T> & {
+export type UpdateData<T extends { id: ModelID }> = Partial<T> & {
   id: T['id'];
 };
-
-export type DeleteData<T extends { id: ModelID }> = PatchData<T>;
 
 export type ModelID = number | string;
 
 export type User = {
   id: ModelID;
   email: string;
-  first_name: string | null;
-  last_name: string | null;
+  forename: string | null;
+  surname: string | null;
   picture: string | null;
   age: number | null;
   height: number | null;

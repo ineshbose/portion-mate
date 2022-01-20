@@ -1,21 +1,21 @@
-import { ModelID, PaginationData, TrackItem, UserLog } from '../types/api';
+import { CreateData, FetchData, UpdateData, UserLog } from '../types/api';
 import { axiosInstance } from '.';
 
 const API_PATH = '/userlogs/';
 
 export const getUserLogs = async () => {
   try {
-    const response = await axiosInstance.get<PaginationData<UserLog>>(API_PATH);
-    return response.data.results;
+    const response = await axiosInstance.get<FetchData<UserLog>>(API_PATH);
+    return 'results' in response.data ? response.data.results : response.data;
   } catch (e) {
     // unable to fetch data
   }
 };
 
-export const createUserLog = async (item: ModelID | TrackItem) => {
+export const createUserLog = async (props: CreateData<UserLog, 'item'>) => {
   try {
     const response = await axiosInstance.post<UserLog>(API_PATH, {
-      item,
+      ...props,
       timestamp: new Date().toISOString(),
     });
     return response.data;
@@ -24,19 +24,22 @@ export const createUserLog = async (item: ModelID | TrackItem) => {
   }
 };
 
-export const updateUserLog = async (id: ModelID, item: ModelID | TrackItem) => {
+export const updateUserLog = async (props: UpdateData<UserLog>) => {
   try {
-    const response = await axiosInstance.patch<UserLog>(`${API_PATH}${id}/`, {
-      item,
-    });
+    const { id } = props;
+    const response = await axiosInstance.patch<UserLog>(
+      `${API_PATH}${id}/`,
+      props
+    );
     return response.data;
   } catch (e) {
     // unable to create
   }
 };
 
-export const deleteUserLog = async (id: ModelID) => {
+export const deleteUserLog = async (props: UpdateData<UserLog>) => {
   try {
+    const { id } = props;
     const response = await axiosInstance.delete<UserLog>(`${API_PATH}${id}/`);
     return response.data;
   } catch (e) {

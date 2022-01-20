@@ -51,8 +51,8 @@ class UserSerializer(DynamicFieldsModelSerializer):
         fields = [
             "id",
             "email",
-            "first_name",
-            "last_name",
+            "forename",
+            "surname",
             "picture",
             "age",
             "height",

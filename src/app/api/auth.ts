@@ -67,6 +67,9 @@ export const refreshToken = async (authToken?: AuthToken) => {
     response.data.interceptor = authToken.interceptor;
     return await updateAuthHeaderAndStore(response.data);
   } catch (e) {
+    if (axios.isAxiosError(e) && e.response?.status === 400) {
+      revokeToken(authToken);
+    }
     throw axios.isAxiosError(e) ? (e.response?.data as AuthError) : e;
   }
 };
@@ -85,7 +88,7 @@ export const revokeToken = async (authToken?: AuthToken) => {
 
     axiosInstance.defaults.headers.common.Authorization = '';
     if (authToken.interceptor) {
-      axiosInstance.interceptors.request.eject(authToken.interceptor);
+      axiosInstance.interceptors.response.eject(authToken.interceptor);
     }
 
     await removeItem('auth_token');

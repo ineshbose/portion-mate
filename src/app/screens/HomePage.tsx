@@ -47,8 +47,8 @@ export default function HomePage({
   const [trackItems, setTrackItems] = React.useState<TrackItems>([]);
 
   const getItems = async () => {
-    const items = await getTrackItems();
-    setTrackItems(items as TrackItems);
+    const items = (await getTrackItems()) as TrackItems;
+    setTrackItems(items);
   };
 
   React.useEffect(() => {

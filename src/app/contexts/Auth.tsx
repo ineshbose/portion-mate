@@ -6,15 +6,16 @@ import {
   updateAuthHeaderAndStore,
 } from '../api/auth';
 import { getObject } from '../api/store';
-import { createUser } from '../api/user';
-import { AuthToken } from '../types/api';
+import { createUser, getUser } from '../api/user';
+import { AuthToken, User } from '../types/api';
 
 type AuthContextType = {
   authToken?: AuthToken;
+  user?: User;
   loading: boolean;
-  signIn: (u: string, p: string) => Promise<void>;
-  signUp: (u: string, p: string, f?: string, s?: string) => Promise<void>;
-  signOut: () => void;
+  signIn: Function;
+  signUp: Function;
+  signOut: Function;
 };
 
 export const AuthContext = React.createContext<AuthContextType>(
@@ -23,14 +24,20 @@ export const AuthContext = React.createContext<AuthContextType>(
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [authToken, setAuthToken] = React.useState<AuthToken>();
+  const [user, setUser] = React.useState<User>();
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     const loadToken = async () => {
       try {
         const authData = (await getObject('auth_token')) as AuthToken;
-        authData.interceptor = addRefreshInterceptor();
-        setAuthToken(await updateAuthHeaderAndStore(authData));
+        if (authData) {
+          authData.interceptor = addRefreshInterceptor();
+          await updateAuthHeaderAndStore(authData);
+          const userData = (await getUser()) as User;
+          setUser(userData);
+        }
+        setAuthToken(authData);
       } catch (e) {
         // handle error
         throw e;
@@ -43,6 +50,8 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const signIn = async (email: string, password: string) => {
     try {
       const authData = (await getToken(email, password)) as AuthToken;
+      const userData = (await getUser()) as User;
+      setUser(userData);
       setAuthToken(authData);
     } catch (e) {
       // handle error
@@ -57,7 +66,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     surname?: string
   ) => {
     try {
-      await createUser(email, password, forename, surname);
+      await createUser({ email, password, forename, surname });
       await signIn(email, password);
     } catch (e) {
       // handle error
@@ -67,12 +76,13 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   const signOut = async () => {
     await revokeToken(authToken);
+    setUser(undefined);
     setAuthToken(undefined);
   };
 
   return (
     <AuthContext.Provider
-      value={{ authToken, loading, signIn, signUp, signOut }}
+      value={{ authToken, user, loading, signIn, signUp, signOut }}
     >
       {children}
     </AuthContext.Provider>
