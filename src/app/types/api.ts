@@ -23,6 +23,18 @@ export type PaginationData<T> = {
   results: T[];
 };
 
+export type GetData<T> = PaginationData<T> | T;
+
+export type PostData<T, R extends keyof T> = Partial<Omit<T, 'id'>> & {
+  R: T[R];
+};
+
+export type PatchData<T extends { id: ModelID }> = Partial<T> & {
+  id: T['id'];
+};
+
+export type DeleteData<T extends { id: ModelID }> = PatchData<T>;
+
 export type ModelID = number | string;
 
 export type User = {

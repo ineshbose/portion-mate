@@ -1,6 +1,12 @@
 import * as React from 'react';
-import { createUser, getToken, revokeToken } from '../api/auth';
+import {
+  addRefreshInterceptor,
+  getToken,
+  revokeToken,
+  updateAuthHeaderAndStore,
+} from '../api/auth';
 import { getObject } from '../api/store';
+import { createUser } from '../api/user';
 import { AuthToken } from '../types/api';
 
 type AuthContextType = {
@@ -23,7 +29,8 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const loadToken = async () => {
       try {
         const authData = (await getObject('auth_token')) as AuthToken;
-        setAuthToken(authData);
+        authData.interceptor = addRefreshInterceptor();
+        setAuthToken(await updateAuthHeaderAndStore(authData));
       } catch (e) {
         // handle error
         throw e;

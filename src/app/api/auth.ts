@@ -1,18 +1,21 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { storeObject, getObject, removeItem } from './store';
-import { AuthError, AuthToken, FormError, User } from '../types/api';
+import { AuthError, AuthToken } from '../types/api';
 import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
 import { axiosInstance } from '.';
+import { useAuth } from '../contexts/Auth';
 
-const updateAuthHeaderAndStore = async (token: AuthToken) => {
+const API_PATH = '/auth/o/';
+
+export const updateAuthHeaderAndStore = async (token: AuthToken) => {
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${token.access_token}`;
   await storeObject('auth_token', token);
   return token;
 };
 
-const addRefreshInterceptor = () => {
-  return axiosInstance.interceptors.request.use(
-    function (response) {
+export const addRefreshInterceptor = () => {
+  return axiosInstance.interceptors.response.use(
+    function (response: AxiosRequestConfig<any>) {
       return response;
     },
     function (error: AxiosError | Error) {
@@ -22,7 +25,7 @@ const addRefreshInterceptor = () => {
             error.config.headers.retry = 'true';
             return refreshToken().then(() => axiosInstance(error.config));
           } else {
-            revokeToken();
+            useAuth().signOut();
           }
         }
       }
@@ -33,7 +36,7 @@ const addRefreshInterceptor = () => {
 
 export const getToken = async (username: string, password: string) => {
   try {
-    const response = await axiosInstance.post<AuthToken>('/auth/o/token/', {
+    const response = await axiosInstance.post<AuthToken>(`${API_PATH}token/`, {
       username,
       password,
       grant_type: 'password',
@@ -54,7 +57,7 @@ export const refreshToken = async (authToken?: AuthToken) => {
       authToken = (await getObject('auth_token')) as AuthToken;
     }
 
-    const response = await axiosInstance.post<AuthToken>('/auth/o/token/', {
+    const response = await axiosInstance.post<AuthToken>(`${API_PATH}token/`, {
       refresh_token: authToken.refresh_token,
       grant_type: 'refresh_token',
       client_id: CLIENT_ID,
@@ -74,7 +77,7 @@ export const revokeToken = async (authToken?: AuthToken) => {
       authToken = (await getObject('auth_token')) as AuthToken;
     }
 
-    await axiosInstance.post<AuthToken>('/auth/o/revoke_token/', {
+    await axiosInstance.post<AuthToken>(`${API_PATH}revoke_token/`, {
       token: authToken.access_token,
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
@@ -88,24 +91,5 @@ export const revokeToken = async (authToken?: AuthToken) => {
     await removeItem('auth_token');
   } catch (e) {
     throw axios.isAxiosError(e) ? (e.response?.data as AuthError) : e;
-  }
-};
-
-export const createUser = async (
-  username: string,
-  password: string,
-  forename?: string,
-  surname?: string
-) => {
-  try {
-    const response = await axiosInstance.post<User>('/users/', {
-      email: username,
-      password: password,
-      first_name: forename,
-      last_name: surname,
-    });
-    return response.data;
-  } catch (e) {
-    throw axios.isAxiosError(e) ? (e.response?.data as FormError) : e;
   }
 };

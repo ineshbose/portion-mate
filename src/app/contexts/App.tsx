@@ -6,15 +6,13 @@ import { UserProvider } from './User';
 export const AppProvider = ({ children }: { children: JSX.Element }) => {
   const { authToken } = useAuth();
 
-  return (
-    <AuthProvider>
-      {authToken?.access_token ? (
-        <UserProvider>
-          <ItemsProvider>{children}</ItemsProvider>
-        </UserProvider>
-      ) : (
-        <>{children}</>
-      )}
-    </AuthProvider>
-  );
+  if (authToken?.access_token) {
+    children = (
+      <UserProvider>
+        <ItemsProvider>{children}</ItemsProvider>
+      </UserProvider>
+    );
+  }
+
+  return <AuthProvider>{children}</AuthProvider>;
 };
