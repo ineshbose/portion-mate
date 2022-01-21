@@ -39,13 +39,6 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(DynamicFieldsModelSerializer):
-    # items = serializers.SerializerMethodField()
-
-    def get_items(self, obj):
-        return TrackItemSerializer(
-            obj.trackitem_set, many=True, exclude=["user", "logs"]
-        ).data
-
     class Meta:
         model = models.User
         fields = [
@@ -57,7 +50,6 @@ class UserSerializer(DynamicFieldsModelSerializer):
             "age",
             "height",
             "weight",
-            # "items",
             "password",
         ]
         extra_kwargs = {"password": {"write_only": True}}
@@ -85,7 +77,7 @@ class PortionItemSerializer(DynamicFieldsModelSerializer):
 
 
 class TrackItemSerializer(DynamicFieldsModelSerializer):
-    item = PortionItemSerializer()
+    item = PortionItemSerializer(read_only=True)
     logs = serializers.SerializerMethodField()
 
     def get_logs(self, obj):
@@ -114,8 +106,6 @@ class TrackItemSerializer(DynamicFieldsModelSerializer):
 
 
 class UserLogSerializer(DynamicFieldsModelSerializer):
-    item = TrackItemSerializer(exclude=["logs"])
-
     class Meta:
         model = models.UserLog
         fields = ["id", "item", "timestamp"]

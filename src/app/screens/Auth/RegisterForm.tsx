@@ -8,7 +8,10 @@ import FormStyle from './FormStyle';
 export default function RegisterForm({
   navigation,
 }: RootAuthScreenProps<'Register'>) {
-  const { loading, signUp } = useAppContext();
+  const {
+    loading,
+    helpers: { signUp },
+  } = useAppContext();
   const [email, setEmail] = React.useState<string>('');
   const [forename, setForename] = React.useState<string>('');
   const [surname, setSurname] = React.useState<string>('');

@@ -55,7 +55,9 @@ const tabs: TabConfig<RootTabParamList>[] = [
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-  const { signOut } = useAppContext();
+  const {
+    helpers: { signOut },
+  } = useAppContext();
   const [action, setAction] = React.useState('');
 
   return (

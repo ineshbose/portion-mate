@@ -8,8 +8,10 @@ import { ColorScheme } from '../types';
 import { ComponentTabArguments } from '../types/navigation';
 import Colors from '../constants/Colors';
 import { IconButtonGroup } from '../components/IconButtonGroup';
-import { getTrackItems } from '../api/items';
-import { PortionItem, TrackItems, UserLogs } from '../types/api';
+import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
+import { PortionItem, TrackItems, UserLog, UserLogs } from '../types/api';
+import { useAppContext } from '../contexts/AppContext';
+import { createUserLog, deleteUserLog } from '../api/logs';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -42,16 +44,70 @@ const isCloseToBottom = (props: NativeScrollEvent) => {
 
 export default function HomePage(props: ComponentTabArguments<'Home'>) {
   const { isAction, colorScheme } = props;
-  const [trackItems, setTrackItems] = React.useState<TrackItems>([]);
-
-  const getItems = async () => {
-    const items = (await getTrackItems()) as TrackItems;
-    setTrackItems(items);
-  };
+  const {
+    items,
+    helpers: { setItems },
+  } = useAppContext();
 
   React.useEffect(() => {
+    const getItems = async () => {
+      if (!(items && items.length > 0)) {
+        setItems((await getTrackItems()) as TrackItems);
+      }
+    };
+
     getItems();
   }, []);
+
+  const updateItemLogs = async (btnIdx: number, itemIdx: number) => {
+    const item = (items as TrackItems)[itemIdx];
+    const newItem = { ...item };
+    const newItems = [...(items as TrackItems)];
+
+    if (btnIdx > 0) {
+      const log = (await createUserLog({
+        item: 'id' in item ? item.id : item,
+      })) as UserLog;
+      newItem.logs?.push(log);
+    } else {
+      const log = item.logs?.pop();
+      if (log) {
+        await deleteUserLog(log);
+        newItem.logs = newItem.logs?.filter((l) => l.id !== log.id);
+      }
+    }
+
+    newItems[itemIdx] = newItem;
+    setItems(newItems);
+  };
+
+  const updateItemSettings = async (
+    isTarget: boolean,
+    btnIdx: number,
+    itemIdx: number
+  ) => {
+    const item = (items as TrackItems)[itemIdx];
+    const newItem = { ...item };
+    const newItems = [...(items as TrackItems)];
+
+    if (isTarget) {
+      const { target } = item;
+      const newTarget = btnIdx > 0 ? target - 1 : target + 1;
+
+      await updateTrackItem({ ...newItem, target: newTarget });
+      newItem.target = newTarget;
+    } else {
+      if (btnIdx > 0) {
+        // reordered
+      } else {
+        await deleteTrackItem(item);
+        return setItems(newItems.filter((i) => i.id !== item.id));
+      }
+    }
+
+    newItems[itemIdx] = newItem;
+    setItems(newItems);
+  };
 
   return (
     <ScrollView
@@ -63,7 +119,7 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
       }}
       scrollEventThrottle={400}
     >
-      {trackItems.map((item) => (
+      {(items as TrackItems).map((item, index) => (
         <ListItem
           key={item.id}
           bottomDivider
@@ -93,6 +149,8 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
                       <MaterialIcons key="add" name="add" />,
                       <MaterialIcons key="remove" name="remove" />,
                     ]}
+                    disabled={item.target > 0 ? [] : [1]}
+                    onPress={(value) => updateItemSettings(true, value, index)}
                   />
                 </Text>
               ) : (
@@ -113,6 +171,8 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
                   <MaterialIcons key="delete" name="delete" />,
                   <MaterialIcons key="reorder" name="reorder" />,
                 ]}
+                disabled={[1]}
+                onPress={(value) => updateItemSettings(false, value, index)}
               />
             ) : (
               <View>
@@ -126,14 +186,8 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
                     <MaterialIcons key="remove" name="remove" />,
                     <MaterialIcons key="add" name="add" />,
                   ]}
-                  onPress={(value) => {
-                    switch (value) {
-                      case 0:
-                        return 'remove';
-                      case 1:
-                        return 'ok';
-                    }
-                  }}
+                  disabled={(item.logs as UserLogs).length > 0 ? [] : [0]}
+                  onPress={(value) => updateItemLogs(value, index)}
                 />
               </View>
             )}

@@ -71,4 +71,4 @@ export type UserLog = {
   timestamp: string | Date;
 };
 
-export type UserLogs = UserLogs[];
+export type UserLogs = UserLog[];

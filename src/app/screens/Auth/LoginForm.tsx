@@ -9,7 +9,10 @@ import FormStyle from './FormStyle';
 export default function LoginForm({
   navigation,
 }: RootAuthScreenProps<'Login'>) {
-  const { loading, signIn } = useAppContext();
+  const {
+    loading,
+    helpers: { signIn },
+  } = useAppContext();
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const [error, setError] = React.useState<AuthError>();

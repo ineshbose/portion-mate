@@ -25,7 +25,7 @@ export const addRefreshInterceptor = () => {
             error.config.headers.retry = 'true';
             return refreshToken().then(() => axiosInstance(error.config));
           } else {
-            useAppContext().signOut();
+            useAppContext().helpers.signOut();
           }
         }
       }

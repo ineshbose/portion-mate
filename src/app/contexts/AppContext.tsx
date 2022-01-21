@@ -5,7 +5,6 @@ import {
   revokeToken,
   updateAuthHeaderAndStore,
 } from '../api/auth';
-import { getTrackItems } from '../api/items';
 import { getObject } from '../api/store';
 import { createUser, getUser } from '../api/user';
 import { AuthToken, TrackItems, User } from '../types/api';
@@ -16,9 +15,6 @@ type AppContextType = {
   items?: TrackItems;
   loading: boolean;
   helpers: { [name: string]: Function };
-  signIn: Function;
-  signUp: Function;
-  signOut: Function;
 };
 
 const AppContext = React.createContext<AppContextType>({} as AppContextType);
@@ -78,13 +74,9 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
 
   const signOut = async () => {
     await revokeToken(authToken);
+    setItems([]);
     setUser(undefined);
     setAuthToken(undefined);
-  };
-
-  const getUserItems = async () => {
-    const itemData = (await getTrackItems()) as TrackItems;
-    setItems(itemData);
   };
 
   return (
@@ -94,10 +86,7 @@ export const ContextProvider = ({ children }: { children: JSX.Element }) => {
         user,
         items,
         loading,
-        signIn,
-        signUp,
-        signOut,
-        helpers: { signIn, signUp, signOut, getUserItems },
+        helpers: { signIn, signUp, signOut, setItems },
       }}
     >
       {children}
