@@ -59,10 +59,12 @@ jobs:
         if: ${{ steps.get-issue-number.outputs.result }}
         env:
           ISSUE_NUMBER: ${{ steps.get-issue-number.outputs.result }}
+          MAX_DIFF: 1000
         with:
           script: |
-            var { GITHUB_REPOSITORY, ISSUE_NUMBER } = process.env;
+            var { GITHUB_REPOSITORY, ISSUE_NUMBER, MAX_DIFF } = process.env;
             ISSUE_NUMBER = parseInt(ISSUE_NUMBER);
+            MAX_DIFF = parseInt(MAX_DIFF);
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -88,7 +90,7 @@ jobs:
               </a>
               `
             });
-            if ((context.payload.pull_request.additions + context.payload.pull_request.deletions) >= 100) {
+            if ((context.payload.pull_request.additions + context.payload.pull_request.deletions) >= MAX_DIFF) {
               if (context.repo.owner !== context.payload.pull_request.user.login) {
                 github.rest.pulls.requestReviewers({
                   owner: context.repo.owner,

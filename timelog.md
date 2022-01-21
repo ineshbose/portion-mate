@@ -344,3 +344,29 @@ Time taken off to unwind and relax for Christmas and New Year.
 
 * *3 hours* Issue [#81](https://github.com/ineshbose/portion-mate/issues/81)
 * *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 17
+
+### 17 January 2022
+
+* *3 hours* Issue [#73](https://github.com/ineshbose/portion-mate/issues/73)
+* *3 hours* Issue [#86](https://github.com/ineshbose/portion-mate/issues/86)
+* *2 hours* Issue [#41](https://github.com/ineshbose/portion-mate/issues/41)
+
+### 18 January 2022
+
+* *1 hours* Issue [#44](https://github.com/ineshbose/portion-mate/issues/44)
+* *2 hours* Issue [#88](https://github.com/ineshbose/portion-mate/issues/88)
+* *2 hours* Issue [#90](https://github.com/ineshbose/portion-mate/issues/90)
+
+### 19 January 2022
+
+* *3 hours* Issue [#60](https://github.com/ineshbose/portion-mate/issues/60)
+
+### 20 January 2022
+
+* *5 hours* Issue [#60](https://github.com/ineshbose/portion-mate/issues/60)
+
+### 21 January 2022
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
