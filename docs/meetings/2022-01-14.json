@@ -1,5 +1,5 @@
 {
-  "datetime": "14-01-2021 11:30",
+  "datetime": "14-01-2021 11:00",
   "purpose": "Catchup",
   "location": "Zoom",
   "attendees": ["ineshbose", "oanaandrei"],
@@ -27,7 +27,7 @@
     {
       "item": "Evaluation and dissertation",
       "who": "oanaandrei",
-      "notes": "Evaluation is very important - necessary. Ideas for survey: [SUS](https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html), pre-activity and post-activity survey on Eatwell Guide. Start writing ideas for dissertation, and ideally send a draft so that it can be further refined."
+      "notes": "Evaluation is very important - necessary. Ideas for survey: [SUS](https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html), pre-activity and post-activity survey on Eatwell Guide. Start writing ideas for dissertation, and ideally send a draft so that it can be further refined. The background can be 1 paragraph, and mention the app being used by nutritionists."
     }
   ],
   "actions": [],

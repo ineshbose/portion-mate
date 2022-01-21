@@ -6,19 +6,24 @@
 
   <h3 align="center">Portion Mate</h3>
 
+  <!-- BADGES / SHIELDS -->
+
   <p align="center">
-    <!-- BADGES / SHIELDS -->
+    <a href="https://app.codacy.com/gh/ineshbose/portion-mate/dashboard" target="_blank"><img alt="Codacy grade" src="https://img.shields.io/codacy/grade/57b01d85bcfa4d8bb96978e1edb2edff?style=flat-square"></a>
+    <a href="https://codeclimate.com/github/ineshbose/portion-mate" target="_blank"><img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/ineshbose/portion-mate?style=flat-square"></a>
     <a href="https://portion-mate-glasgow.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate-glasgow?style=flat-square"></a>
+    <a href="https://libraries.io/github/ineshbose/portion-mate/" target="_blank"><img alt="Libraries.io dependency status" src="https://img.shields.io/librariesio/github/ineshbose/portion-mate?style=flat-square"></a>
+  </p>
+
+  <p align="center">
     <a href="https://github.com/psf/black" target="_blank"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square"></a>
     <a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
-    <!-- <a href="https://libraries.io/github/ineshbose/portion-mate/" target="_blank"><img alt="Libraries.io dependency status" src="https://img.shields.io/librariesio/github/ineshbose/portion-mate?style=flat-square"></a> -->
-    <!-- <a href="https://app.codacy.com/gh/ineshbose/portion-mate/dashboard" target="_blank"><img alt="Codacy grade" src="https://img.shields.io/codacy/grade/yet-to-open-repo-for-id?style=flat-square"></a> -->
-    <!-- <a href="https://codeclimate.com/github/ineshbose/portion-mate" target="_blank"><img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/ineshbose/portion-mate?style=flat-square"></a> -->
-    <!-- <a href="#">
+    <a href="#">
       <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/ineshbose/portion-mate?style=flat-square">
       <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/ineshbose/portion-mate?style=flat-square">
-    </a> -->
+    </a>
   </p>
+
 </p>
 </div>
 
@@ -61,11 +66,3 @@ Project Link: [https://github.com/ineshbose/portion-mate/](https://github.com/in
 ## Acknowledgements
 
 The project has been proposed for Level 4 [Individual Project (H)](https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI4025P) by [Dr. Oana Andrei](http://www.dcs.gla.ac.uk/~oandrei/).
-
-<!--
-### Supervision
-* Dr. Oana Andrei
-
-### Developers
-* Inesh Bose
--->

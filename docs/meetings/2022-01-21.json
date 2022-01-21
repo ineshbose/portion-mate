@@ -1,0 +1,36 @@
+{
+  "datetime": "21-01-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Code progress",
+      "description": ["Issues closed"]
+    },
+    {
+      "item": "Evaluation and dissertation",
+      "description": ["Discuss plans & doubts"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "App/code progress",
+      "who": "ineshbose",
+      "notes": "Working a lot - getting it to work, setting up stuff, debugging. Still lots of progress to make. Security has to be kept in mind."
+    },
+    {
+      "item": "Evaluation",
+      "who": ["ineshbose", "oanaandrei"],
+      "notes": "As discussed, evaluation will be split into three parts - Pre-activity survey, Interface, Post-activity survey. Usage of demographics may be unnecessary - put questions only if they can be justified. 30 questions max (aim for 20), 15 minutes survey. The priority is to evaluate USABILITY of app, however post-activity is to evaluate EFFECT of the app."
+    }
+  ],
+  "actions": [
+    {
+      "item": "Send instructions on committing to Ethics Checklist",
+      "who": "ineshbose",
+      "done": true
+    }
+  ],
+  "notes": ""
+}
