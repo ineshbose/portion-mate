@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Input } from 'react-native-elements';
+import { Button, Input } from '@ui-kitten/components';
 import { RootAuthScreenProps } from '../../types/navigation';
 import { useAppContext } from '../../contexts/AppContext';
 import AuthForm from './AuthForm';
@@ -56,7 +56,6 @@ export default function RegisterForm({
         secureTextEntry
       />
       <Button
-        title="register"
         loading={loading}
         buttonStyle={FormStyle.submit}
         onPress={() =>
@@ -64,12 +63,15 @@ export default function RegisterForm({
             ? signUp(email, password, forename, surname).catch(setError)
             : {}
         }
-      />
+      >
+        register
+      </Button>
       <Button
-        title="log into existing account"
         onPress={() => navigation.navigate('Login')}
         buttonStyle={FormStyle.switch}
-      />
+      >
+        log into existing account
+      </Button>
     </AuthForm>
   );
 }

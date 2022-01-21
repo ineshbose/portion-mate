@@ -1,21 +1,15 @@
 import * as React from 'react';
-import { Card } from 'react-native-elements';
-import Colors from '../../constants/Colors';
-import useColorScheme from '../../hooks/useColorScheme';
+import { Image, Text } from 'react-native';
 
 export default function Logo() {
-  const colorScheme = useColorScheme();
-
   return (
     <>
-      <Card.Image
+      <Image
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
       />
-      <Card.Title style={{ color: Colors[colorScheme].text }}>
-        Portion Mate
-      </Card.Title>
+      <Text>Portion Mate</Text>
     </>
   );
 }

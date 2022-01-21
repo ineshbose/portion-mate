@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Card, Input, Text } from 'react-native-elements';
+import { Button, Card, Input, Text } from '@ui-kitten/components';
 import { AuthError } from '../../types/api';
 import { useAppContext } from '../../contexts/AppContext';
 import { RootAuthScreenProps } from '../../types/navigation';
@@ -10,7 +10,6 @@ export default function LoginForm({
   navigation,
 }: RootAuthScreenProps<'Login'>) {
   const {
-    loading,
     helpers: { signIn },
   } = useAppContext();
   const [email, setEmail] = React.useState<string>('');
@@ -36,16 +35,17 @@ export default function LoginForm({
         secureTextEntry
       />
       <Button
-        title="log in"
-        loading={loading}
         buttonStyle={FormStyle.submit}
         onPress={() => signIn(email, password).catch(setError)}
-      />
+      >
+        log in
+      </Button>
       <Button
-        title="create account"
         onPress={() => navigation.navigate('Register')}
         buttonStyle={FormStyle.switch}
-      />
+      >
+        create account
+      </Button>
     </AuthForm>
   );
 }

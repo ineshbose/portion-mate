@@ -1,15 +1,31 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
-import { NativeScrollEvent, ScrollView, StyleSheet } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { MaterialIcons } from '@expo/vector-icons';
-
+import {
+  NativeScrollEvent,
+  ScrollView,
+  StyleSheet,
+  TextProps,
+  ViewProps,
+} from 'react-native';
+import {
+  Button,
+  ButtonGroup,
+  CheckBox,
+  Layout,
+  List,
+  ListItem,
+  Icon,
+} from '@ui-kitten/components';
 import { Text, View } from '../components/Themed';
-import { ColorScheme } from '../types';
 import { ComponentTabArguments } from '../types/navigation';
-import Colors from '../constants/Colors';
-import { IconButtonGroup } from '../components/IconButtonGroup';
 import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
-import { PortionItem, TrackItems, UserLog, UserLogs } from '../types/api';
+import {
+  PortionItem,
+  TrackItem,
+  TrackItems,
+  UserLog,
+  UserLogs,
+} from '../types/api';
 import { useAppContext } from '../contexts/AppContext';
 import { createUserLog, deleteUserLog } from '../api/logs';
 
@@ -42,8 +58,8 @@ const isCloseToBottom = (props: NativeScrollEvent) => {
   );
 };
 
-export default function HomePage(props: ComponentTabArguments<'Home'>) {
-  const { isAction, colorScheme } = props;
+export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
+  const { isAction } = pageProps;
   const {
     items,
     helpers: { setItems },
@@ -57,7 +73,7 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
     };
 
     getItems();
-  }, []);
+  }, [items, setItems]);
 
   const updateItemLogs = async (btnIdx: number, itemIdx: number) => {
     const item = (items as TrackItems)[itemIdx];
@@ -109,6 +125,75 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
     setItems(newItems);
   };
 
+  const renderItemDescription = (
+    props: TextProps | undefined,
+    item: TrackItem
+  ) =>
+    isAction ? (
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: 'bold',
+        }}
+      >
+        {item.target}
+        <ButtonGroup>
+          <Button
+            accessoryLeft={<Icon key="add" name="add" />}
+            onPress={() => updateItemSettings(true, 0, 0)}
+          />
+          <Button
+            accessoryLeft={<Icon key="remove" name="remove" />}
+            disabled={item.target < 1}
+            onPress={() => updateItemSettings(true, 1, 0)}
+          />
+        </ButtonGroup>
+      </Text>
+    ) : (
+      <Layout style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        {Array.from(Array(item.target), (e, i) => (
+          <CheckBox key={i} checked={i < (item.logs as UserLogs).length} />
+        ))}
+      </Layout>
+    );
+
+  const renderItemAccessory = (props: ViewProps | undefined, item: TrackItem) =>
+    isAction ? (
+      <ButtonGroup>
+        <Button
+          accessoryLeft={<Icon key="delete" name="delete" />}
+          onPress={() => updateItemSettings(false, 0, 0)}
+        />
+        <Button
+          accessoryLeft={<Icon key="reorder" name="reorder" />}
+          disabled
+          onPress={() => updateItemSettings(false, 1, 0)}
+        />
+      </ButtonGroup>
+    ) : (
+      <View>
+        <ButtonGroup>
+          <Button
+            accessoryLeft={<Icon key="remove" name="remove" />}
+            disabled={(item.logs as UserLogs).length < 1}
+            onPress={() => updateItemLogs(0, 0)}
+          />
+          <Button
+            accessoryLeft={<Icon key="add" name="add" />}
+            onPress={() => updateItemLogs(1, 0)}
+          />
+        </ButtonGroup>
+      </View>
+    );
+
+  const renderItem = ({ item, index }: { item: TrackItem; index: number }) => (
+    <ListItem
+      title={(item.item as PortionItem).name}
+      description={(props) => renderItemDescription(props, item)}
+      accessoryRight={(props) => renderItemAccessory(props, item)}
+    />
+  );
+
   return (
     <ScrollView
       style={styles.container}
@@ -119,81 +204,7 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
       }}
       scrollEventThrottle={400}
     >
-      {(items as TrackItems).map((item, index) => (
-        <ListItem
-          key={item.id}
-          bottomDivider
-          containerStyle={{
-            backgroundColor: Colors[colorScheme as ColorScheme].background,
-          }}
-        >
-          <ListItem.Content>
-            {item.item && (
-              <ListItem.Title
-                style={{ color: Colors[colorScheme as ColorScheme].text }}
-              >
-                {(item.item as PortionItem).name}
-              </ListItem.Title>
-            )}
-            <Text>
-              {isAction ? (
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {item.target}
-                  <IconButtonGroup
-                    buttons={[
-                      <MaterialIcons key="add" name="add" />,
-                      <MaterialIcons key="remove" name="remove" />,
-                    ]}
-                    disabled={item.target > 0 ? [] : [1]}
-                    onPress={(value) => updateItemSettings(true, value, index)}
-                  />
-                </Text>
-              ) : (
-                Array.from(Array(item.target), (e, i) => (
-                  <ListItem.CheckBox
-                    checkedIcon="times"
-                    key={i}
-                    checked={i < (item.logs as UserLogs).length}
-                  />
-                ))
-              )}
-            </Text>
-          </ListItem.Content>
-          <ListItem.Content right>
-            {isAction ? (
-              <IconButtonGroup
-                buttons={[
-                  <MaterialIcons key="delete" name="delete" />,
-                  <MaterialIcons key="reorder" name="reorder" />,
-                ]}
-                disabled={[1]}
-                onPress={(value) => updateItemSettings(false, value, index)}
-              />
-            ) : (
-              <View>
-                <ListItem.Subtitle
-                  style={{ color: Colors[colorScheme as ColorScheme].tint }}
-                >
-                  {item.target}/{getFrequencyDisplay(item.frequency)}
-                </ListItem.Subtitle>
-                <IconButtonGroup
-                  buttons={[
-                    <MaterialIcons key="remove" name="remove" />,
-                    <MaterialIcons key="add" name="add" />,
-                  ]}
-                  disabled={(item.logs as UserLogs).length > 0 ? [] : [0]}
-                  onPress={(value) => updateItemLogs(value, index)}
-                />
-              </View>
-            )}
-          </ListItem.Content>
-        </ListItem>
-      ))}
+      <List data={items} renderItem={renderItem} />
     </ScrollView>
   );
 }

@@ -3,8 +3,8 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
+import { Layout, Text as DefaultText } from '@ui-kitten/components';
 import * as React from 'react';
-import { Text as DefaultText, View as DefaultView } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -25,7 +25,7 @@ type ThemeProps = {
 };
 
 export type TextProps = ThemeProps & DefaultText['props'];
-export type ViewProps = ThemeProps & DefaultView['props'];
+export type ViewProps = ThemeProps & Layout['props'];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -41,5 +41,5 @@ export function View(props: ViewProps) {
     'background'
   );
 
-  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+  return <Layout style={[{ backgroundColor }, style]} {...otherProps} />;
 }

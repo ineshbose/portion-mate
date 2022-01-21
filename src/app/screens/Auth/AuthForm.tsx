@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Card } from 'react-native-elements';
-import FormStyle from './FormStyle';
+import { Card } from '@ui-kitten/components';
 import Logo from './Logo';
 
 export default function AuthForm({
@@ -9,7 +8,7 @@ export default function AuthForm({
   children: (JSX.Element | undefined)[];
 }) {
   return (
-    <Card containerStyle={FormStyle.container}>
+    <Card>
       <Logo />
       {children}
     </Card>
