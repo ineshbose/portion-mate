@@ -5,8 +5,6 @@ import { Image } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import HomePage from '../screens/HomePage';
-import StatsPage from '../screens/StatsPage';
 import {
   RootTabParamList,
   RouteActionIcon,
@@ -14,10 +12,14 @@ import {
 } from '../types/navigation';
 import { Text, View } from '../components/Themed';
 import { Header, Avatar } from 'react-native-elements';
+import HomePage from '../screens/HomePage';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import StatsPage from '../screens/StatsPage';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { IconButtonGroup } from '../components/IconButtonGroup';
-import { useAuth } from '../contexts/Auth';
+import { useAppContext } from '../contexts/AppContext';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -34,16 +36,16 @@ const tabs: TabConfig<RootTabParamList>[] = [
     component: HomePage,
     icon: 'home',
   },
-  {
-    name: 'Journal',
-    component: JournalPage,
-    icon: 'book',
-  },
-  {
-    name: 'Stats',
-    component: StatsPage,
-    icon: 'bar-chart',
-  },
+  // {
+  //   name: 'Journal',
+  //   component: JournalPage,
+  //   icon: 'book',
+  // },
+  // {
+  //   name: 'Stats',
+  //   component: StatsPage,
+  //   icon: 'bar-chart',
+  // },
   {
     name: 'Resources',
     component: ResourcesPage,
@@ -53,7 +55,9 @@ const tabs: TabConfig<RootTabParamList>[] = [
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
-  const { signOut } = useAuth();
+  const {
+    helpers: { signOut },
+  } = useAppContext();
   const [action, setAction] = React.useState('');
 
   return (
@@ -101,7 +105,7 @@ export default function BottomTabNavigator() {
                       rounded
                       title={'IB'}
                       source={{ uri: 'https://picsum.photos/200' }}
-                      onPress={signOut}
+                      onPress={() => signOut()}
                     />,
                   ]}
                 />

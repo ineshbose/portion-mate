@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.utils.translation import gettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from . import models
 
 
@@ -16,7 +16,7 @@ class LogItemInline(admin.TabularInline):
 class MainUserAdmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name", "picture")}),
+        (_("Personal info"), {"fields": ("forename", "surname", "picture")}),
         (_("Health info"), {"fields": ("age", "height", "weight")}),
         (
             _("Permissions"),
@@ -41,9 +41,9 @@ class MainUserAdmin(UserAdmin):
             },
         ),
     )
-    list_display = ("email", "first_name", "last_name", "age", "is_staff")
+    list_display = ("email", "forename", "surname", "age", "is_staff")
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
-    search_fields = ("first_name", "last_name", "email")
+    search_fields = ("forename", "surname", "email")
     ordering = ("id",)
     filter_horizontal = (
         "groups",
@@ -66,7 +66,7 @@ class BasicModelAdmin(admin.ModelAdmin):
 class TrackItemAdmin(admin.ModelAdmin):
     list_display = ("item", "user", "target", "order", "frequency")
     list_filter = ("target",)
-    search_fields = ("item__name", "user__email", "user__first_name", "user__last_name")
+    search_fields = ("item__name", "user__email", "user__forename", "user__surname")
     ordering = ("id",)
     inlines = [
         LogItemInline,

@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { Button, Input } from 'react-native-elements';
 import { RootAuthScreenProps } from '../../types/navigation';
-import { useAuth } from '../../contexts/Auth';
+import { useAppContext } from '../../contexts/AppContext';
 import AuthForm from './AuthForm';
 import FormStyle from './FormStyle';
 
 export default function RegisterForm({
   navigation,
 }: RootAuthScreenProps<'Register'>) {
-  const { signUp } = useAuth();
+  const {
+    loading,
+    helpers: { signUp },
+  } = useAppContext();
   const [email, setEmail] = React.useState<string>('');
   const [forename, setForename] = React.useState<string>('');
   const [surname, setSurname] = React.useState<string>('');
@@ -54,6 +57,7 @@ export default function RegisterForm({
       />
       <Button
         title="register"
+        loading={loading}
         buttonStyle={FormStyle.submit}
         onPress={() =>
           password && confirmPassword === password

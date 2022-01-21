@@ -4,6 +4,7 @@ export type AuthToken = {
   refresh_token: string;
   scope: string;
   token_type: string;
+  interceptor?: number;
 };
 
 export type AuthError = {
@@ -22,18 +23,28 @@ export type PaginationData<T> = {
   results: T[];
 };
 
+export type FetchData<T> = PaginationData<T> | T[];
+
+export type CreateData<T, R extends keyof T> = Partial<Omit<T, 'id'>> & {
+  [P in R]: T[R];
+};
+
+export type UpdateData<T extends { id: ModelID }> = Partial<T> & {
+  id: T['id'];
+};
+
 export type ModelID = number | string;
 
 export type User = {
   id: ModelID;
   email: string;
-  first_name: string | null;
-  last_name: string | null;
+  forename: string | null;
+  surname: string | null;
   picture: string | null;
   age: number | null;
   height: number | null;
   weight: number | null;
-  items?: TrackItem[];
+  items?: TrackItems;
 };
 
 export type PortionItem = {
@@ -49,11 +60,15 @@ export type TrackItem = {
   target: number;
   order: number | undefined;
   frequency: number;
-  logs?: UserLog[];
+  logs?: UserLogs;
 };
+
+export type TrackItems = TrackItem[];
 
 export type UserLog = {
   id: ModelID;
   item?: TrackItem | ModelID;
   timestamp: string | Date;
 };
+
+export type UserLogs = UserLog[];

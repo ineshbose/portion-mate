@@ -1,5 +1,4 @@
 from datetime import timedelta
-from distutils.log import error
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
@@ -40,25 +39,17 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(DynamicFieldsModelSerializer):
-    items = serializers.SerializerMethodField()
-
-    def get_items(self, obj):
-        return TrackItemSerializer(
-            obj.trackitem_set, many=True, exclude=["user", "logs"]
-        ).data
-
     class Meta:
         model = models.User
         fields = [
             "id",
             "email",
-            "first_name",
-            "last_name",
+            "forename",
+            "surname",
             "picture",
             "age",
             "height",
             "weight",
-            "items",
             "password",
         ]
         extra_kwargs = {"password": {"write_only": True}}
@@ -86,7 +77,7 @@ class PortionItemSerializer(DynamicFieldsModelSerializer):
 
 
 class TrackItemSerializer(DynamicFieldsModelSerializer):
-    item = PortionItemSerializer()
+    item = PortionItemSerializer(read_only=True)
     logs = serializers.SerializerMethodField()
 
     def get_logs(self, obj):
@@ -115,8 +106,6 @@ class TrackItemSerializer(DynamicFieldsModelSerializer):
 
 
 class UserLogSerializer(DynamicFieldsModelSerializer):
-    item = TrackItemSerializer(exclude=["logs"])
-
     class Meta:
         model = models.UserLog
         fields = ["id", "item", "timestamp"]

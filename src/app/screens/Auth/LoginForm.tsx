@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Card, Input, Text } from 'react-native-elements';
 import { AuthError } from '../../types/api';
-import { useAuth } from '../../contexts/Auth';
+import { useAppContext } from '../../contexts/AppContext';
 import { RootAuthScreenProps } from '../../types/navigation';
 import AuthForm from './AuthForm';
 import FormStyle from './FormStyle';
@@ -9,7 +9,10 @@ import FormStyle from './FormStyle';
 export default function LoginForm({
   navigation,
 }: RootAuthScreenProps<'Login'>) {
-  const { signIn } = useAuth();
+  const {
+    loading,
+    helpers: { signIn },
+  } = useAppContext();
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const [error, setError] = React.useState<AuthError>();
@@ -34,6 +37,7 @@ export default function LoginForm({
       />
       <Button
         title="log in"
+        loading={loading}
         buttonStyle={FormStyle.submit}
         onPress={() => signIn(email, password).catch(setError)}
       />
