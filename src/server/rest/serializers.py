@@ -109,3 +109,9 @@ class UserLogSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = models.UserLog
         fields = ["id", "item", "timestamp"]
+
+
+class ResourceSerializer(DynamicFieldsModelSerializer):
+    class Meta:
+        model = models.Resource
+        fields = ["id", "title", "author", "link", "date_published", "content"]

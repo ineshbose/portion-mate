@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
+from markdownx.admin import MarkdownxModelAdmin
 from . import models
 
 
@@ -71,3 +72,11 @@ class TrackItemAdmin(admin.ModelAdmin):
     inlines = [
         LogItemInline,
     ]
+
+
+@admin.register(models.Resource)
+class ResourceAdmin(MarkdownxModelAdmin):
+    list_display = ("title", "author", "date_published")
+    list_filter = ("author", "date_published")
+    search_fields = ("author", "title", "content", "link")
+    ordering = ("-date_published",)

@@ -2,6 +2,7 @@ import os
 from uuid import uuid4
 
 from django.db import models
+from markdownx.models import MarkdownxField
 
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
@@ -221,3 +222,21 @@ class UserLog(models.Model):
 
     def __str__(self):
         return f"UserLog({self.item} - {self.timestamp})"
+
+
+class Resource(models.Model):
+    """
+    A class representing a resource / blog post.
+    """
+
+    title = models.CharField(_("title"), max_length=200)
+    author = models.CharField(_("author"), max_length=100)
+    link = models.URLField(_("link"), **NULL_BLANK)
+    date_published = models.DateField(_("date published"), **NULL_BLANK)
+    content = MarkdownxField()
+
+    class Meta:
+        ordering = ["-date_published"]
+
+    def __str__(self):
+        return f"{self.title} - {self.author} - {self.date_published}"

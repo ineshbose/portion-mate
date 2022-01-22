@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework import permissions as drf_permissions
 
 from rest import serializers
@@ -66,3 +66,12 @@ class UserLogViewSet(ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.filter(item__user=self.request.user)
+
+
+class ResourceViewSet(ReadOnlyModelViewSet):
+    """
+    API endpoint that allows resources to be viewed.
+    """
+
+    queryset = models.Resource.objects.all().order_by("-date_published")
+    serializer_class = serializers.ResourceSerializer

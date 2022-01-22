@@ -39,15 +39,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_cleanup",
+    "django_extensions",
+    "rest_framework",
+    "corsheaders",
+    "oauth2_provider",
+    "graphene_django",
+    "markdownx",
     "main.apps.MainConfig",
     "rest.apps.RestConfig",
     "graph.apps.GraphConfig",
-    "django_cleanup.apps.CleanupConfig",
-    "django_extensions.apps.DjangoExtensionsConfig",
-    "rest_framework.apps.RestFrameworkConfig",
-    "corsheaders.apps.CorsHeadersAppConfig",
-    "oauth2_provider.apps.DOTConfig",
-    "graphene_django",
 ]
 
 AUTH_USER_MODEL = "main.User"
