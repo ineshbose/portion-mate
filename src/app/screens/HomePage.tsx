@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import {
+  ImageProps,
   NativeScrollEvent,
   SafeAreaView,
   ScrollView,
@@ -17,6 +18,7 @@ import {
   ListItem,
   Icon,
   Text,
+  useTheme,
 } from '@ui-kitten/components';
 import { ComponentTabArguments } from '../types/navigation';
 import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
@@ -48,15 +50,6 @@ const getFrequencyDisplay = (frequency: number) => {
       : frequency % 7 === 0
       ? `${frequency / 7}${frequencyDisplay[7]}`
       : `${frequency}d`)
-  );
-};
-
-const isCloseToBottom = (props: NativeScrollEvent) => {
-  const paddingToBottom = 20;
-  const { layoutMeasurement, contentOffset, contentSize } = props;
-  return (
-    layoutMeasurement.height + contentOffset.y >=
-    contentSize.height - paddingToBottom
   );
 };
 
@@ -127,12 +120,14 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
     setItems(newItems);
   };
 
-  const actionIcon = (props: any, action: IconOptions) => (
-    <Icon key={action} name={action} {...props} />
-  );
+  const actionIcon = (
+    props: Partial<ImageProps> | undefined,
+    action: IconOptions
+  ) => <Icon key={action} name={action} {...props} />;
 
   const itemCheckBox = (item: TrackItem, idx: number) => (
     <CheckBox
+      style={{ marginRight: 2 }}
       key={idx}
       checked={idx < (item.logs as UserLogs).length}
       onChange={(checked) => updateItemLogs(checked ? 'add' : 'remove', item)}
@@ -222,8 +217,10 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
   );
 
   return (
-    <SafeAreaView>
-      <List data={items} renderItem={renderItem} />
+    <SafeAreaView style={styles.container}>
+      <Layout style={styles.container}>
+        <List data={items} renderItem={renderItem} />
+      </Layout>
     </SafeAreaView>
   );
 }

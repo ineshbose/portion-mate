@@ -7,6 +7,7 @@ import {
 } from '../api/auth';
 import { getObject } from '../api/store';
 import { createUser, getUser } from '../api/user';
+import { ChildComponents } from '../types';
 import { AuthToken, TrackItems, User } from '../types/api';
 
 type AppContextType = {
@@ -19,7 +20,7 @@ type AppContextType = {
 
 const AppContext = React.createContext<AppContextType>({} as AppContextType);
 
-export const ContextProvider = ({ children }: { children: JSX.Element }) => {
+export const ContextProvider = ({ children }: ChildComponents) => {
   const [authToken, setAuthToken] = React.useState<AuthToken>();
   const [items, setItems] = React.useState<TrackItems>([]);
   const [user, setUser] = React.useState<User>();

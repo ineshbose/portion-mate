@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Image, Text } from 'react-native';
+import { Image } from 'react-native';
+import { Text } from '@ui-kitten/components';
 
 export default function Logo() {
   return (

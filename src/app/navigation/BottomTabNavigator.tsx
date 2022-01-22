@@ -1,15 +1,18 @@
 import {
+  BottomTabBarProps,
   BottomTabHeaderProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Image } from 'react-native';
+import { Image, ImageProps } from 'react-native';
 import {
   RootTabParamList,
   RouteActionIcon,
   TabConfig,
 } from '../types/navigation';
 import {
+  BottomNavigation,
+  BottomNavigationTab,
   Button,
   ButtonGroup,
   Card,
@@ -25,6 +28,8 @@ import StatsPage from '../screens/StatsPage';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { useAppContext } from '../contexts/AppContext';
+import { useThemeContext } from '../contexts/ThemeContext';
+import { ParamListBase, RouteProp } from '@react-navigation/native';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -62,13 +67,15 @@ const tabs: RootTab[] = [
 
 export default function BottomTabNavigator() {
   const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     user,
     helpers: { signOut },
   } = useAppContext();
+  const { ThemeToggle } = useThemeContext();
   const [action, setAction] = React.useState<string>('');
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
-  const navigationLeftAccessory = (props: any) => (
+  const navigationLeftAccessory = (props: {} | undefined) => (
     <Text {...props}>
       <Image
         style={{
@@ -83,7 +90,10 @@ export default function BottomTabNavigator() {
     </Text>
   );
 
-  const navRightAccessoryActionIcon = (props: any, route: any) => (
+  const navRightAccessoryActionIcon = (
+    props: Partial<ImageProps> | undefined,
+    route: RouteProp<ParamListBase, string>
+  ) => (
     <Icon
       key="action"
       name={headerButtonIcons[route.name as keyof RootTabParamList]}
@@ -92,12 +102,12 @@ export default function BottomTabNavigator() {
     />
   );
 
-  const userAvatar = (props: any) => (
+  const userAvatar = (props: Partial<ImageProps> | undefined) => (
     <Icon key="user" name="person" {...props} />
   );
 
   const navigationRightAccessory = (
-    props: any,
+    props: {} | undefined,
     { route }: BottomTabHeaderProps
   ) => (
     <ButtonGroup appearance="ghost" {...props}>
@@ -115,8 +125,9 @@ export default function BottomTabNavigator() {
         onBackdropPress={() => setModalVisible(false)}
       >
         <Card>
-          {user?.forename && <Text>Hello, {user.forename}</Text>}
+          {/* {user?.forename && <Text>Hello, {user.forename}</Text>} */}
           <Button disabled>Settings</Button>
+          <ThemeToggle appearance="filled" />
           <Button onPress={() => signOut()}>Sign Out</Button>
         </Card>
       </Modal>
@@ -130,45 +141,56 @@ export default function BottomTabNavigator() {
     />
   );
 
-  const navTabComponent = (tab: RootTab, props: any) =>
-    tab.component({
-      isAction: action === tab.name,
-      ...props,
-    });
-
   const navTabIcon = (
     tab: RootTab,
-    props: {
-      focused: boolean;
-      color: string;
-      size: number;
-    }
-  ) => <Icon style={{ marginBottom: -3 }} name={tab.icon} {...props} />;
+    props?:
+      | {
+          focused: boolean;
+          color: string;
+          size: number;
+        }
+      | Partial<ImageProps>
+  ) => <Icon name={tab.icon} {...props} />;
 
-  const navigationTabScreens = (tab: RootTab) => (
-    <BottomTab.Screen
-      key={tab.name}
-      name={tab.name}
-      component={(props) => navTabComponent(tab, props)}
-      options={{
-        title: tab.name,
-        tabBarIcon: (props) => navTabIcon(tab, props),
-      }}
-    />
+  const TabBar = (props: BottomTabBarProps) => (
+    <BottomNavigation
+      selectedIndex={props.state.index}
+      onSelect={(index) =>
+        props.navigation.navigate(props.state.routeNames[index])
+      }
+      appearance="noIndicator"
+    >
+      {tabs.map((tab) => (
+        <BottomNavigationTab
+          key={tab.name}
+          icon={(p) => navTabIcon(tab, p)}
+          title={tab.name}
+        />
+      ))}
+    </BottomNavigation>
   );
-
-  const TabScreens = (ts: RootTab[]) => ts.map(navigationTabScreens);
 
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
+      tabBar={TabBar}
       screenOptions={{
         tabBarLabelPosition: 'below-icon',
         header: navigationHeader,
         headerShown: true,
       }}
     >
-      {TabScreens(tabs)}
+      {tabs.map((tab) => (
+        <BottomTab.Screen key={tab.name} name={tab.name}>
+          {/* https://github.com/react-navigation/react-navigation/issues/8517 */}
+          {(props) =>
+            tab.component({
+              isAction: action === tab.name,
+              ...props,
+            })
+          }
+        </BottomTab.Screen>
+      ))}
     </BottomTab.Navigator>
   );
 }

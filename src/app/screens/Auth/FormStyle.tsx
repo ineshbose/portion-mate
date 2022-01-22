@@ -16,6 +16,11 @@ export default StyleSheet.create({
   formElement: {
     marginVertical: 2,
   },
+  themeToggleStyle: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+  },
 });
 
 export const passwordAccessory = (
