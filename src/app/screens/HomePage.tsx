@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {
   NativeScrollEvent,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   TextProps,
@@ -15,8 +16,8 @@ import {
   List,
   ListItem,
   Icon,
+  Text,
 } from '@ui-kitten/components';
-import { Text, View } from '../components/Themed';
 import { ComponentTabArguments } from '../types/navigation';
 import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
 import {
@@ -28,6 +29,7 @@ import {
 } from '../types/api';
 import { useAppContext } from '../contexts/AppContext';
 import { createUserLog, deleteUserLog } from '../api/logs';
+import { IconOptions } from '../types';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -125,77 +127,93 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
     setItems(newItems);
   };
 
+  const actionIcon = (props: any, action: IconOptions) => (
+    <Icon key={action} name={action} {...props} />
+  );
+
+  const itemCheckBox = (item: TrackItem, idx: number) => (
+    <CheckBox
+      key={idx}
+      checked={idx < (item.logs as UserLogs).length}
+      onChange={(checked) => updateItemLogs(checked ? 'add' : 'remove', item)}
+    />
+  );
+
+  const itemCheckBoxes = (item: TrackItem) =>
+    Array.from(Array(item.target), (_e, i) => itemCheckBox(item, i));
+
   const renderItemDescription = (
     props: TextProps | undefined,
     item: TrackItem
   ) =>
     isAction ? (
       <Text
-        style={{
-          fontSize: 18,
-          fontWeight: 'bold',
-        }}
+        {...props}
+        style={[
+          // eslint-disable-next-line react/prop-types
+          props?.style,
+          {
+            fontSize: 18,
+            fontWeight: 'bold',
+          },
+        ]}
       >
         {item.target}
-        <ButtonGroup>
+        <ButtonGroup appearance="ghost">
           <Button
-            accessoryLeft={<Icon key="add" name="add" />}
+            accessoryLeft={(p) => actionIcon(p, 'add')}
             onPress={() => updateItemSettings(true, 'add', item)}
           />
           <Button
-            accessoryLeft={<Icon key="remove" name="remove" />}
+            accessoryLeft={(p) => actionIcon(p, 'remove')}
             disabled={item.target < 1}
             onPress={() => updateItemSettings(true, 'remove', item)}
           />
         </ButtonGroup>
       </Text>
     ) : (
-      <Layout style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        {Array.from(Array(item.target), (e, i) => (
-          <CheckBox
-            key={i}
-            checked={i < (item.logs as UserLogs).length}
-            onChange={(checked) =>
-              updateItemLogs(checked ? 'add' : 'remove', item)
-            }
-          />
-        ))}
+      <Layout
+        {...props}
+        // eslint-disable-next-line react/prop-types
+        style={[props?.style, { flexDirection: 'row', flexWrap: 'wrap' }]}
+      >
+        {itemCheckBoxes(item)}
       </Layout>
     );
 
   const renderItemAccessory = (props: ViewProps | undefined, item: TrackItem) =>
     isAction ? (
-      <ButtonGroup>
+      <ButtonGroup appearance="ghost" {...props}>
         <Button
-          accessoryLeft={<Icon key="delete" name="delete" />}
+          accessoryLeft={(p) => actionIcon(p, 'delete')}
           onPress={() => updateItemSettings(false, 'remove', item)}
         />
         <Button
-          accessoryLeft={<Icon key="reorder" name="reorder" />}
+          accessoryLeft={(p) => actionIcon(p, 'reorder')}
           disabled
           onPress={() => updateItemSettings(false, 'add', item)}
         />
       </ButtonGroup>
     ) : (
       <>
-        <Text>
+        <Text {...props}>
           {item.target}/{getFrequencyDisplay(item.frequency)}
         </Text>
-        <ButtonGroup>
+        <ButtonGroup appearance="ghost">
           <Button
-            accessoryLeft={<Icon key="remove" name="remove" />}
+            accessoryLeft={(p) => actionIcon(p, 'remove')}
             disabled={(item.logs as UserLogs).length < 1}
             onPress={() => updateItemLogs('remove', item)}
           />
           <Button
-            accessoryLeft={<Icon key="add" name="add" />}
+            accessoryLeft={(p) => actionIcon(p, 'add')}
             onPress={() => updateItemLogs('add', item)}
           />
         </ButtonGroup>
       </>
     );
 
-  const renderItem = ({ item, index }: { item: TrackItem; index: number }) => (
+  const renderItem = ({ item }: { item: TrackItem }) => (
     <ListItem
       title={(item.item as PortionItem).name}
       description={(props) => renderItemDescription(props, item)}
@@ -204,17 +222,9 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
   );
 
   return (
-    <ScrollView
-      style={styles.container}
-      onScroll={(e) => {
-        if (isCloseToBottom(e.nativeEvent)) {
-          // paginate
-        }
-      }}
-      scrollEventThrottle={400}
-    >
+    <SafeAreaView>
       <List data={items} renderItem={renderItem} />
-    </ScrollView>
+    </SafeAreaView>
   );
 }
 
