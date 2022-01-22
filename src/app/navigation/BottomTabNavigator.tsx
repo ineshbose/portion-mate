@@ -11,7 +11,9 @@ import {
   Avatar,
   Button,
   ButtonGroup,
+  Card,
   Icon,
+  Modal,
   TopNavigation,
 } from '@ui-kitten/components';
 import HomePage from '../screens/HomePage';
@@ -56,9 +58,11 @@ const tabs: TabConfig<RootTabParamList>[] = [
 
 export default function BottomTabNavigator() {
   const {
+    user,
     helpers: { signOut },
   } = useAppContext();
-  const [action, setAction] = React.useState('');
+  const [action, setAction] = React.useState<string>('');
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   return (
     <BottomTab.Navigator
@@ -104,11 +108,22 @@ export default function BottomTabNavigator() {
                     accessoryLeft={
                       <Avatar
                         key="profile"
-                        source={{ uri: 'https://picsum.photos/200' }}
+                        source={{ uri: 'https://picsum.photos/10' }}
                       />
                     }
-                    onPress={() => signOut()}
+                    onPress={() => setModalVisible(true)}
                   />
+                  <Modal
+                    visible={modalVisible}
+                    backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                    onBackdropPress={() => setModalVisible(false)}
+                  >
+                    <Card>
+                      {user?.forename && <Text>Hello, {user.forename}</Text>}
+                      <Button disabled>Settings</Button>
+                      <Button onPress={() => signOut()}>Sign Out</Button>
+                    </Card>
+                  </Modal>
                 </ButtonGroup>
               }
             />

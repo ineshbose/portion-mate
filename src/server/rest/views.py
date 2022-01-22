@@ -19,6 +19,12 @@ class UserViewSet(ModelViewSet):
     def get_queryset(self):
         return self.request.user
 
+    def get_permissions(self):
+        if self.action in ["create"]:
+            self.permission_classes = [drf_permissions.AllowAny]
+
+        return super(self.__class__, self).get_permissions()
+
     def list(self, request, *args, **kwargs):
         return Response(
             self.get_serializer(self.filter_queryset(self.get_queryset())).data

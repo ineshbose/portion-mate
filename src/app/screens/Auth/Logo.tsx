@@ -8,6 +8,10 @@ export default function Logo() {
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
+        style={{
+          height: 200,
+          width: 200,
+        }}
       />
       <Text>Portion Mate</Text>
     </>

@@ -75,12 +75,12 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
     getItems();
   }, [items, setItems]);
 
-  const updateItemLogs = async (btnIdx: number, itemIdx: number) => {
-    const item = (items as TrackItems)[itemIdx];
+  const updateItemLogs = async (action: 'add' | 'remove', item: TrackItem) => {
+    const itemIdx = (items as TrackItems).indexOf(item);
     const newItem = { ...item };
     const newItems = [...(items as TrackItems)];
 
-    if (btnIdx > 0) {
+    if (action === 'add') {
       const log = (await createUserLog({
         item: 'id' in item ? item.id : item,
       })) as UserLog;
@@ -98,26 +98,26 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
   };
 
   const updateItemSettings = async (
-    isTarget: boolean,
-    btnIdx: number,
-    itemIdx: number
+    updateTarget: boolean,
+    action: 'add' | 'remove',
+    item: TrackItem
   ) => {
-    const item = (items as TrackItems)[itemIdx];
+    const itemIdx = (items as TrackItems).indexOf(item);
     const newItem = { ...item };
     const newItems = [...(items as TrackItems)];
 
-    if (isTarget) {
+    if (updateTarget) {
       const { target } = item;
-      const newTarget = btnIdx > 0 ? target - 1 : target + 1;
+      const newTarget = action === 'add' ? target + 1 : target - 1;
 
       await updateTrackItem({ ...newItem, target: newTarget });
       newItem.target = newTarget;
     } else {
-      if (btnIdx > 0) {
-        // reordered
-      } else {
+      if (action === 'remove') {
         await deleteTrackItem(item);
         return setItems(newItems.filter((i) => i.id !== item.id));
+      } else {
+        // reordered
       }
     }
 
@@ -140,19 +140,25 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
         <ButtonGroup>
           <Button
             accessoryLeft={<Icon key="add" name="add" />}
-            onPress={() => updateItemSettings(true, 0, 0)}
+            onPress={() => updateItemSettings(true, 'add', item)}
           />
           <Button
             accessoryLeft={<Icon key="remove" name="remove" />}
             disabled={item.target < 1}
-            onPress={() => updateItemSettings(true, 1, 0)}
+            onPress={() => updateItemSettings(true, 'remove', item)}
           />
         </ButtonGroup>
       </Text>
     ) : (
       <Layout style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {Array.from(Array(item.target), (e, i) => (
-          <CheckBox key={i} checked={i < (item.logs as UserLogs).length} />
+          <CheckBox
+            key={i}
+            checked={i < (item.logs as UserLogs).length}
+            onChange={(checked) =>
+              updateItemLogs(checked ? 'add' : 'remove', item)
+            }
+          />
         ))}
       </Layout>
     );
@@ -162,28 +168,31 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
       <ButtonGroup>
         <Button
           accessoryLeft={<Icon key="delete" name="delete" />}
-          onPress={() => updateItemSettings(false, 0, 0)}
+          onPress={() => updateItemSettings(false, 'remove', item)}
         />
         <Button
           accessoryLeft={<Icon key="reorder" name="reorder" />}
           disabled
-          onPress={() => updateItemSettings(false, 1, 0)}
+          onPress={() => updateItemSettings(false, 'add', item)}
         />
       </ButtonGroup>
     ) : (
-      <View>
+      <>
+        <Text>
+          {item.target}/{getFrequencyDisplay(item.frequency)}
+        </Text>
         <ButtonGroup>
           <Button
             accessoryLeft={<Icon key="remove" name="remove" />}
             disabled={(item.logs as UserLogs).length < 1}
-            onPress={() => updateItemLogs(0, 0)}
+            onPress={() => updateItemLogs('remove', item)}
           />
           <Button
             accessoryLeft={<Icon key="add" name="add" />}
-            onPress={() => updateItemLogs(1, 0)}
+            onPress={() => updateItemLogs('add', item)}
           />
         </ButtonGroup>
-      </View>
+      </>
     );
 
   const renderItem = ({ item, index }: { item: TrackItem; index: number }) => (
