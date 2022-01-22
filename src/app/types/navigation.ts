@@ -8,9 +8,10 @@ import {
   CompositeScreenProps,
   NavigatorScreenParams,
   ParamListBase,
+  RouteProp,
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ColorScheme, MaterialIconsOptions } from '../types';
+import { ColorScheme, IconOptions } from '../types';
 
 declare global {
   namespace ReactNavigation {
@@ -53,16 +54,23 @@ export type RootAuthParamList = {
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
-  CompositeScreenProps<
-    BottomTabScreenProps<RootTabParamList, Screen>,
-    NativeStackScreenProps<RootStackParamList>
-  >;
+  | CompositeScreenProps<
+      BottomTabScreenProps<RootTabParamList, Screen>,
+      NativeStackScreenProps<RootStackParamList>
+    >
+  | {
+      route: RouteProp<
+        RootTabParamList,
+        'Home' | 'Journal' | 'Stats' | 'Resources'
+      >;
+      navigation: any;
+    };
 
 export type RootAuthScreenProps<Screen extends keyof RootAuthParamList> =
   NavProps<RootAuthParamList, Screen>;
 
 export type RouteActionIcon<List> = {
-  [route in keyof List]: MaterialIconsOptions;
+  [route in keyof List]: IconOptions;
 };
 
 export type TabExtraArguments = {
@@ -84,6 +92,6 @@ export type TabConfig<
   ? {
       name: Name;
       component: ComponentTab<Name>;
-      icon: MaterialIconsOptions;
+      icon: IconOptions;
     }
   : never;

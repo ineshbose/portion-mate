@@ -1,17 +1,33 @@
 import * as React from 'react';
-import { NativeScrollEvent, ScrollView, StyleSheet } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { MaterialIcons } from '@expo/vector-icons';
-
-import { Text, View } from '../components/Themed';
-import { ColorScheme } from '../types';
+import {
+  ImageProps,
+  SafeAreaView,
+  StyleSheet,
+  TextProps,
+  ViewProps,
+} from 'react-native';
+import {
+  Button,
+  ButtonGroup,
+  CheckBox,
+  Layout,
+  List,
+  ListItem,
+  Icon,
+  Text,
+} from '@ui-kitten/components';
 import { ComponentTabArguments } from '../types/navigation';
-import Colors from '../constants/Colors';
-import { IconButtonGroup } from '../components/IconButtonGroup';
 import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
-import { PortionItem, TrackItems, UserLog, UserLogs } from '../types/api';
+import {
+  PortionItem,
+  TrackItem,
+  TrackItems,
+  UserLog,
+  UserLogs,
+} from '../types/api';
 import { useAppContext } from '../contexts/AppContext';
 import { createUserLog, deleteUserLog } from '../api/logs';
+import { IconOptions } from '../types';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -33,17 +49,8 @@ const getFrequencyDisplay = (frequency: number) => {
   );
 };
 
-const isCloseToBottom = (props: NativeScrollEvent) => {
-  const paddingToBottom = 20;
-  const { layoutMeasurement, contentOffset, contentSize } = props;
-  return (
-    layoutMeasurement.height + contentOffset.y >=
-    contentSize.height - paddingToBottom
-  );
-};
-
-export default function HomePage(props: ComponentTabArguments<'Home'>) {
-  const { isAction, colorScheme } = props;
+export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
+  const { isAction } = pageProps;
   const {
     items,
     helpers: { setItems },
@@ -57,14 +64,14 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
     };
 
     getItems();
-  }, []);
+  }, [items, setItems]);
 
-  const updateItemLogs = async (btnIdx: number, itemIdx: number) => {
-    const item = (items as TrackItems)[itemIdx];
+  const updateItemLogs = async (action: 'add' | 'remove', item: TrackItem) => {
+    const itemIdx = (items as TrackItems).indexOf(item);
     const newItem = { ...item };
     const newItems = [...(items as TrackItems)];
 
-    if (btnIdx > 0) {
+    if (action === 'add') {
       const log = (await createUserLog({
         item: 'id' in item ? item.id : item,
       })) as UserLog;
@@ -82,26 +89,26 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
   };
 
   const updateItemSettings = async (
-    isTarget: boolean,
-    btnIdx: number,
-    itemIdx: number
+    updateTarget: boolean,
+    action: 'add' | 'remove',
+    item: TrackItem
   ) => {
-    const item = (items as TrackItems)[itemIdx];
+    const itemIdx = (items as TrackItems).indexOf(item);
     const newItem = { ...item };
     const newItems = [...(items as TrackItems)];
 
-    if (isTarget) {
+    if (updateTarget) {
       const { target } = item;
-      const newTarget = btnIdx > 0 ? target - 1 : target + 1;
+      const newTarget = action === 'add' ? target + 1 : target - 1;
 
       await updateTrackItem({ ...newItem, target: newTarget });
       newItem.target = newTarget;
     } else {
-      if (btnIdx > 0) {
-        // reordered
-      } else {
+      if (action === 'remove') {
         await deleteTrackItem(item);
         return setItems(newItems.filter((i) => i.id !== item.id));
+      } else {
+        // reordered
       }
     }
 
@@ -109,92 +116,115 @@ export default function HomePage(props: ComponentTabArguments<'Home'>) {
     setItems(newItems);
   };
 
+  const actionIcon = (
+    props: Partial<ImageProps> | undefined,
+    action: IconOptions
+  ) => <Icon key={action} name={action} {...props} />;
+
+  const itemCheckBox = (item: TrackItem, idx: number) => (
+    <CheckBox
+      style={{ marginRight: 2 }}
+      key={idx}
+      checked={idx < (item.logs as UserLogs).length}
+      onChange={(checked) => updateItemLogs(checked ? 'add' : 'remove', item)}
+    />
+  );
+
+  const itemCheckBoxes = (item: TrackItem) =>
+    Array.from(
+      Array(
+        item.logs && item.logs.length > 0
+          ? Math.max(item.target, item.logs.length)
+          : item.target
+      ),
+      (_e, i) => itemCheckBox(item, i)
+    );
+
+  const renderItemDescription = (
+    props: TextProps | undefined,
+    item: TrackItem
+  ) =>
+    isAction ? (
+      <Text
+        {...props}
+        style={[
+          // eslint-disable-next-line react/prop-types
+          props?.style,
+          {
+            fontSize: 18,
+            fontWeight: 'bold',
+          },
+        ]}
+      >
+        {item.target}
+        <ButtonGroup appearance="ghost">
+          <Button
+            accessoryLeft={(p) => actionIcon(p, 'add')}
+            onPress={() => updateItemSettings(true, 'add', item)}
+          />
+          <Button
+            accessoryLeft={(p) => actionIcon(p, 'remove')}
+            disabled={item.target < 1}
+            onPress={() => updateItemSettings(true, 'remove', item)}
+          />
+        </ButtonGroup>
+      </Text>
+    ) : (
+      <Layout
+        {...props}
+        // eslint-disable-next-line react/prop-types
+        style={[props?.style, { flexDirection: 'row', flexWrap: 'wrap' }]}
+      >
+        {itemCheckBoxes(item)}
+      </Layout>
+    );
+
+  const renderItemAccessory = (props: ViewProps | undefined, item: TrackItem) =>
+    isAction ? (
+      <ButtonGroup appearance="ghost">
+        <Button
+          accessoryLeft={(p) => actionIcon(p, 'delete')}
+          onPress={() => updateItemSettings(false, 'remove', item)}
+        />
+        <Button
+          accessoryLeft={(p) => actionIcon(p, 'reorder')}
+          disabled
+          onPress={() => updateItemSettings(false, 'add', item)}
+        />
+      </ButtonGroup>
+    ) : (
+      <>
+        <Text>
+          {item.target}/{getFrequencyDisplay(item.frequency)}
+        </Text>
+        <ButtonGroup appearance="ghost">
+          <Button
+            accessoryLeft={(p) => actionIcon(p, 'remove')}
+            disabled={(item.logs as UserLogs).length < 1}
+            onPress={() => updateItemLogs('remove', item)}
+          />
+          <Button
+            accessoryLeft={(p) => actionIcon(p, 'add')}
+            onPress={() => updateItemLogs('add', item)}
+          />
+        </ButtonGroup>
+      </>
+    );
+
+  const renderItem = ({ item }: { item: TrackItem }) => (
+    <ListItem
+      title={(item.item as PortionItem).name}
+      description={(props) => renderItemDescription(props, item)}
+      accessoryRight={(props) => renderItemAccessory(props, item)}
+    />
+  );
+
   return (
-    <ScrollView
-      style={styles.container}
-      onScroll={(e) => {
-        if (isCloseToBottom(e.nativeEvent)) {
-          // paginate
-        }
-      }}
-      scrollEventThrottle={400}
-    >
-      {(items as TrackItems).map((item, index) => (
-        <ListItem
-          key={item.id}
-          bottomDivider
-          containerStyle={{
-            backgroundColor: Colors[colorScheme as ColorScheme].background,
-          }}
-        >
-          <ListItem.Content>
-            {item.item && (
-              <ListItem.Title
-                style={{ color: Colors[colorScheme as ColorScheme].text }}
-              >
-                {(item.item as PortionItem).name}
-              </ListItem.Title>
-            )}
-            <Text>
-              {isAction ? (
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {item.target}
-                  <IconButtonGroup
-                    buttons={[
-                      <MaterialIcons key="add" name="add" />,
-                      <MaterialIcons key="remove" name="remove" />,
-                    ]}
-                    disabled={item.target > 0 ? [] : [1]}
-                    onPress={(value) => updateItemSettings(true, value, index)}
-                  />
-                </Text>
-              ) : (
-                Array.from(Array(item.target), (e, i) => (
-                  <ListItem.CheckBox
-                    checkedIcon="times"
-                    key={i}
-                    checked={i < (item.logs as UserLogs).length}
-                  />
-                ))
-              )}
-            </Text>
-          </ListItem.Content>
-          <ListItem.Content right>
-            {isAction ? (
-              <IconButtonGroup
-                buttons={[
-                  <MaterialIcons key="delete" name="delete" />,
-                  <MaterialIcons key="reorder" name="reorder" />,
-                ]}
-                disabled={[1]}
-                onPress={(value) => updateItemSettings(false, value, index)}
-              />
-            ) : (
-              <View>
-                <ListItem.Subtitle
-                  style={{ color: Colors[colorScheme as ColorScheme].tint }}
-                >
-                  {item.target}/{getFrequencyDisplay(item.frequency)}
-                </ListItem.Subtitle>
-                <IconButtonGroup
-                  buttons={[
-                    <MaterialIcons key="remove" name="remove" />,
-                    <MaterialIcons key="add" name="add" />,
-                  ]}
-                  disabled={(item.logs as UserLogs).length > 0 ? [] : [0]}
-                  onPress={(value) => updateItemLogs(value, index)}
-                />
-              </View>
-            )}
-          </ListItem.Content>
-        </ListItem>
-      ))}
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <Layout style={styles.container}>
+        <List data={items} renderItem={renderItem} />
+      </Layout>
+    </SafeAreaView>
   );
 }
 

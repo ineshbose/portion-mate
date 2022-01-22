@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import { View } from '../components/Themed';
+import { Layout } from '@ui-kitten/components';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 export default function JournalPage() {
-  return <View style={styles.container}></View>;
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <Layout style={styles.container}></Layout>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

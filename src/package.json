@@ -14,11 +14,14 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@eva-design/eva": "^2.1.1",
     "@expo/vector-icons": "^12.0.0",
+    "@expo/webpack-config": "^0.16.16",
     "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
+    "@ui-kitten/components": "^5.1.1",
     "axios": "^0.24.0",
     "expo": "~43.0.0",
     "expo-asset": "~8.4.3",
@@ -32,9 +35,9 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
     "react-native-dotenv": "^3.3.1",
-    "react-native-elements": "^3.4.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
+    "react-native-svg": "12.1.1",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
@@ -50,7 +53,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "eslint-plugin-react-native": "^3.11.0",
+    "eslint-plugin-react-native": "^4.0.0",
     "jest-expo": "~43.0.0",
     "prettier": "^2.4.1",
     "prettylint": "^1.0.0",
