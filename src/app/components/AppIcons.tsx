@@ -13,7 +13,7 @@ function createIconsMap() {
   return new Proxy(
     {},
     {
-      get(target: any, name: IconOptions) {
+      get(_target: any, name: IconOptions) {
         return IconProvider(name);
       },
     }

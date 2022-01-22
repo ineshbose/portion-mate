@@ -1,22 +1,27 @@
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, View } from '../components/Themed';
+import { Layout, Text } from '@ui-kitten/components';
+import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { RootStackScreenProps } from '../types/navigation';
+import { useThemeContext } from '../contexts/ThemeContext';
 
 export default function NotFoundScreen({
   navigation,
 }: RootStackScreenProps<'NotFound'>) {
+  const { ThemeToggle } = useThemeContext();
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{"This screen doesn't exist."}</Text>
-      <TouchableOpacity
-        onPress={() => navigation.replace('Root')}
-        style={styles.link}
-      >
-        <Text style={styles.linkText}>Go to home screen!</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Layout style={styles.container}>
+        <Text style={styles.title}>{"This screen doesn't exist."}</Text>
+        <TouchableOpacity
+          onPress={() => navigation.replace('Root')}
+          style={styles.link}
+        >
+          <Text style={styles.linkText}>Go to home screen!</Text>
+        </TouchableOpacity>
+      </Layout>
+      <ThemeToggle style={styles.toggle} />
+    </SafeAreaView>
   );
 }
 
@@ -38,5 +43,10 @@ const styles = StyleSheet.create({
   linkText: {
     fontSize: 14,
     color: '#2e78b7',
+  },
+  toggle: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
 });

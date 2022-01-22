@@ -20,7 +20,9 @@ export default function StackNavigator() {
         component={NotFoundScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Group
+        screenOptions={{ presentation: 'modal', headerShown: false }}
+      >
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>

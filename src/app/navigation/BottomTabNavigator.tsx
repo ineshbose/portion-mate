@@ -22,9 +22,7 @@ import {
   TopNavigation,
 } from '@ui-kitten/components';
 import HomePage from '../screens/HomePage';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import StatsPage from '../screens/StatsPage';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { useAppContext } from '../contexts/AppContext';
@@ -48,16 +46,16 @@ const tabs: RootTab[] = [
     component: HomePage,
     icon: 'home',
   },
-  // {
-  //   name: 'Journal',
-  //   component: JournalPage,
-  //   icon: 'book',
-  // },
-  // {
-  //   name: 'Stats',
-  //   component: StatsPage,
-  //   icon: 'bar-chart',
-  // },
+  {
+    name: 'Journal',
+    component: JournalPage,
+    icon: 'book',
+  },
+  {
+    name: 'Stats',
+    component: StatsPage,
+    icon: 'bar-chart',
+  },
   {
     name: 'Resources',
     component: ResourcesPage,

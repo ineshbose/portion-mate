@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import {
   ImageProps,
-  NativeScrollEvent,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   TextProps,
   ViewProps,
@@ -18,7 +15,6 @@ import {
   ListItem,
   Icon,
   Text,
-  useTheme,
 } from '@ui-kitten/components';
 import { ComponentTabArguments } from '../types/navigation';
 import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
@@ -135,7 +131,14 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
   );
 
   const itemCheckBoxes = (item: TrackItem) =>
-    Array.from(Array(item.target), (_e, i) => itemCheckBox(item, i));
+    Array.from(
+      Array(
+        item.logs && item.logs.length > 0
+          ? Math.max(item.target, item.logs.length)
+          : item.target
+      ),
+      (_e, i) => itemCheckBox(item, i)
+    );
 
   const renderItemDescription = (
     props: TextProps | undefined,
@@ -178,7 +181,7 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
 
   const renderItemAccessory = (props: ViewProps | undefined, item: TrackItem) =>
     isAction ? (
-      <ButtonGroup appearance="ghost" {...props}>
+      <ButtonGroup appearance="ghost">
         <Button
           accessoryLeft={(p) => actionIcon(p, 'delete')}
           onPress={() => updateItemSettings(false, 'remove', item)}
@@ -191,7 +194,7 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
       </ButtonGroup>
     ) : (
       <>
-        <Text {...props}>
+        <Text>
           {item.target}/{getFrequencyDisplay(item.frequency)}
         </Text>
         <ButtonGroup appearance="ghost">
