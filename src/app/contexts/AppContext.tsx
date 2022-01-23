@@ -9,21 +9,28 @@ import { getObject } from '../api/store';
 import { createUser, getUser } from '../api/user';
 import { ChildComponents } from '../types';
 import { AuthToken, TrackItems, User } from '../types/api';
+import { RootTabParamList, RouteNames } from '../types/navigation';
 
 type AppContextType = {
   authToken?: AuthToken;
   user?: User;
   items?: TrackItems;
   loading: boolean;
+  headerAction?: RouteNames<RootTabParamList>;
   helpers: { [name: string]: Function };
 };
 
-const AppContext = React.createContext<AppContextType>({} as AppContextType);
+const AppContext = React.createContext<AppContextType>({
+  loading: false,
+  helpers: {},
+});
 
 export const ContextProvider = ({ children }: ChildComponents) => {
   const [authToken, setAuthToken] = React.useState<AuthToken>();
   const [items, setItems] = React.useState<TrackItems>([]);
   const [user, setUser] = React.useState<User>();
+  const [headerAction, setHeaderAction] =
+    React.useState<RouteNames<RootTabParamList>>();
   const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
@@ -86,8 +93,9 @@ export const ContextProvider = ({ children }: ChildComponents) => {
         authToken,
         user,
         items,
+        headerAction,
         loading,
-        helpers: { signIn, signUp, signOut, setItems },
+        helpers: { signIn, signUp, signOut, setItems, setHeaderAction },
       }}
     >
       {children}

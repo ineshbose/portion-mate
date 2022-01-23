@@ -72,3 +72,15 @@ export type UserLog = {
 };
 
 export type UserLogs = UserLog[];
+
+export type Resource = {
+  id: ModelID;
+  title: string;
+  author: string;
+  link: string;
+  date_published: string;
+  content: string;
+  bookmarked?: boolean;
+};
+
+export type Resources = Resource[];

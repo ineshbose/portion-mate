@@ -109,3 +109,26 @@ class UserLogSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = models.UserLog
         fields = ["id", "item", "timestamp"]
+
+
+class ResourceSerializer(DynamicFieldsModelSerializer):
+    bookmarked = serializers.SerializerMethodField()
+
+    def get_bookmarked(self, obj):
+        return (
+            self.context["request"].user in obj.bookmarked_users.all()
+            if self.context.get("request") and hasattr(self.context["request"], "user")
+            else False
+        )
+
+    class Meta:
+        model = models.Resource
+        fields = [
+            "id",
+            "title",
+            "author",
+            "link",
+            "date_published",
+            "content",
+            "bookmarked",
+        ]

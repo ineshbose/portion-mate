@@ -8,6 +8,7 @@ import { Image, ImageProps } from 'react-native';
 import {
   RootTabParamList,
   RouteActionIcon,
+  RouteNames,
   TabConfig,
 } from '../types/navigation';
 import {
@@ -67,14 +68,17 @@ export default function BottomTabNavigator() {
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     user,
-    helpers: { signOut },
+    headerAction,
+    helpers: { signOut, setHeaderAction },
   } = useAppContext();
   const { ThemeToggle } = useThemeContext();
-  const [action, setAction] = React.useState<string>('');
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const navigationLeftAccessory = (props: {} | undefined) => (
-    <Text {...props}>
+    <Text
+      {...props}
+      style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
+    >
       <Image
         style={{
           height: 30,
@@ -84,7 +88,7 @@ export default function BottomTabNavigator() {
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
       />
-      <Text>Portion Mate</Text>
+      <Text category="s2">Portion Mate</Text>
     </Text>
   );
 
@@ -94,7 +98,7 @@ export default function BottomTabNavigator() {
   ) => (
     <Icon
       key="action"
-      name={headerButtonIcons[route.name as keyof RootTabParamList]}
+      name={headerButtonIcons[route.name as RouteNames<RootTabParamList>]}
       size={30}
       {...props}
     />
@@ -111,7 +115,9 @@ export default function BottomTabNavigator() {
     <ButtonGroup appearance="ghost" {...props}>
       <Button
         accessoryLeft={(p) => navRightAccessoryActionIcon(p, route)}
-        onPress={() => setAction(action === route.name ? '' : route.name)}
+        onPress={() =>
+          setHeaderAction(headerAction === route.name ? '' : route.name)
+        }
       />
       <Button
         accessoryLeft={userAvatar}
@@ -148,7 +154,12 @@ export default function BottomTabNavigator() {
           size: number;
         }
       | Partial<ImageProps>
-  ) => <Icon name={tab.icon} {...props} />;
+  ) => {
+    if (props) {
+      // props.styles.tintColor = '#fff';
+    }
+    return <Icon name={tab.icon} {...props} />;
+  };
 
   const TabBar = (props: BottomTabBarProps) => (
     <BottomNavigation
@@ -157,6 +168,8 @@ export default function BottomTabNavigator() {
         props.navigation.navigate(props.state.routeNames[index])
       }
       appearance="noIndicator"
+      // style={{ backgroundColor: Colors.primary }}
+      {...props}
     >
       {tabs.map((tab) => (
         <BottomNavigationTab
@@ -179,15 +192,7 @@ export default function BottomTabNavigator() {
       }}
     >
       {tabs.map((tab) => (
-        <BottomTab.Screen key={tab.name} name={tab.name}>
-          {/* https://github.com/react-navigation/react-navigation/issues/8517 */}
-          {(props) =>
-            tab.component({
-              isAction: action === tab.name,
-              ...props,
-            })
-          }
-        </BottomTab.Screen>
+        <BottomTab.Screen key={tab.name} {...tab} />
       ))}
     </BottomTab.Navigator>
   );
