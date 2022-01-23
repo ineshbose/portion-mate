@@ -22,15 +22,13 @@ import {
 } from '@ui-kitten/components';
 import Markdown from 'react-native-markdown-display';
 import { Resource, Resources } from '../types/api';
-import { getResources } from '../api/resources';
+import { bookmarkResource, getResources } from '../api/resources';
 import { IconOptions } from '../types';
-import { ComponentTabArguments } from '../types/navigation';
+import { useAppContext } from '../contexts/AppContext';
 
-export default function ResourcesPage(
-  pageProps: ComponentTabArguments<'Resources'>
-) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { isAction } = pageProps;
+export default function ResourcesPage() {
+  const { headerAction } = useAppContext();
+  const isAction = headerAction === 'Resources';
   const [resources, setResources] = React.useState<Resources>([]);
   const [selectedResource, setSelectedResource] = React.useState<Resource>();
 
@@ -44,22 +42,47 @@ export default function ResourcesPage(
     getItems();
   }, [resources, setResources]);
 
+  const bookmarkAction = async (resource: Resource) => {
+    const resourceIdx = resources.indexOf(resource);
+    const newResource = { ...resource };
+    const newResources = [...resources];
+
+    await bookmarkResource(resource);
+    newResource.bookmarked = !resource.bookmarked;
+
+    if (selectedResource) {
+      setSelectedResource(newResource);
+    }
+
+    newResources[resourceIdx] = newResource;
+    setResources(newResources);
+  };
+
   const renderActionIcon = (
     props: Partial<ImageProps> | undefined,
     name: IconOptions
   ) => <Icon key={name} name={name} {...props} />;
 
-  const renderMoreAction = (props: {} | undefined) => (
-    <ButtonGroup {...props} appearance="ghost" status="basic">
-      <Button accessoryLeft={(p) => renderActionIcon(p, 'star')} />
-      <Button
-        accessoryLeft={(p) => renderActionIcon(p, 'open-in-new')}
-        onPress={() =>
-          Linking.openURL(selectedResource ? selectedResource.link : '')
-        }
-      />
-    </ButtonGroup>
-  );
+  const renderMoreAction = (props: {} | undefined) =>
+    selectedResource ? (
+      <ButtonGroup {...props} appearance="ghost" status="basic">
+        <Button
+          accessoryLeft={(p) =>
+            renderActionIcon(
+              p,
+              selectedResource.bookmarked ? 'star' : 'star-outline'
+            )
+          }
+          onPress={() => bookmarkAction(selectedResource)}
+        />
+        <Button
+          accessoryLeft={(p) => renderActionIcon(p, 'open-in-new')}
+          onPress={() => Linking.openURL(selectedResource.link)}
+        />
+      </ButtonGroup>
+    ) : (
+      <></>
+    );
 
   const renderBackAction = (props: {} | undefined) => (
     <TopNavigationAction
@@ -83,7 +106,10 @@ export default function ResourcesPage(
       <Button
         appearance="ghost"
         status="basic"
-        accessoryLeft={(p) => renderActionIcon(p, 'star')}
+        accessoryLeft={(p) =>
+          renderActionIcon(p, info.item.bookmarked ? 'star' : 'star-outline')
+        }
+        onPress={() => bookmarkAction(info.item)}
       />
     </View>
   );
@@ -120,7 +146,12 @@ export default function ResourcesPage(
             </ScrollView>
           </>
         ) : resources.length > 0 ? (
-          <List data={resources} renderItem={renderItem} />
+          <List
+            data={resources.filter((resource) =>
+              isAction ? resource.bookmarked : true
+            )}
+            renderItem={renderItem}
+          />
         ) : (
           <Layout style={styles.noResourceContainer}>
             <Text style={styles.noResourceTitle}>

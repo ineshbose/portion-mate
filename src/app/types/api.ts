@@ -80,6 +80,7 @@ export type Resource = {
   link: string;
   date_published: string;
   content: string;
+  bookmarked?: boolean;
 };
 
 export type Resources = Resource[];

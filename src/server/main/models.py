@@ -233,7 +233,8 @@ class Resource(models.Model):
     author = models.CharField(_("author"), max_length=100)
     link = models.URLField(_("link"), **NULL_BLANK)
     date_published = models.DateField(_("date published"), **NULL_BLANK)
-    content = MarkdownxField()
+    content = MarkdownxField(_("content"))
+    bookmarked_users = models.ManyToManyField(User, blank=True)
 
     class Meta:
         ordering = ["-date_published"]

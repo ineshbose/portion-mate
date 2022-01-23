@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
-from rest_framework import permissions as drf_permissions
+from rest_framework.decorators import action
+from rest_framework import status, permissions as drf_permissions
 
 from rest import serializers
 from main import models
@@ -75,3 +76,20 @@ class ResourceViewSet(ReadOnlyModelViewSet):
 
     queryset = models.Resource.objects.all().order_by("-date_published")
     serializer_class = serializers.ResourceSerializer
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        permission_classes=[drf_permissions.IsAuthenticated],
+    )
+    def bookmark(self, request, pk=None):
+        obj = self.queryset.filter(pk=pk).first()
+        return (
+            Response(
+                obj.bookmarked_users.remove(request.user)
+                if request.user in obj.bookmarked_users.all()
+                else obj.bookmarked_users.add(request.user)
+            )
+            if obj
+            else Response(status=status.HTTP_400_BAD_REQUEST)
+        )
