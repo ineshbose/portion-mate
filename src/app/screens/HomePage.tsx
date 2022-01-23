@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   ImageProps,
+  ListRenderItemInfo,
   SafeAreaView,
   StyleSheet,
   TextProps,
@@ -16,7 +17,6 @@ import {
   Icon,
   Text,
 } from '@ui-kitten/components';
-import { ComponentTabArguments } from '../types/navigation';
 import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
 import {
   PortionItem,
@@ -49,12 +49,14 @@ const getFrequencyDisplay = (frequency: number) => {
   );
 };
 
-export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
-  const { isAction } = pageProps;
+export default function HomePage() {
   const {
     items,
+    headerAction,
     helpers: { setItems },
   } = useAppContext();
+
+  const isAction = headerAction === 'Home';
 
   React.useEffect(() => {
     const getItems = async () => {
@@ -211,11 +213,11 @@ export default function HomePage(pageProps: ComponentTabArguments<'Home'>) {
       </>
     );
 
-  const renderItem = ({ item }: { item: TrackItem }) => (
+  const renderItem = (info: ListRenderItemInfo<TrackItem>) => (
     <ListItem
-      title={(item.item as PortionItem).name}
-      description={(props) => renderItemDescription(props, item)}
-      accessoryRight={(props) => renderItemAccessory(props, item)}
+      title={(info.item.item as PortionItem).name}
+      description={(props) => renderItemDescription(props, info.item)}
+      accessoryRight={(props) => renderItemAccessory(props, info.item)}
     />
   );
 

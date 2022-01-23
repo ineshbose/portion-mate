@@ -11,13 +11,15 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ColorScheme, IconOptions } from '../types';
+import { IconOptions } from '../types';
 
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
   }
 }
+
+export type RouteNames<T> = keyof T;
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootLinkParamList> | undefined;
@@ -38,8 +40,9 @@ export type RootLinkParamList = {
   Auth: NavigatorScreenParams<RootAuthParamList> | undefined;
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, Screen>;
+export type RootStackScreenProps<
+  Screen extends RouteNames<RootStackParamList>
+> = NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
   Home: undefined;
@@ -53,45 +56,42 @@ export type RootAuthParamList = {
   Register: undefined;
 };
 
-export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
+export type RootTabScreenProps<Screen extends RouteNames<RootTabParamList>> =
   | CompositeScreenProps<
       BottomTabScreenProps<RootTabParamList, Screen>,
       NativeStackScreenProps<RootStackParamList>
     >
   | {
-      route: RouteProp<
-        RootTabParamList,
-        'Home' | 'Journal' | 'Stats' | 'Resources'
-      >;
+      route: RouteProp<RootTabParamList, RouteNames<RootTabParamList>>;
       navigation: any;
     };
 
-export type RootAuthScreenProps<Screen extends keyof RootAuthParamList> =
+export type RootAuthScreenProps<Screen extends RouteNames<RootAuthParamList>> =
   NavProps<RootAuthParamList, Screen>;
 
 export type RouteActionIcon<List> = {
-  [route in keyof List]: IconOptions;
+  [route in RouteNames<List>]: IconOptions;
 };
 
 export type TabExtraArguments = {
-  isAction?: boolean;
-  colorScheme?: ColorScheme;
+  [name: string]: any;
 };
 
-export type ComponentTabArguments<Screen extends keyof RootTabParamList> =
+export type ComponentTabArguments<Screen extends RouteNames<RootTabParamList>> =
   TabExtraArguments & RootTabScreenProps<Screen>;
 
-export type ComponentTab<Screen extends keyof RootTabParamList> = (
+export type ComponentTab<Screen extends RouteNames<RootTabParamList>> = (
   args: ComponentTabArguments<Screen>
 ) => JSX.Element;
 
 export type TabConfig<
   List extends RootTabParamList,
   Name extends keyof List = keyof List
-> = Name extends keyof RootTabParamList // List
+> = Name extends RouteNames<RootTabParamList> // List
   ? {
       name: Name;
       component: ComponentTab<Name>;
+      // | NamedExoticComponent<ComponentTabArguments<Name>>;
       icon: IconOptions;
     }
   : never;
