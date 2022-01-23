@@ -11,6 +11,7 @@ import {
   IconRegistry,
 } from '@ui-kitten/components';
 import { default as colors } from './app/assets/theme.json';
+import { default as mapping } from './app/assets/mapping.json';
 import { MaterialIconsPack } from './app/components/AppIcons';
 import { ColorScheme } from './app/types';
 import { ThemeContext } from './app/contexts/ThemeContext';
@@ -42,7 +43,11 @@ export default function App() {
     <>
       <IconRegistry icons={MaterialIconsPack} />
       <ThemeContext.Provider value={{ theme, ThemeToggle }}>
-        <ApplicationProvider {...eva} theme={{ ...eva[theme], ...colors }}>
+        <ApplicationProvider
+          {...eva}
+          customMapping={mapping}
+          theme={{ ...eva[theme], ...colors }}
+        >
           <Navigation />
         </ApplicationProvider>
       </ThemeContext.Provider>

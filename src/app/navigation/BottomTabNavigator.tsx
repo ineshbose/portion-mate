@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Image, ImageProps } from 'react-native';
+import { Image, ImageProps, View } from 'react-native';
 import {
   RootTabParamList,
   RouteActionIcon,
@@ -75,21 +75,19 @@ export default function BottomTabNavigator() {
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const navigationLeftAccessory = (props: {} | undefined) => (
-    <Text
-      {...props}
-      style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}
-    >
+    <View {...props} style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Image
         style={{
           height: 30,
           width: 30,
+          marginRight: 5,
         }}
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
       />
       <Text category="s2">Portion Mate</Text>
-    </Text>
+    </View>
   );
 
   const navRightAccessoryActionIcon = (
@@ -168,7 +166,6 @@ export default function BottomTabNavigator() {
         props.navigation.navigate(props.state.routeNames[index])
       }
       appearance="noIndicator"
-      // style={{ backgroundColor: Colors.primary }}
       {...props}
     >
       {tabs.map((tab) => (
