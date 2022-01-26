@@ -21,6 +21,7 @@ const linking: LinkingOptions<RootStackParamList> = {
               Journal: 'journal',
               Stats: 'stats',
               Resources: 'resources',
+              Settings: 'settings',
             },
           },
           Auth: {

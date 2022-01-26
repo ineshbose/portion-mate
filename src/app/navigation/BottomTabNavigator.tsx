@@ -1,10 +1,11 @@
 import {
   BottomTabBarProps,
   BottomTabHeaderProps,
+  BottomTabScreenProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Image, ImageProps, View } from 'react-native';
+import { Image, ImageProps, Pressable, View, ViewProps } from 'react-native';
 import {
   RootTabParamList,
   RouteActionIcon,
@@ -29,6 +30,7 @@ import ResourcesPage from '../screens/ResourcesPage';
 import { useAppContext } from '../contexts/AppContext';
 import { useThemeContext } from '../contexts/ThemeContext';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
+import SettingsPage from '../screens/SettingsPage';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -37,6 +39,7 @@ const headerButtonIcons: RouteActionIcon<RootTabParamList> = {
   Journal: 'calendar-today',
   Stats: 'calendar-today',
   Resources: 'star',
+  Settings: 'save',
 };
 
 type RootTab = TabConfig<RootTabParamList>;
@@ -62,9 +65,17 @@ const tabs: RootTab[] = [
     component: ResourcesPage,
     icon: 'menu-book',
   },
+  {
+    name: 'Settings',
+    component: SettingsPage,
+    icon: 'settings',
+    hideTab: true,
+  },
 ];
 
-export default function BottomTabNavigator() {
+export default function BottomTabNavigator({
+  navigation,
+}: BottomTabScreenProps<RootTabParamList>) {
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     user,
@@ -75,7 +86,11 @@ export default function BottomTabNavigator() {
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const navigationLeftAccessory = (props: {} | undefined) => (
-    <View {...props} style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <Pressable
+      {...props}
+      style={{ flexDirection: 'row', alignItems: 'center' }}
+      onPress={() => navigation.navigate('Home')}
+    >
       <Image
         style={{
           height: 30,
@@ -87,7 +102,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <Text category="s2">Portion Mate</Text>
-    </View>
+    </Pressable>
   );
 
   const navRightAccessoryActionIcon = (
@@ -104,6 +119,14 @@ export default function BottomTabNavigator() {
 
   const userAvatar = (props: Partial<ImageProps> | undefined) => (
     <Icon key="user" name="person" {...props} />
+  );
+
+  const cardHeader = (props: ViewProps | undefined) => (
+    <View {...props}>
+      <Text category="s2">
+        Hello {user && user.forename ? user.forename : 'there'}
+      </Text>
+    </View>
   );
 
   const navigationRightAccessory = (
@@ -126,9 +149,15 @@ export default function BottomTabNavigator() {
         backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
         onBackdropPress={() => setModalVisible(false)}
       >
-        <Card>
-          {/* {user?.forename && <Text>Hello, {user.forename}</Text>} */}
-          <Button disabled>Settings</Button>
+        <Card header={cardHeader}>
+          <Button
+            onPress={() => {
+              navigation.navigate('Settings');
+              setModalVisible(false);
+            }}
+          >
+            Settings
+          </Button>
           <ThemeToggle appearance="filled" />
           <Button onPress={() => signOut()}>Sign Out</Button>
         </Card>
@@ -152,12 +181,7 @@ export default function BottomTabNavigator() {
           size: number;
         }
       | Partial<ImageProps>
-  ) => {
-    if (props) {
-      // props.styles.tintColor = '#fff';
-    }
-    return <Icon name={tab.icon} {...props} />;
-  };
+  ) => <Icon name={tab.icon} {...props} />;
 
   const TabBar = (props: BottomTabBarProps) => (
     <BottomNavigation
@@ -168,13 +192,15 @@ export default function BottomTabNavigator() {
       appearance="noIndicator"
       {...props}
     >
-      {tabs.map((tab) => (
-        <BottomNavigationTab
-          key={tab.name}
-          icon={(p) => navTabIcon(tab, p)}
-          title={tab.name}
-        />
-      ))}
+      {tabs
+        .filter((tab) => !tab.hideTab)
+        .map((tab) => (
+          <BottomNavigationTab
+            key={tab.name}
+            icon={(p) => navTabIcon(tab, p)}
+            title={tab.name}
+          />
+        ))}
     </BottomNavigation>
   );
 
