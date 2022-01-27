@@ -4,11 +4,15 @@ import { ColorScheme } from '../types';
 
 type ThemeContextType = {
   theme: ColorScheme;
+  setTheme: React.Dispatch<React.SetStateAction<ColorScheme>>;
+  switchTheme: Function;
   ThemeToggle: (props: ButtonProps | undefined) => JSX.Element;
 };
 
 export const ThemeContext = React.createContext<ThemeContextType>({
   theme: 'light',
+  setTheme: () => {},
+  switchTheme: () => {},
   ThemeToggle: () => <Button />,
 });
 

@@ -28,18 +28,17 @@ import StatsPage from '../screens/StatsPage';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { useAppContext } from '../contexts/AppContext';
-import { useThemeContext } from '../contexts/ThemeContext';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
 import SettingsPage from '../screens/SettingsPage';
+import { IconOptions } from '../types';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
-const headerButtonIcons: RouteActionIcon<RootTabParamList> = {
+const headerButtonIcons: RouteActionIcon<Partial<RootTabParamList>> = {
   Home: 'edit',
   Journal: 'calendar-today',
   Stats: 'calendar-today',
   Resources: 'star',
-  Settings: 'save',
 };
 
 type RootTab = TabConfig<RootTabParamList>;
@@ -82,7 +81,6 @@ export default function BottomTabNavigator({
     headerAction,
     helpers: { signOut, setHeaderAction },
   } = useAppContext();
-  const { ThemeToggle } = useThemeContext();
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const navigationLeftAccessory = (props: {} | undefined) => (
@@ -117,6 +115,11 @@ export default function BottomTabNavigator({
     />
   );
 
+  const cardIcons = (
+    props: Partial<ImageProps> | undefined,
+    name: IconOptions
+  ) => <Icon name={name} {...props} />;
+
   const userAvatar = (props: Partial<ImageProps> | undefined) => (
     <Icon key="user" name="person" {...props} />
   );
@@ -134,12 +137,16 @@ export default function BottomTabNavigator({
     { route }: BottomTabHeaderProps
   ) => (
     <ButtonGroup appearance="ghost" {...props}>
-      <Button
-        accessoryLeft={(p) => navRightAccessoryActionIcon(p, route)}
-        onPress={() =>
-          setHeaderAction(headerAction === route.name ? '' : route.name)
-        }
-      />
+      {headerButtonIcons[route.name as RouteNames<RootTabParamList>] ? (
+        <Button
+          accessoryLeft={(p) => navRightAccessoryActionIcon(p, route)}
+          onPress={() =>
+            setHeaderAction(headerAction === route.name ? '' : route.name)
+          }
+        />
+      ) : (
+        <></>
+      )}
       <Button
         accessoryLeft={userAvatar}
         onPress={() => setModalVisible(true)}
@@ -149,17 +156,24 @@ export default function BottomTabNavigator({
         backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
         onBackdropPress={() => setModalVisible(false)}
       >
-        <Card header={cardHeader}>
+        <Card style={{ flex: 1, margin: 2 }} header={cardHeader}>
           <Button
+            status="info"
             onPress={() => {
               navigation.navigate('Settings');
               setModalVisible(false);
             }}
+            accessoryLeft={(p) => cardIcons(p, 'settings')}
           >
             Settings
           </Button>
-          <ThemeToggle appearance="filled" />
-          <Button onPress={() => signOut()}>Sign Out</Button>
+          <Button
+            status="basic"
+            onPress={() => signOut()}
+            accessoryLeft={(p) => cardIcons(p, 'logout')}
+          >
+            Sign Out
+          </Button>
         </Card>
       </Modal>
     </ButtonGroup>
