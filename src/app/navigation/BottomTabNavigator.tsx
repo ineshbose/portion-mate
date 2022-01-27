@@ -5,7 +5,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Image, ImageProps, Pressable, View, ViewProps } from 'react-native';
+import { Image, ImageProps, Pressable } from 'react-native';
 import {
   RootTabParamList,
   RouteActionIcon,
@@ -17,9 +17,9 @@ import {
   BottomNavigationTab,
   Button,
   ButtonGroup,
-  Card,
   Icon,
-  Modal,
+  MenuItem,
+  OverflowMenu,
   Text,
   TopNavigation,
 } from '@ui-kitten/components';
@@ -124,12 +124,13 @@ export default function BottomTabNavigator({
     <Icon key="user" name="person" {...props} />
   );
 
-  const cardHeader = (props: ViewProps | undefined) => (
-    <View {...props}>
-      <Text category="s2">
-        Hello {user && user.forename ? user.forename : 'there'}
-      </Text>
-    </View>
+  const userOptionsToggle = (props: {} | undefined) => (
+    <Button
+      accessoryLeft={userAvatar}
+      onPress={() => setModalVisible(true)}
+      appearance="ghost"
+      {...props}
+    />
   );
 
   const navigationRightAccessory = (
@@ -147,35 +148,24 @@ export default function BottomTabNavigator({
       ) : (
         <></>
       )}
-      <Button
-        accessoryLeft={userAvatar}
-        onPress={() => setModalVisible(true)}
-      />
-      <Modal
-        visible={modalVisible}
+      <OverflowMenu
+        anchor={userOptionsToggle}
         backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
         onBackdropPress={() => setModalVisible(false)}
+        visible={modalVisible}
+        onSelect={() => setModalVisible(false)}
       >
-        <Card style={{ flex: 1, margin: 2 }} header={cardHeader}>
-          <Button
-            status="info"
-            onPress={() => {
-              navigation.navigate('Settings');
-              setModalVisible(false);
-            }}
-            accessoryLeft={(p) => cardIcons(p, 'settings')}
-          >
-            Settings
-          </Button>
-          <Button
-            status="basic"
-            onPress={() => signOut()}
-            accessoryLeft={(p) => cardIcons(p, 'logout')}
-          >
-            Sign Out
-          </Button>
-        </Card>
-      </Modal>
+        <MenuItem
+          title="Settings"
+          accessoryLeft={(p) => cardIcons(p, 'settings')}
+          onPress={() => navigation.navigate('Settings')}
+        />
+        <MenuItem
+          title="Sign Out"
+          accessoryLeft={(p) => cardIcons(p, 'logout')}
+          onPress={() => signOut()}
+        />
+      </OverflowMenu>
     </ButtonGroup>
   );
 
