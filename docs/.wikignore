@@ -4,6 +4,7 @@ README.md
 **/*.t.md
 **/*.ts
 **/*.json
+**/*.tex
 *.json
 *.toml
 *.txt

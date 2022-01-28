@@ -20,6 +20,13 @@ jobs:
           npx ts-node docs/meetings/generate.ts docs/meetings/ docs/meetings/meetings.t.md
       - name: Copy file
         run: cp docs/index.md docs/Home.md
+      - name: Convert status report to MD
+        uses: docker://pandoc/core:2.9
+        with:
+          args: >-
+            --standalone
+            --output=docs/important/Status.md
+            docs/important/status.tex
       - uses: ineshbose/wiki-action@v1
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
