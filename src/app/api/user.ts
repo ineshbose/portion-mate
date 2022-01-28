@@ -25,7 +25,9 @@ export const createUser = async (
   }
 };
 
-export const updateUser = async (props: UpdateData<User>) => {
+export const updateUser = async (
+  props: UpdateData<User> & { password?: string; old_password?: string }
+) => {
   try {
     const { id } = props;
     const response = await axiosInstance.patch<User>(
@@ -34,7 +36,7 @@ export const updateUser = async (props: UpdateData<User>) => {
     );
     return response.data;
   } catch (e) {
-    // handle error
+    throw axios.isAxiosError(e) ? (e.response?.data as FormError) : e;
   }
 };
 
