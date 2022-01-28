@@ -84,7 +84,7 @@
   </tr>
   <tr>
     <td>Supervisor's Signature</td>
-    <td></td>
+    <td>Oana Andrei</td>
   </tr>
   <tr>
     <td>Date</td>
