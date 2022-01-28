@@ -3,10 +3,10 @@ name: Compile Status Report
 on:
   push:
     paths:
-      - "dissertation/status.tex"
+      - "docs/important/status.tex"
 
 jobs:
-  build-dissertation:
+  build-report:
     runs-on: ubuntu-latest
     name: Create document
     steps:
@@ -16,10 +16,10 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: status.tex
-          working_directory: dissertation
+          working_directory: docs/important
       - name: Rename PDF
         run: |
-          mv dissertation/status.pdf "Inesh Bose - Portion Mate (Status Report).pdf"
+          mv docs/important/status.pdf "Inesh Bose - Portion Mate (Status Report).pdf"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
