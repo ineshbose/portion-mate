@@ -44,11 +44,15 @@ export type RootStackScreenProps<
   Screen extends RouteNames<RootStackParamList>
 > = NativeStackScreenProps<RootStackParamList, Screen>;
 
+export type RootLinkScreenProps<Screen extends RouteNames<RootLinkParamList>> =
+  NativeStackScreenProps<RootLinkParamList, Screen>;
+
 export type RootTabParamList = {
   Home: undefined;
   Journal: undefined;
   Stats: undefined;
   Resources: undefined;
+  Settings: undefined;
 };
 
 export type RootAuthParamList = {
@@ -93,5 +97,6 @@ export type TabConfig<
       component: ComponentTab<Name>;
       // | NamedExoticComponent<ComponentTabArguments<Name>>;
       icon: IconOptions;
+      hideTab?: boolean;
     }
   : never;

@@ -39,6 +39,10 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(DynamicFieldsModelSerializer):
+    old_password = serializers.CharField(
+        write_only=True, required=False, allow_blank=True
+    )
+
     class Meta:
         model = models.User
         fields = [
@@ -51,10 +55,12 @@ class UserSerializer(DynamicFieldsModelSerializer):
             "height",
             "weight",
             "password",
+            "old_password",
         ]
-        extra_kwargs = {"password": {"write_only": True}}
+        extra_kwargs = {"password": {"write_only": True, "allow_blank": True}}
 
     def create(self, validated_data):
+        print(validated_data)
         password = validated_data.pop("password")
         instance = super().create(validated_data)
 
@@ -66,6 +72,27 @@ class UserSerializer(DynamicFieldsModelSerializer):
 
         instance.set_password(password)
         instance.save()
+
+        return instance
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop("password")
+        old_password = validated_data.pop("old_password", None)
+        instance = super().update(instance, validated_data)
+
+        if password and old_password:
+            if instance.check_password(old_password):
+                try:
+                    validate_password(password)
+                except ValidationError as errors:
+                    raise serializers.ValidationError({"password": list(errors)})
+
+                instance.set_password(password)
+                instance.save()
+            else:
+                raise serializers.ValidationError(
+                    {"old_password": "Password is invalid."}
+                )
 
         return instance
 

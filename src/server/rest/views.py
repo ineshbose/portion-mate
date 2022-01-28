@@ -5,6 +5,7 @@ from rest_framework import status, permissions as drf_permissions
 
 from rest import serializers
 from main import models
+from rest.filters import UserFilterBackend
 
 
 class UserViewSet(ModelViewSet):
@@ -16,9 +17,7 @@ class UserViewSet(ModelViewSet):
     serializer_class = serializers.UserSerializer
     permission_classes = [drf_permissions.IsAuthenticated]
     pagination_class = None
-
-    def get_queryset(self):
-        return self.request.user
+    filter_backends = [UserFilterBackend]
 
     def get_permissions(self):
         if self.action in ["create"]:
@@ -27,9 +26,7 @@ class UserViewSet(ModelViewSet):
         return super(self.__class__, self).get_permissions()
 
     def list(self, request, *args, **kwargs):
-        return Response(
-            self.get_serializer(self.filter_queryset(self.get_queryset())).data
-        )
+        return Response(self.get_serializer(request.user).data)
 
 
 class PortionItemViewSet(ModelViewSet):

@@ -95,7 +95,14 @@ export const ContextProvider = ({ children }: ChildComponents) => {
         items,
         headerAction,
         loading,
-        helpers: { signIn, signUp, signOut, setItems, setHeaderAction },
+        helpers: {
+          signIn,
+          signUp,
+          signOut,
+          setUser,
+          setItems,
+          setHeaderAction,
+        },
       }}
     >
       {children}

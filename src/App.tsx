@@ -16,10 +16,26 @@ import { MaterialIconsPack } from './app/components/AppIcons';
 import { ColorScheme } from './app/types';
 import { ThemeContext } from './app/contexts/ThemeContext';
 import { ImageProps } from 'react-native';
+import { getData, storeData } from './app/api/store';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const [theme, setTheme] = React.useState<ColorScheme>('light');
+
+  React.useEffect(() => {
+    const getSetTheme = async () => {
+      const themeData = (await getData('theme', 'light')) as ColorScheme;
+      setTheme(themeData);
+    };
+
+    getSetTheme();
+  }, [setTheme]);
+
+  const switchTheme = async () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    await storeData('theme', newTheme);
+  };
 
   const toggleIcon = (props: Partial<ImageProps> | undefined) => (
     <Icon
@@ -34,7 +50,7 @@ export default function App() {
       appearance="ghost"
       status="basic"
       accessoryLeft={toggleIcon}
-      onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+      onPress={switchTheme}
       {...props}
     />
   );
@@ -42,7 +58,9 @@ export default function App() {
   return isLoadingComplete ? (
     <>
       <IconRegistry icons={MaterialIconsPack} />
-      <ThemeContext.Provider value={{ theme, ThemeToggle }}>
+      <ThemeContext.Provider
+        value={{ theme, setTheme, switchTheme, ThemeToggle }}
+      >
         <ApplicationProvider
           {...eva}
           customMapping={mapping}

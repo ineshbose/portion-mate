@@ -29,18 +29,20 @@ import { useAppContext } from '../contexts/AppContext';
 export default function ResourcesPage() {
   const { headerAction } = useAppContext();
   const isAction = headerAction === 'Resources';
+  const [fetched, setFetched] = React.useState<boolean>(false);
   const [resources, setResources] = React.useState<Resources>([]);
   const [selectedResource, setSelectedResource] = React.useState<Resource>();
 
   React.useEffect(() => {
     const getItems = async () => {
-      if (!(resources && resources.length > 0)) {
+      if (!fetched) {
         setResources((await getResources()) as Resources);
+        setFetched(true);
       }
     };
 
     getItems();
-  }, [resources, setResources]);
+  }, [fetched, setResources, setFetched]);
 
   const bookmarkAction = async (resource: Resource) => {
     const resourceIdx = resources.indexOf(resource);
