@@ -31,6 +31,7 @@ import { useAppContext } from '../contexts/AppContext';
 import { ParamListBase, RouteProp } from '@react-navigation/native';
 import SettingsPage from '../screens/SettingsPage';
 import { IconOptions } from '../types';
+import { FAB } from '../components/FAB';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -209,18 +210,21 @@ export default function BottomTabNavigator({
   );
 
   return (
-    <BottomTab.Navigator
-      initialRouteName="Home"
-      tabBar={TabBar}
-      screenOptions={{
-        tabBarLabelPosition: 'below-icon',
-        header: navigationHeader,
-        headerShown: true,
-      }}
-    >
-      {tabs.map((tab) => (
-        <BottomTab.Screen key={tab.name} {...tab} />
-      ))}
-    </BottomTab.Navigator>
+    <>
+      <BottomTab.Navigator
+        initialRouteName="Home"
+        tabBar={TabBar}
+        screenOptions={{
+          tabBarLabelPosition: 'below-icon',
+          header: navigationHeader,
+          headerShown: true,
+        }}
+      >
+        {tabs.map((tab) => (
+          <BottomTab.Screen key={tab.name} {...tab} />
+        ))}
+      </BottomTab.Navigator>
+      <FAB />
+    </>
   );
 }
