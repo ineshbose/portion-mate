@@ -3,18 +3,12 @@ import {
   StyleSheet,
   Animated,
   LayoutAnimation,
-  Platform,
   Keyboard,
   Pressable,
   View,
 } from 'react-native';
-
 import ActionItem from './ActionItem';
-
 import { MainButtonProps } from '../../types/FAB';
-import DeviceLayout from '../../constants/Layout';
-
-const DEVICE_WIDTH = DeviceLayout.window.width;
 
 const DEFAULT_SHADOW_PROPS = {
   shadowOpacity: 0.35,
@@ -26,27 +20,25 @@ const DEFAULT_SHADOW_PROPS = {
   shadowRadius: 3,
 };
 
-function MainButton(Props: MainButtonProps) {
+export default function MainButton(Props: MainButtonProps) {
   const {
+    color,
+    shadow,
+    actions,
+    visible,
+    position,
+    animated,
+    iconHeight,
+    iconWidth,
+    iconColor,
+    buttonSize,
+    overlayColor,
+    showBackground,
     distanceToEdge,
     mainVerticalDistance,
     actionsPaddingTopBottom,
-    visible,
-    buttonSize,
-    animated,
-    showBackground,
-    overlayColor,
-    actions,
-    position,
-    floatingIcon,
-    dismissKeyboardOnPress,
     onPressMain,
     onPressAction,
-    color,
-    shadow,
-    iconWidth,
-    iconHeight,
-    iconColor,
   } = Props;
 
   const [active, setActive] = React.useState<boolean>(false);
@@ -107,23 +99,18 @@ function MainButton(Props: MainButtonProps) {
   };
 
   const animateButton = () => {
-    if (dismissKeyboardOnPress) {
-      Keyboard.dismiss();
-    }
+    Keyboard.dismiss();
 
     if (onPressMain) {
       onPressMain(!active);
     }
 
     if (!active) {
-      if (!floatingIcon && animated) {
+      if (animated) {
         Animated.spring(animation, {
           toValue: 1,
           useNativeDriver: false,
         }).start();
-      }
-
-      if (animated) {
         Animated.spring(actionsAnimation, {
           toValue: 1,
           useNativeDriver: false,
@@ -162,7 +149,7 @@ function MainButton(Props: MainButtonProps) {
           onPress={resetButton}
         />
       )}
-      {actions && actions.length > 0 && (
+      {active && actions && actions.length > 0 && (
         <Animated.View
           style={[
             styles.actions,
@@ -182,23 +169,24 @@ function MainButton(Props: MainButtonProps) {
           ]}
           pointerEvents="box-none"
         >
-          {actions
-            .sort((a, b) => a.position - b.position)
-            .map((action) => (
-              <ActionItem
-                paddingTopBottom={actionsPaddingTopBottom}
-                distanceToEdge={distanceToEdge}
-                key={action.name}
-                textColor={action.textColor}
-                textBackground={action.textBackground}
-                shadow={shadowOptions}
-                {...action}
-                position={position}
-                active={active}
-                onPress={pressAction}
-                animated={animated}
-              />
-            ))}
+          {actions.map((action) => (
+            <ActionItem
+              paddingTopBottom={actionsPaddingTopBottom}
+              distanceToEdge={distanceToEdge}
+              key={action.name}
+              shadow={shadowOptions}
+              tintColor="#fff"
+              color={color}
+              buttonSize={40}
+              textElevation={5}
+              margin={8}
+              {...action}
+              position={position}
+              active={active}
+              onPress={pressAction}
+              animated={animated}
+            />
+          ))}
         </Animated.View>
       )}
       <Animated.View
@@ -207,7 +195,7 @@ function MainButton(Props: MainButtonProps) {
           sizeStyle,
           styles[`${position}Button`],
           {
-            backgroundColor: color,
+            backgroundColor: active ? 'white' : color,
             bottom: mainBottomAnimation,
             right: distanceToHorizontalEdge,
           },
@@ -279,7 +267,10 @@ function MainButton(Props: MainButtonProps) {
                     width: 2,
                     position: 'absolute',
                   },
-                  { height: iconHeight, backgroundColor: iconColor },
+                  {
+                    height: iconHeight,
+                    backgroundColor: active ? color : iconColor,
+                  },
                 ]}
               />
               <View
@@ -288,7 +279,10 @@ function MainButton(Props: MainButtonProps) {
                     height: 2,
                     position: 'absolute',
                   },
-                  { width: iconWidth, backgroundColor: iconColor },
+                  {
+                    width: iconWidth,
+                    backgroundColor: active ? color : iconColor,
+                  },
                 ]}
               />
             </View>
@@ -299,27 +293,6 @@ function MainButton(Props: MainButtonProps) {
   );
 }
 
-MainButton.defaultProps = {
-  dismissKeyboardOnPress: false,
-  listenKeyboard: false,
-  actionsPaddingTopBottom: 8,
-  overrideWithAction: false,
-  visible: true,
-  color: '#1253bc',
-  overlayColor: 'rgba(68, 68, 68, 0.6)',
-  position: 'right',
-  distanceToEdge: 30,
-  openOnMount: false,
-  showBackground: true,
-  buttonSize: 56,
-  iconHeight: 15,
-  iconWidth: 15,
-  iconColor: '#fff',
-  mainVerticalDistance: 0,
-  animated: true,
-  shadow: DEFAULT_SHADOW_PROPS,
-};
-
 const styles = StyleSheet.create({
   actions: {
     position: 'absolute',
@@ -328,24 +301,20 @@ const styles = StyleSheet.create({
   },
   rightActions: {
     alignItems: 'flex-end',
-    right: -1000,
+    right: 30,
   },
   leftActions: {
     alignItems: 'flex-start',
-    left: -1000,
+    left: 30,
   },
-  centerActions: {
-    left: -1000,
-  },
+  centerActions: {},
   rightActionsVisible: {
-    right: 0,
+    right: 30,
   },
   leftActionsVisible: {
-    left: 0,
+    left: 30,
   },
-  centerActionsVisible: {
-    left: DEVICE_WIDTH / 2 - 30,
-  },
+  centerActionsVisible: {},
   overlay: {
     position: 'absolute',
     bottom: 0,
@@ -356,7 +325,7 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   buttonContainer: {
-    overflow: Platform.OS === 'ios' ? 'visible' : 'hidden',
+    overflow: 'hidden',
     zIndex: 2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -370,14 +339,10 @@ const styles = StyleSheet.create({
   },
   rightButton: {},
   leftButton: {},
-  centerButton: {
-    left: DEVICE_WIDTH / 2 - 28,
-  },
+  centerButton: {},
   buttonTextContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
 });
-
-export default MainButton;

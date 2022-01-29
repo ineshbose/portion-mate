@@ -1,25 +1,28 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Animated, Pressable } from 'react-native';
+import { StyleSheet, Animated, Pressable } from 'react-native';
+import { Button, Icon, Layout, Text } from '@ui-kitten/components';
 import { ActionItemProps } from '../../types/FAB';
 
-function ActionItem(props: ActionItemProps) {
+export default function ActionItem(props: ActionItemProps) {
   const {
-    paddingTopBottom,
+    name,
+    text,
+    icon,
+    color,
+    shadow,
     animated,
     buttonSize,
-    color,
-    text,
     position,
+    textStyle,
+    textColor,
+    textProps,
     textElevation,
     textBackground,
-    textColor,
-    textStyle,
-    textProps,
     textContainerStyle,
-    shadow,
-    name,
+    paddingTopBottom,
     onPress,
   } = props;
+
   const animation = React.useRef(new Animated.Value(0)).current;
 
   return (
@@ -41,16 +44,16 @@ function ActionItem(props: ActionItemProps) {
           },
         ]}
       >
-        <View
-          key="text"
+        <Layout
           style={[
             styles.textContainer,
             styles[`${position}TextContainer`],
             {
-              backgroundColor: textBackground,
+              backgroundColor: textBackground || 'white',
               elevation: textElevation,
               shadowOffset: {
                 height: textElevation,
+                width: textElevation,
               },
             },
             shadow,
@@ -67,12 +70,12 @@ function ActionItem(props: ActionItemProps) {
             ]}
             {...textProps}
           >
-            {text}
+            {text || name}
           </Text>
-        </View>
+        </Layout>
 
-        <View
-          key="button"
+        <Button
+          onPress={() => onPress(name)}
           style={[
             styles.button,
             {
@@ -83,33 +86,12 @@ function ActionItem(props: ActionItemProps) {
             },
             shadow,
           ]}
-        >
-          <Text>icon</Text>
-        </View>
+          accessoryLeft={(p) => <Icon name={icon} {...p} />}
+        />
       </Animated.View>
     </Pressable>
   );
 }
-
-ActionItem.defaultProps = {
-  tintColor: '#fff',
-  color: '#1253bc',
-  distanceToEdge: 30,
-  buttonSize: 40,
-  textElevation: 5,
-  textColor: '#444444',
-  textBackground: '#ffffff',
-  margin: 8,
-  shadow: {
-    shadowOpacity: 0.35,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowColor: '#000000',
-    shadowRadius: 3,
-  },
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -159,5 +141,3 @@ const styles = StyleSheet.create({
     height: 20,
   },
 });
-
-export default ActionItem;

@@ -224,7 +224,28 @@ export default function BottomTabNavigator({
           <BottomTab.Screen key={tab.name} {...tab} />
         ))}
       </BottomTab.Navigator>
-      <FAB />
+      <FAB
+        actions={[
+          {
+            icon: 'library-add',
+            name: 'Food Item',
+          },
+        ]}
+        onPressAction={console.log}
+        actionsPaddingTopBottom={8}
+        color="red"
+        overlayColor="rgba(68, 68, 68, 0.6)"
+        position="right"
+        distanceToEdge={{ vertical: 80, horizontal: 30 }}
+        buttonSize={56}
+        iconHeight={15}
+        iconWidth={15}
+        iconColor="#fff"
+        mainVerticalDistance={0}
+        showBackground
+        animated
+        visible
+      />
     </>
   );
 }

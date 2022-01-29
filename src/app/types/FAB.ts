@@ -1,3 +1,6 @@
+import { TextProps, TextStyle, ViewStyle } from 'react-native';
+import { IconOptions } from '.';
+
 export type Shadow = {
   shadowOpacity: number;
   shadowOffset: {
@@ -9,16 +12,14 @@ export type Shadow = {
 };
 
 export type ActionItem = {
-  color: string;
-  icon: any;
-  position: number;
+  color?: string;
+  icon: IconOptions;
   name: string;
-  buttonSize: number;
-  text: string;
+  buttonSize?: number;
+  text?: string;
   textBackground?: string;
   textColor?: string;
-  component: any;
-  animated: boolean;
+  animated?: boolean;
 };
 
 export type MainButtonProps = {
@@ -35,42 +36,31 @@ export type MainButtonProps = {
   visible: boolean;
   overlayColor: string;
   position: 'right' | 'left' | 'center';
-  overrideWithAction: boolean; // replace mainAction with first action from actions
-  floatingIcon: any;
   showBackground: boolean;
-  openOnMount: boolean;
   actionsPaddingTopBottom: number;
   buttonSize: number;
   iconHeight: number;
   iconWidth: number;
   iconColor: string;
-  listenKeyboard: boolean;
-  dismissKeyboardOnPress: boolean;
-  shadow: Shadow;
-  onPressAction: (itemName: string) => void;
-  onPressMain: (isActive: boolean) => void;
-  onClose: () => void;
-  onOpen: () => void;
-  onPressBackdrop: () => void;
-  onStateChange: (stateChange: { isActive: boolean }) => void;
+  shadow?: Shadow;
+  onPressAction?: (itemName: string) => void;
+  onPressMain?: (isActive: boolean) => void;
 };
 
 export type ActionItemProps = {
   tintColor: string;
   color: string;
-  icon: any;
-  name: string; //.isRequired
+  icon: IconOptions;
+  name: string;
   buttonSize?: number;
-  textContainerStyle: any;
-  text: string;
-  textStyle: any;
-  textProps: any;
+  textContainerStyle?: ViewStyle;
+  text?: string;
+  textStyle?: TextStyle;
+  textProps?: TextProps;
   textBackground?: string;
-  textColor: string;
+  textColor?: string;
   shadow: Shadow;
-  // not on doc
   textElevation: number;
-  // not modified by user
   position: 'left' | 'right' | 'center';
   active: boolean;
   distanceToEdge:
@@ -79,9 +69,8 @@ export type ActionItemProps = {
         vertical: number;
         horizontal: number;
       };
-  paddingTopBottom: number; // modified by parent property "actionsPaddingTopBottom"
+  paddingTopBottom: number;
   margin: number;
   animated: boolean;
   onPress: (name?: string) => void;
-  render: () => void;
 };
