@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import ActionItem from './ActionItem';
 import { MainButtonProps } from '../../types/FAB';
+import { RootActionParamList } from '../../types/navigation';
+import { Button, Icon } from '@ui-kitten/components';
 
 const DEFAULT_SHADOW_PROPS = {
   shadowOpacity: 0.35,
@@ -32,6 +34,7 @@ export default function MainButton(Props: MainButtonProps) {
     iconWidth,
     iconColor,
     buttonSize,
+    floatingIcon,
     overlayColor,
     showBackground,
     distanceToEdge,
@@ -105,7 +108,7 @@ export default function MainButton(Props: MainButtonProps) {
       onPressMain(!active);
     }
 
-    if (!active) {
+    if (!active && actions.length > 0) {
       if (animated) {
         Animated.spring(animation, {
           toValue: 1,
@@ -130,7 +133,7 @@ export default function MainButton(Props: MainButtonProps) {
     }
   };
 
-  const pressAction = (name?: string) => {
+  const pressAction = (name?: keyof RootActionParamList) => {
     if (onPressAction && name) {
       onPressAction(name);
     }
@@ -255,37 +258,51 @@ export default function MainButton(Props: MainButtonProps) {
                   },
             ]}
           >
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <View
-                style={[
-                  {
-                    width: 2,
-                    position: 'absolute',
-                  },
-                  {
-                    height: iconHeight,
-                    backgroundColor: active ? color : iconColor,
-                  },
-                ]}
+            {floatingIcon ? (
+              <Button
+                onPress={animateButton}
+                appearance="ghost"
+                accessoryLeft={(p) => (
+                  <Icon
+                    name={floatingIcon}
+                    {...p}
+                    style={[p?.style, { color: active ? color : iconColor }]}
+                  />
+                )}
               />
+            ) : (
               <View
-                style={[
-                  {
-                    height: 2,
-                    position: 'absolute',
-                  },
-                  {
-                    width: iconWidth,
-                    backgroundColor: active ? color : iconColor,
-                  },
-                ]}
-              />
-            </View>
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <View
+                  style={[
+                    {
+                      width: 2,
+                      position: 'absolute',
+                    },
+                    {
+                      height: iconHeight,
+                      backgroundColor: active ? color : iconColor,
+                    },
+                  ]}
+                />
+                <View
+                  style={[
+                    {
+                      height: 2,
+                      position: 'absolute',
+                    },
+                    {
+                      width: iconWidth,
+                      backgroundColor: active ? color : iconColor,
+                    },
+                  ]}
+                />
+              </View>
+            )}
           </Animated.View>
         </Pressable>
       </Animated.View>

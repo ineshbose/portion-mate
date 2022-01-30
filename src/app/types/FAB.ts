@@ -1,5 +1,8 @@
 import { TextProps, TextStyle, ViewStyle } from 'react-native';
 import { IconOptions } from '.';
+import { RootActionParamList } from './navigation';
+
+export type Actions = keyof RootActionParamList;
 
 export type Shadow = {
   shadowOpacity: number;
@@ -14,7 +17,7 @@ export type Shadow = {
 export type ActionItem = {
   color?: string;
   icon: IconOptions;
-  name: string;
+  name: Actions;
   buttonSize?: number;
   text?: string;
   textBackground?: string;
@@ -39,11 +42,12 @@ export type MainButtonProps = {
   showBackground: boolean;
   actionsPaddingTopBottom: number;
   buttonSize: number;
+  floatingIcon?: IconOptions;
   iconHeight: number;
   iconWidth: number;
   iconColor: string;
   shadow?: Shadow;
-  onPressAction?: (itemName: string) => void;
+  onPressAction?: (itemName: Actions) => void;
   onPressMain?: (isActive: boolean) => void;
 };
 
@@ -51,7 +55,7 @@ export type ActionItemProps = {
   tintColor: string;
   color: string;
   icon: IconOptions;
-  name: string;
+  name: Actions;
   buttonSize?: number;
   textContainerStyle?: ViewStyle;
   text?: string;
@@ -72,5 +76,5 @@ export type ActionItemProps = {
   paddingTopBottom: number;
   margin: number;
   animated: boolean;
-  onPress: (name?: string) => void;
+  onPress: (name?: Actions) => void;
 };

@@ -5,7 +5,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Image, ImageProps, Pressable } from 'react-native';
+import { Image, ImageProps, Pressable, View } from 'react-native';
 import {
   RootTabParamList,
   RouteActionIcon,
@@ -16,7 +16,6 @@ import {
   BottomNavigation,
   BottomNavigationTab,
   Button,
-  ButtonGroup,
   Icon,
   MenuItem,
   OverflowMenu,
@@ -32,6 +31,7 @@ import { ParamListBase, RouteProp } from '@react-navigation/native';
 import SettingsPage from '../screens/SettingsPage';
 import { IconOptions } from '../types';
 import { FAB } from '../components/FAB';
+import ActionNavigator from './ActionNavigator';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -68,7 +68,11 @@ const tabs: RootTab[] = [
   {
     name: 'Settings',
     component: SettingsPage,
-    icon: 'settings',
+    hideTab: true,
+  },
+  {
+    name: 'Action',
+    component: ActionNavigator,
     hideTab: true,
   },
 ];
@@ -106,11 +110,11 @@ export default function BottomTabNavigator({
 
   const navRightAccessoryActionIcon = (
     props: Partial<ImageProps> | undefined,
-    route: RouteProp<ParamListBase, string>
+    { name }: RouteProp<ParamListBase, string>
   ) => (
     <Icon
       key="action"
-      name={headerButtonIcons[route.name as RouteNames<RootTabParamList>]}
+      name={headerButtonIcons[name as RouteNames<RootTabParamList>]}
       size={30}
       {...props}
     />
@@ -138,9 +142,10 @@ export default function BottomTabNavigator({
     props: {} | undefined,
     { route }: BottomTabHeaderProps
   ) => (
-    <ButtonGroup appearance="ghost" {...props}>
+    <View style={{ flexDirection: 'row' }} {...props}>
       {headerButtonIcons[route.name as RouteNames<RootTabParamList>] ? (
         <Button
+          appearance="ghost"
           accessoryLeft={(p) => navRightAccessoryActionIcon(p, route)}
           onPress={() =>
             setHeaderAction(headerAction === route.name ? '' : route.name)
@@ -167,7 +172,7 @@ export default function BottomTabNavigator({
           onPress={() => signOut()}
         />
       </OverflowMenu>
-    </ButtonGroup>
+    </View>
   );
 
   const navigationHeader = (props: BottomTabHeaderProps) => (
@@ -225,13 +230,22 @@ export default function BottomTabNavigator({
         ))}
       </BottomTab.Navigator>
       <FAB
-        actions={[
-          {
-            icon: 'library-add',
-            name: 'Food Item',
-          },
-        ]}
-        onPressAction={console.log}
+        actions={
+          true
+            ? [
+                {
+                  icon: 'library-add',
+                  name: 'Item',
+                  text: 'Food Item',
+                },
+              ]
+            : []
+        }
+        floatingIcon={true ? 'add' : 'check'}
+        onPressAction={(name) =>
+          navigation.navigate('Action', { screen: name })
+        }
+        onPressMain={() => (true ? {} : {})}
         actionsPaddingTopBottom={8}
         color="red"
         overlayColor="rgba(68, 68, 68, 0.6)"

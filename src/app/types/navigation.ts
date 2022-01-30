@@ -53,11 +53,16 @@ export type RootTabParamList = {
   Stats: undefined;
   Resources: undefined;
   Settings: undefined;
+  Action: NavigatorScreenParams<RootActionParamList> | undefined;
 };
 
 export type RootAuthParamList = {
   Login: undefined;
   Register: undefined;
+};
+
+export type RootActionParamList = {
+  Item: undefined;
 };
 
 export type RootTabScreenProps<Screen extends RouteNames<RootTabParamList>> =
@@ -96,7 +101,7 @@ export type TabConfig<
       name: Name;
       component: ComponentTab<Name>;
       // | NamedExoticComponent<ComponentTabArguments<Name>>;
-      icon: IconOptions;
+      icon?: IconOptions;
       hideTab?: boolean;
     }
   : never;
