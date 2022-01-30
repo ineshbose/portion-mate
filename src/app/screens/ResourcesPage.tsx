@@ -142,9 +142,18 @@ export default function ResourcesPage() {
               accessoryRight={renderMoreAction}
             />
             <ScrollView>
-              <Markdown style={{ body: { paddingHorizontal: 10 } }}>
-                {selectedResource.content}
-              </Markdown>
+              <Text>
+                <Markdown
+                  style={{
+                    body: {
+                      paddingHorizontal: 10,
+                    },
+                    image: { flex: 1, maxWidth: 400, margin: 'auto' },
+                  }}
+                >
+                  {selectedResource.content}
+                </Markdown>
+              </Text>
             </ScrollView>
           </>
         ) : resources.length > 0 ? (
