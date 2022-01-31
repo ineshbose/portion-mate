@@ -9,7 +9,6 @@ import { Image, ImageProps, Pressable, View } from 'react-native';
 import {
   RootTabParamList,
   RouteActionIcon,
-  RouteNames,
   TabConfig,
 } from '../types/navigation';
 import {
@@ -27,7 +26,11 @@ import StatsPage from '../screens/StatsPage';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
 import { useAppContext } from '../contexts/AppContext';
-import { ParamListBase, RouteProp } from '@react-navigation/native';
+import {
+  getFocusedRouteNameFromRoute,
+  ParamListBase,
+  RouteProp,
+} from '@react-navigation/native';
 import SettingsPage from '../screens/SettingsPage';
 import { IconOptions } from '../types';
 import { FAB } from '../components/FAB';
@@ -79,13 +82,13 @@ const tabs: RootTab[] = [
 
 export default function BottomTabNavigator({
   navigation,
+  route,
 }: BottomTabScreenProps<RootTabParamList>) {
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    user,
     headerAction,
     helpers: { signOut, setHeaderAction },
   } = useAppContext();
+  const isNotInAction = getFocusedRouteNameFromRoute(route) !== 'Action';
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const navigationLeftAccessory = (props: {} | undefined) => (
@@ -110,14 +113,9 @@ export default function BottomTabNavigator({
 
   const navRightAccessoryActionIcon = (
     props: Partial<ImageProps> | undefined,
-    { name }: RouteProp<ParamListBase, string>
+    { name }: RouteProp<ParamListBase, string> | { name: string }
   ) => (
-    <Icon
-      key="action"
-      name={headerButtonIcons[name as RouteNames<RootTabParamList>]}
-      size={30}
-      {...props}
-    />
+    <Icon key="action" name={headerButtonIcons[name]} size={30} {...props} />
   );
 
   const cardIcons = (
@@ -140,19 +138,15 @@ export default function BottomTabNavigator({
 
   const navigationRightAccessory = (
     props: {} | undefined,
-    { route }: BottomTabHeaderProps
+    { route: { name } }: BottomTabHeaderProps
   ) => (
     <View style={{ flexDirection: 'row' }} {...props}>
-      {headerButtonIcons[route.name as RouteNames<RootTabParamList>] ? (
+      {headerButtonIcons[name] && (
         <Button
           appearance="ghost"
-          accessoryLeft={(p) => navRightAccessoryActionIcon(p, route)}
-          onPress={() =>
-            setHeaderAction(headerAction === route.name ? '' : route.name)
-          }
+          accessoryLeft={(p) => navRightAccessoryActionIcon(p, { name })}
+          onPress={() => setHeaderAction(headerAction === name ? '' : name)}
         />
-      ) : (
-        <></>
       )}
       <OverflowMenu
         anchor={userOptionsToggle}
@@ -231,7 +225,7 @@ export default function BottomTabNavigator({
       </BottomTab.Navigator>
       <FAB
         actions={
-          true
+          isNotInAction
             ? [
                 {
                   icon: 'library-add',
@@ -241,13 +235,13 @@ export default function BottomTabNavigator({
               ]
             : []
         }
-        floatingIcon={true ? 'add' : 'check'}
+        floatingIcon={isNotInAction ? 'add' : 'check'}
         onPressAction={(name) =>
           navigation.navigate('Action', { screen: name })
         }
-        onPressMain={() => (true ? {} : {})}
+        onPressMain={() => (isNotInAction ? {} : {})}
         actionsPaddingTopBottom={8}
-        color="red"
+        color={isNotInAction ? 'red' : 'green'}
         overlayColor="rgba(68, 68, 68, 0.6)"
         position="right"
         distanceToEdge={{ vertical: 80, horizontal: 30 }}

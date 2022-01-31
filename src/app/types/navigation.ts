@@ -79,7 +79,7 @@ export type RootAuthScreenProps<Screen extends RouteNames<RootAuthParamList>> =
   NavProps<RootAuthParamList, Screen>;
 
 export type RouteActionIcon<List> = {
-  [route in RouteNames<List>]: IconOptions;
+  [route in RouteNames<List> | string]: IconOptions;
 };
 
 export type TabExtraArguments = {
