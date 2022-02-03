@@ -229,6 +229,11 @@ export default function BottomTabNavigator({
             name: 'Item',
             text: 'Food Item',
           },
+          {
+            icon: 'note-add',
+            name: 'Journal',
+            text: 'Journal Entry',
+          },
         ]}
         floatingIcon="add"
         onPressAction={(name) =>

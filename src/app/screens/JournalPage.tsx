@@ -27,12 +27,12 @@ const TODAY = new Date();
 
 export default function JournalPage() {
   const {
+    journals,
     headerAction,
-    helpers: { setHeaderAction },
+    helpers: { setJournals, setHeaderAction },
   } = useAppContext();
   const isAction = headerAction === 'Journal';
   const [fetched, setFetched] = React.useState<boolean>(false);
-  const [journals, setJournals] = React.useState<Journals>([]);
   const [selectedJournal, setSelectedJournal] = React.useState<Journal>();
   const [date, setDate] = React.useState<Date>(TODAY);
 
@@ -49,7 +49,7 @@ export default function JournalPage() {
 
   const removeJournal = async () => {
     if (selectedJournal) {
-      const newJournals = journals.filter(
+      const newJournals = journals?.filter(
         (journal) => journal.id !== selectedJournal.id
       );
 
@@ -171,7 +171,7 @@ export default function JournalPage() {
               </View>
               <Text style={{ marginTop: 40 }}>{selectedJournal.content}</Text>
             </ScrollView>
-          ) : journals.length > 0 ? (
+          ) : journals && journals.length > 0 ? (
             <List data={journals} renderItem={renderItem} />
           ) : (
             <Layout style={styles.noResourceContainer}>
