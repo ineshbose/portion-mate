@@ -92,3 +92,17 @@ class ResourceViewSet(ReadOnlyModelViewSet):
             if obj
             else Response(status=status.HTTP_400_BAD_REQUEST)
         )
+
+
+class JournalViewSet(ModelViewSet):
+    """
+    API endpoint that allows resources to be viewed.
+    """
+
+    queryset = models.Journal.objects.all().order_by("-entry_time")
+    serializer_class = serializers.JournalSerializer
+    permission_classes = [drf_permissions.IsAuthenticated]
+    pagination_class = None
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
