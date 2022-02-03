@@ -241,3 +241,14 @@ class Resource(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.author} - {self.date_published}"
+
+
+class Journal(models.Model):
+    """
+    A class representing a journal log by a user.
+    """
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    meal = models.CharField(_("meal"), max_length=100)
+    entry_time = models.DateTimeField(_("entry time"), default=timezone.now)
+    content = models.TextField(_("content"), **NULL_BLANK)

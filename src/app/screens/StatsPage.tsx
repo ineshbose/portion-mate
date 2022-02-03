@@ -38,7 +38,6 @@ const INTERVAL_TIMES = {
 
 export default function StatsPage() {
   const { items, headerAction } = useAppContext();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isAction = headerAction === 'Stats';
   const { theme } = useThemeContext();
   const { width } = ScreenLayout.window;
@@ -88,7 +87,7 @@ export default function StatsPage() {
     <SafeAreaView style={{ flex: 1 }}>
       {isAction ? (
         <Layout style={styles.container}>
-          <Calendar />
+          <Calendar max={todayDate} />
         </Layout>
       ) : (
         <Layout style={{ flex: 1 }}>

@@ -90,3 +90,11 @@ export type Resource = GenericModel & {
 };
 
 export type Resources = Resource[];
+
+export type Journal = GenericModel & {
+  meal: string;
+  content: string;
+  entry_time: string;
+};
+
+export type Journals = Journal[];

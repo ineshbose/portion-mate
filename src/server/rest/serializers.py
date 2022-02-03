@@ -171,3 +171,18 @@ class ResourceSerializer(DynamicFieldsModelSerializer):
             "content",
             "bookmarked",
         ]
+
+
+class JournalSerializer(DynamicFieldsModelSerializer):
+    class Meta:
+        model = models.Journal
+        fields = ["id", "user", "meal", "entry_time", "content"]
+        extra_kwargs = {"user": {"write_only": True, "required": False}}
+
+    def create(self, validated_data):
+        validated_data["user"] = (
+            self.context["request"].user
+            if self.context.get("request") and hasattr(self.context["request"], "user")
+            else False
+        )
+        return super().create(validated_data)

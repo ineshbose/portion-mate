@@ -80,3 +80,11 @@ class ResourceAdmin(MarkdownxModelAdmin):
     list_filter = ("author", "date_published")
     search_fields = ("author", "title", "content", "link")
     ordering = ("-date_published",)
+
+
+@admin.register(models.Journal)
+class JournalAdmin(admin.ModelAdmin):
+    list_display = ("user", "entry_time", "meal")
+    list_filter = ("user", "entry_time", "meal")
+    search_fields = ("user", "meal", "content")
+    ordering = ("-entry_time",)
