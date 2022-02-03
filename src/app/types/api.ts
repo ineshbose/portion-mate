@@ -25,18 +25,28 @@ export type PaginationData<T> = {
 
 export type FetchData<T> = PaginationData<T> | T[];
 
-export type CreateData<T, R extends keyof T> = Partial<Omit<T, 'id'>> & {
-  [P in R]: T[R];
+export type CreateData<
+  T extends GenericModel | ModelID,
+  R extends keyof T | string = 'name'
+> = Partial<Omit<T, 'id' | R>> & {
+  [P in R]: R extends keyof T
+    ? NonNullable<T[R]> extends GenericModel | ModelID
+      ? CreateData<NonNullable<T[R]>> | ModelID
+      : T[R]
+    : any;
 };
 
-export type UpdateData<T extends { id: ModelID }> = Partial<T> & {
+export type UpdateData<T extends GenericModel> = Partial<T> & {
   id: T['id'];
 };
 
 export type ModelID = number | string;
 
-export type User = {
-  id: ModelID;
+export type FrequencyDisplay = 'DAILY' | 'WEEKLY' | 'MONTHLY';
+
+export type GenericModel = { id: ModelID };
+
+export type User = GenericModel & {
   email: string;
   forename: string | null;
   surname: string | null;
@@ -47,14 +57,12 @@ export type User = {
   items?: TrackItems;
 };
 
-export type PortionItem = {
-  id: ModelID;
+export type PortionItem = GenericModel & {
   name: string;
-  is_default: boolean;
+  is_default?: boolean;
 };
 
-export type TrackItem = {
-  id: ModelID;
+export type TrackItem = GenericModel & {
   item?: PortionItem | ModelID;
   user?: User | ModelID;
   target: number;
@@ -65,16 +73,14 @@ export type TrackItem = {
 
 export type TrackItems = TrackItem[];
 
-export type UserLog = {
-  id: ModelID;
+export type UserLog = GenericModel & {
   item?: TrackItem | ModelID;
   timestamp: string | Date;
 };
 
 export type UserLogs = UserLog[];
 
-export type Resource = {
-  id: ModelID;
+export type Resource = GenericModel & {
   title: string;
   author: string;
   link: string;

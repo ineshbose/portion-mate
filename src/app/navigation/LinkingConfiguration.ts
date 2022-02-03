@@ -22,6 +22,12 @@ const linking: LinkingOptions<RootStackParamList> = {
               Stats: 'stats',
               Resources: 'resources',
               Settings: 'settings',
+              Action: {
+                path: 'add',
+                screens: {
+                  Item: 'item',
+                },
+              },
             },
           },
           Auth: {

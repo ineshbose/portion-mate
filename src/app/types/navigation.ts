@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import {
   CompositeScreenProps,
+  NavigationProp,
   NavigatorScreenParams,
   ParamListBase,
   RouteProp,
@@ -19,7 +20,7 @@ declare global {
   }
 }
 
-export type RouteNames<T> = keyof T;
+export type RouteNames<T extends ParamListBase> = keyof T & string;
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootLinkParamList> | undefined;
@@ -29,7 +30,7 @@ export type RootStackParamList = {
 
 export type NavProps<
   List extends ParamListBase,
-  Route extends string
+  Route extends RouteNames<List> = string
 > = CompositeScreenProps<
   NativeStackScreenProps<List, Route>,
   NativeStackScreenProps<RootStackParamList>
@@ -53,11 +54,16 @@ export type RootTabParamList = {
   Stats: undefined;
   Resources: undefined;
   Settings: undefined;
+  Action: NavigatorScreenParams<RootActionParamList> | undefined;
 };
 
 export type RootAuthParamList = {
   Login: undefined;
   Register: undefined;
+};
+
+export type RootActionParamList = {
+  Item: undefined;
 };
 
 export type RootTabScreenProps<Screen extends RouteNames<RootTabParamList>> =
@@ -67,14 +73,19 @@ export type RootTabScreenProps<Screen extends RouteNames<RootTabParamList>> =
     >
   | {
       route: RouteProp<RootTabParamList, RouteNames<RootTabParamList>>;
-      navigation: any;
+      navigation: NavigationProp<RootTabParamList>;
     };
 
 export type RootAuthScreenProps<Screen extends RouteNames<RootAuthParamList>> =
   NavProps<RootAuthParamList, Screen>;
 
-export type RouteActionIcon<List> = {
-  [route in RouteNames<List>]: IconOptions;
+export type ScreenPropsC<
+  T extends ParamListBase,
+  Screen extends RouteNames<T> = RouteNames<T>
+> = NavProps<T, Screen>;
+
+export type RouteActionIcon<List extends ParamListBase> = {
+  [route in RouteNames<List> | string]: IconOptions;
 };
 
 export type TabExtraArguments = {
@@ -96,7 +107,7 @@ export type TabConfig<
       name: Name;
       component: ComponentTab<Name>;
       // | NamedExoticComponent<ComponentTabArguments<Name>>;
-      icon: IconOptions;
+      icon?: IconOptions;
       hideTab?: boolean;
     }
   : never;
