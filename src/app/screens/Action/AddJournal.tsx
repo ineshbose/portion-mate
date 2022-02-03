@@ -6,6 +6,7 @@ import { FAB } from '../../components/FAB';
 import { FormError } from '../../types/api';
 import HomePage from '../HomePage';
 import { createJournal } from '../../api/journals';
+import { useAppContext } from '../../contexts/AppContext';
 
 const yesterdayDate = new Date();
 yesterdayDate.setDate(yesterdayDate.getDate() + 1);
@@ -30,6 +31,10 @@ const INTERVAL_TIMES = {
 export default function AddJournal({
   navigation,
 }: NavProps<RootActionParamList, 'Journal'>) {
+  const {
+    journals = [],
+    helpers: { setJournals },
+  } = useAppContext();
   const [meal, setMeal] = React.useState<string>('');
   const [time, setTime] = React.useState<Date>(todayDate);
   const [content, setContent] = React.useState<string>('');
@@ -57,12 +62,12 @@ export default function AddJournal({
   };
 
   const logEntry = async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const newItem = await createJournal({
+    const newJournal = await createJournal({
       meal,
       entry_time: time.toISOString(),
       content,
     });
+    setJournals([...journals, newJournal]);
     goBack();
   };
 

@@ -8,13 +8,14 @@ import {
 import { getObject } from '../api/store';
 import { createUser, getUser } from '../api/user';
 import { ChildComponents } from '../types';
-import { AuthToken, TrackItems, User } from '../types/api';
+import { AuthToken, Journals, TrackItems, User } from '../types/api';
 import { RootTabParamList, RouteNames } from '../types/navigation';
 
 type AppContextType = {
   authToken?: AuthToken;
   user?: User;
   items?: TrackItems;
+  journals?: Journals;
   loading: boolean;
   headerAction?: RouteNames<RootTabParamList>;
   helpers: { [name: string]: Function };
@@ -28,6 +29,7 @@ const AppContext = React.createContext<AppContextType>({
 export const ContextProvider = ({ children }: ChildComponents) => {
   const [authToken, setAuthToken] = React.useState<AuthToken>();
   const [items, setItems] = React.useState<TrackItems>([]);
+  const [journals, setJournals] = React.useState<Journals>([]);
   const [user, setUser] = React.useState<User>();
   const [headerAction, setHeaderAction] =
     React.useState<RouteNames<RootTabParamList>>();
@@ -93,6 +95,7 @@ export const ContextProvider = ({ children }: ChildComponents) => {
         authToken,
         user,
         items,
+        journals,
         headerAction,
         loading,
         helpers: {
@@ -101,6 +104,7 @@ export const ContextProvider = ({ children }: ChildComponents) => {
           signOut,
           setUser,
           setItems,
+          setJournals,
           setHeaderAction,
         },
       }}
