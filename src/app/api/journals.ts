@@ -12,7 +12,7 @@ export const getJournals = async () => {
   }
 };
 
-export const createJournal = async (props: CreateData<Journal, 'item'>) => {
+export const createJournal = async (props: CreateData<Journal, 'meal'>) => {
   try {
     const response = await axiosInstance.post<Journal>(API_PATH, {
       entry_time: new Date().toISOString(),

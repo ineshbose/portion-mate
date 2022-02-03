@@ -26,6 +26,7 @@ const linking: LinkingOptions<RootStackParamList> = {
                 path: 'add',
                 screens: {
                   Item: 'item',
+                  Journal: 'journal',
                 },
               },
             },

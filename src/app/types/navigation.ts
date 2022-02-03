@@ -64,6 +64,7 @@ export type RootAuthParamList = {
 
 export type RootActionParamList = {
   Item: undefined;
+  Journal: undefined;
 };
 
 export type RootTabScreenProps<Screen extends RouteNames<RootTabParamList>> =
