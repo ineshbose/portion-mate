@@ -1,5 +1,11 @@
 import { axiosInstance } from '.';
-import { CreateData, FetchData, TrackItem, UpdateData } from '../types/api';
+import {
+  CreateData,
+  FetchData,
+  PortionItem,
+  TrackItem,
+  UpdateData,
+} from '../types/api';
 
 const API_PATH = '/trackitem/';
 
@@ -9,6 +15,20 @@ export const getTrackItems = async () => {
     return 'results' in response.data ? response.data.results : response.data;
   } catch (e) {
     // unable to fetch data
+  }
+};
+
+export const createPortionItem = async (
+  props: CreateData<PortionItem, 'name'>
+) => {
+  try {
+    const response = await axiosInstance.post<PortionItem>(
+      '/portionitems/',
+      props
+    );
+    return response.data;
+  } catch (e) {
+    // unable to create
   }
 };
 

@@ -26,26 +26,26 @@ export type ActionItem = {
 };
 
 export type MainButtonProps = {
-  actions: ActionItem[];
-  animated: boolean;
-  color: string;
-  distanceToEdge:
+  actions?: ActionItem[];
+  animated?: boolean;
+  color?: string;
+  distanceToEdge?:
     | number
     | {
         vertical: number;
         horizontal: number;
       };
-  mainVerticalDistance: number;
-  visible: boolean;
-  overlayColor: string;
-  position: 'right' | 'left' | 'center';
-  showBackground: boolean;
-  actionsPaddingTopBottom: number;
-  buttonSize: number;
+  mainVerticalDistance?: number;
+  visible?: boolean;
+  overlayColor?: string;
+  position?: 'right' | 'left' | 'center';
+  showBackground?: boolean;
+  actionsPaddingTopBottom?: number;
+  buttonSize?: number;
   floatingIcon?: IconOptions;
-  iconHeight: number;
-  iconWidth: number;
-  iconColor: string;
+  iconHeight?: number;
+  iconWidth?: number;
+  iconColor?: string;
   shadow?: Shadow;
   onPressAction?: (itemName: Actions) => void;
   onPressMain?: (isActive: boolean) => void;

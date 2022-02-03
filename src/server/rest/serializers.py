@@ -60,7 +60,6 @@ class UserSerializer(DynamicFieldsModelSerializer):
         extra_kwargs = {"password": {"write_only": True, "allow_blank": True}}
 
     def create(self, validated_data):
-        print(validated_data)
         password = validated_data.pop("password")
         instance = super().create(validated_data)
 
@@ -104,7 +103,7 @@ class PortionItemSerializer(DynamicFieldsModelSerializer):
 
 
 class TrackItemSerializer(DynamicFieldsModelSerializer):
-    item = PortionItemSerializer(read_only=True)
+    item = PortionItemSerializer()
     logs = serializers.SerializerMethodField()
 
     def get_logs(self, obj):
@@ -130,6 +129,19 @@ class TrackItemSerializer(DynamicFieldsModelSerializer):
             "frequency",
             "logs",
         ]
+        extra_kwargs = {"user": {"write_only": True, "required": False}}
+
+    def create(self, validated_data):
+        item = validated_data.pop("item")
+        validated_data["item"] = models.PortionItem.objects.get_or_create(**item)[0]
+
+        validated_data["user"] = (
+            self.context["request"].user
+            if self.context.get("request") and hasattr(self.context["request"], "user")
+            else False
+        )
+
+        return super().create(validated_data)
 
 
 class UserLogSerializer(DynamicFieldsModelSerializer):

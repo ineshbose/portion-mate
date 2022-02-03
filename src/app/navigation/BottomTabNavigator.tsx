@@ -88,7 +88,6 @@ export default function BottomTabNavigator({
     headerAction,
     helpers: { signOut, setHeaderAction },
   } = useAppContext();
-  const isNotInAction = getFocusedRouteNameFromRoute(route) !== 'Action';
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   const navigationLeftAccessory = (props: {} | undefined) => (
@@ -224,35 +223,19 @@ export default function BottomTabNavigator({
         ))}
       </BottomTab.Navigator>
       <FAB
-        actions={
-          isNotInAction
-            ? [
-                {
-                  icon: 'library-add',
-                  name: 'Item',
-                  text: 'Food Item',
-                },
-              ]
-            : []
-        }
-        floatingIcon={isNotInAction ? 'add' : 'check'}
+        actions={[
+          {
+            icon: 'library-add',
+            name: 'Item',
+            text: 'Food Item',
+          },
+        ]}
+        floatingIcon="add"
         onPressAction={(name) =>
           navigation.navigate('Action', { screen: name })
         }
-        onPressMain={() => (isNotInAction ? {} : {})}
-        actionsPaddingTopBottom={8}
-        color={isNotInAction ? 'red' : 'green'}
-        overlayColor="rgba(68, 68, 68, 0.6)"
-        position="right"
         distanceToEdge={{ vertical: 80, horizontal: 30 }}
-        buttonSize={56}
-        iconHeight={15}
-        iconWidth={15}
-        iconColor="#fff"
-        mainVerticalDistance={0}
-        showBackground
-        animated
-        visible
+        visible={getFocusedRouteNameFromRoute(route) !== 'Action'}
       />
     </>
   );

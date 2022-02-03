@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import {
   CompositeScreenProps,
+  NavigationProp,
   NavigatorScreenParams,
   ParamListBase,
   RouteProp,
@@ -19,7 +20,7 @@ declare global {
   }
 }
 
-export type RouteNames<T> = keyof T;
+export type RouteNames<T extends ParamListBase> = keyof T & string;
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootLinkParamList> | undefined;
@@ -29,7 +30,7 @@ export type RootStackParamList = {
 
 export type NavProps<
   List extends ParamListBase,
-  Route extends string
+  Route extends RouteNames<List> = string
 > = CompositeScreenProps<
   NativeStackScreenProps<List, Route>,
   NativeStackScreenProps<RootStackParamList>
@@ -72,13 +73,18 @@ export type RootTabScreenProps<Screen extends RouteNames<RootTabParamList>> =
     >
   | {
       route: RouteProp<RootTabParamList, RouteNames<RootTabParamList>>;
-      navigation: any;
+      navigation: NavigationProp<RootTabParamList>;
     };
 
 export type RootAuthScreenProps<Screen extends RouteNames<RootAuthParamList>> =
   NavProps<RootAuthParamList, Screen>;
 
-export type RouteActionIcon<List> = {
+export type ScreenPropsC<
+  T extends ParamListBase,
+  Screen extends RouteNames<T> = RouteNames<T>
+> = NavProps<T, Screen>;
+
+export type RouteActionIcon<List extends ParamListBase> = {
   [route in RouteNames<List> | string]: IconOptions;
 };
 

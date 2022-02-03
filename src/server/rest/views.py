@@ -1,3 +1,5 @@
+from django.db.models import F
+
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.decorators import action
@@ -44,7 +46,7 @@ class TrackItemViewSet(ModelViewSet):
     API endpoint that allows track items to be viewed or edited.
     """
 
-    queryset = models.TrackItem.objects.all().order_by("order")
+    queryset = models.TrackItem.objects.all().order_by(F("order").asc(nulls_last=True))
     serializer_class = serializers.TrackItemSerializer
     permission_classes = [drf_permissions.IsAuthenticated]
     pagination_class = None

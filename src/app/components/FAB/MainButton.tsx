@@ -24,22 +24,22 @@ const DEFAULT_SHADOW_PROPS = {
 
 export default function MainButton(Props: MainButtonProps) {
   const {
-    color,
-    shadow,
-    actions,
-    visible,
-    position,
-    animated,
-    iconHeight,
-    iconWidth,
-    iconColor,
-    buttonSize,
+    color = 'red',
+    shadow = {},
+    actions = [],
+    visible = true,
+    position = 'right',
+    animated = true,
+    iconHeight = 15,
+    iconWidth = 15,
+    iconColor = '#fff',
+    buttonSize = 56,
     floatingIcon,
-    overlayColor,
-    showBackground,
-    distanceToEdge,
-    mainVerticalDistance,
-    actionsPaddingTopBottom,
+    overlayColor = 'rgba(68, 68, 68, 0.6)',
+    showBackground = 'true',
+    distanceToEdge = 30,
+    mainVerticalDistance = 0,
+    actionsPaddingTopBottom = 8,
     onPressMain,
     onPressAction,
   } = Props;
@@ -144,7 +144,10 @@ export default function MainButton(Props: MainButtonProps) {
   return (
     <Animated.View
       pointerEvents="box-none"
-      style={[styles.overlay, { backgroundColor: 'transparent' }]}
+      style={[
+        styles.overlay,
+        { backgroundColor: 'transparent', display: visible ? 'flex' : 'none' },
+      ]}
     >
       {active && showBackground && (
         <Pressable
