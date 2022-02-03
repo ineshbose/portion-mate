@@ -9,6 +9,7 @@ router.register(r"portionitems", views.PortionItemViewSet)
 router.register(r"trackitem", views.TrackItemViewSet)
 router.register(r"userlogs", views.UserLogViewSet)
 router.register(r"resources", views.ResourceViewSet)
+router.register(r"journals", views.JournalViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
