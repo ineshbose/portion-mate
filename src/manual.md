@@ -9,8 +9,6 @@
 
   <p align="center">
     <!-- BADGES / SHIELDS -->
-    <a href="https://github.com/ineshbose/portion-mate/wiki" target="_blank"><img alt="Project Wiki" src="https://img.shields.io/badge/project-Wiki-success?style=flat-square"></a>
-    <a href="https://portion-mate-glasgow.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate-glasgow?style=flat-square"></a>
   </p>
 </p>
 </div>
@@ -32,12 +30,12 @@ $ git clone https://github.com/ineshbose/portion-mate
 $ cd portion-mate/src   # treat src as root
 ```
 
-* **`poetry` / `pip`**: The backend uses Django, and therefore dependencies can be installed using either [`pip`](https://packaging.python.org/tutorials/installing-packages/) or [`poetry`]() (preferred).
+* **`poetry` / `pip`**: The backend uses Django, and therefore dependencies can be installed using either [`pip`](https://packaging.python.org/tutorials/installing-packages/) or [`poetry`](https://python-poetry.org/docs/basic-usage/#installing-dependencies) (preferred).
 ```sh
 $ python3 -m venv env               # optional
 $ source ./env/scripts/activate     # activate environment
 $ poetry install
-$ pip install -r requirements.txt # if you don't use poetry
+$ pip install .                     # if you don't use poetry
 ```
 
 * **`yarn` / `npm`**: The frontend uses React Native, and therefore dependencies can be handled using either [`npm`](https://www.npmjs.com/) or [`yarn`](https://yarnpkg.com/) (preferred).

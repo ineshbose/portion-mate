@@ -1,0 +1,35 @@
+{
+  "datetime": "04-02-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Remaining sections of the app",
+      "description": ["Statistics", "Journal", "Actions"]
+    },
+    {
+      "item": "App deployment",
+      "description": ["Funding", "Suggestions"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Remaining sections of the app",
+      "who": "ineshbose",
+      "notes": "The week was a little rough, health-wise as well. There were hurdles in the progress, but all four tabs of the app are now done."
+    },
+    {
+      "item": "Statistics section",
+      "who": ["ineshbose", "oanaandrei"],
+      "notes": "The daily statistics view is a bit difficult. A weekly interval would be helpful, but this would help in user retention as they're unlikely to see statistics and interact with the app until the seventh day."
+    },
+    {
+      "item": "Deployment",
+      "who": "ineshbose",
+      "notes": "Deployment should ideally be done without the need to buy a server. After that, evaluations can run."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}

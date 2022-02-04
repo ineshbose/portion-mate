@@ -1,0 +1,36 @@
+{
+  "datetime": "28-01-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Redesigned app",
+      "description": ["Switched to new UI", "Dark/light theme toggle"]
+    },
+    {
+      "item": "Evaluation and dissertation",
+      "description": ["Discuss plans & doubts"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Interface redesign",
+      "who": "ineshbose",
+      "notes": "The new UI is much appreciated. User can also delete account - all is great."
+    },
+    {
+      "item": "Dissertation writing",
+      "who": ["ineshbose", "oanaandrei"],
+      "notes": "Would this app be considered as a Habit App? A habit could be like cigarettes that you are trying to cut down, so a future idea could be negative portions."
+    }
+  ],
+  "actions": [
+    {
+      "item": "Sign Ethics Checklist",
+      "who": "oanaandrei",
+      "done": true
+    }
+  ],
+  "notes": ""
+}
