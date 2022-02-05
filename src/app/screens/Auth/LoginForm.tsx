@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Input } from '@ui-kitten/components';
 import { AuthError } from '../../types/api';
 import { useAppContext } from '../../contexts/AppContext';

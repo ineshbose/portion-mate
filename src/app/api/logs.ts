@@ -1,5 +1,5 @@
-import { CreateData, FetchData, UpdateData, UserLog } from '../types/api';
 import { axiosInstance } from '.';
+import { CreateData, FetchData, UpdateData, UserLog } from '../types/api';
 
 const API_PATH = '/userlogs/';
 

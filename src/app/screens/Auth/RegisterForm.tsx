@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, CheckBox, Input, Text } from '@ui-kitten/components';
 import { RootAuthScreenProps } from '../../types/navigation';
 import { useAppContext } from '../../contexts/AppContext';

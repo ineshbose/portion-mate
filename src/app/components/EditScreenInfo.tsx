@@ -1,11 +1,14 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-
-import MonoText from './StyledText';
+import { Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from '@ui-kitten/components';
+import { MonoText } from './StyledText';
 
 export default function EditScreenInfo({ path }: { path: string }) {
+  const openExpoGuide = () =>
+    Linking.openURL(
+      'https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet'
+    );
+
   return (
     <View>
       <View style={styles.getStartedContainer}>
@@ -26,7 +29,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
       </View>
 
       <View style={styles.helpContainer}>
-        <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+        <TouchableOpacity onPress={openExpoGuide} style={styles.helpLink}>
           <Text style={styles.helpLinkText}>
             {
               "Tap here if your app doesn't automatically update after making changes"
@@ -35,12 +38,6 @@ export default function EditScreenInfo({ path }: { path: string }) {
         </TouchableOpacity>
       </View>
     </View>
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet'
   );
 }
 

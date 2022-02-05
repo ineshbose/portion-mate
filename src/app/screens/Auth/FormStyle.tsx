@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Icon } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
 

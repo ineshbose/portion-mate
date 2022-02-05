@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import {
   Button,
   IndexPath,
@@ -8,11 +9,10 @@ import {
   SelectItem,
   TopNavigation,
 } from '@ui-kitten/components';
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
-import { FAB } from '../../components/FAB';
-import { NavProps, RootActionParamList } from '../../types/navigation';
-import { createTrackItem } from '../../api/items';
+import FAB from '../../components/FAB';
 import { useAppContext } from '../../contexts/AppContext';
+import { createTrackItem } from '../../api/items';
+import { NavProps, RootActionParamList } from '../../types/navigation';
 import { FormError, FrequencyDisplay } from '../../types/api';
 
 const FREQUENCY_OPTIONS: { [f in FrequencyDisplay]: number } = {

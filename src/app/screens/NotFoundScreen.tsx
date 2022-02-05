@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Layout, Text } from '@ui-kitten/components';
+import React from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Layout, Text } from '@ui-kitten/components';
 
-import { RootStackScreenProps } from '../types/navigation';
 import { useThemeContext } from '../contexts/ThemeContext';
+import { RootStackScreenProps } from '../types/navigation';
 
 export default function NotFoundScreen({
   navigation,

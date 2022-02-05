@@ -1,4 +1,12 @@
-import * as React from 'react';
+import React from 'react';
+import {
+  ImageProps,
+  ListRenderItemInfo,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {
   Button,
   Calendar,
@@ -10,17 +18,9 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import {
-  ImageProps,
-  ListRenderItemInfo,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
 import { useAppContext } from '../contexts/AppContext';
-import { Journal, Journals } from '../types/api';
 import { deleteJournal, getJournals } from '../api/journals';
+import { Journal, Journals } from '../types/api';
 import { IconOptions } from '../types';
 
 const TODAY = new Date();

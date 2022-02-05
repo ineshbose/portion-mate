@@ -1,5 +1,5 @@
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
 import AddItem from '../screens/Action/AddItem';
 import AddJournal from '../screens/Action/AddJournal';
 import { RootActionParamList } from '../types/navigation';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, Animated, Pressable } from 'react-native';
 import { Button, Icon, Layout, Text } from '@ui-kitten/components';
 import { ActionItemProps } from '../../types/FAB';

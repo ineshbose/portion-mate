@@ -1,9 +1,9 @@
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { RootLinkParamList } from '../types/navigation';
 import BottomTabNavigator from './BottomTabNavigator';
 import AuthNavigator from './AuthNavigator';
 import { useAppContext } from '../contexts/AppContext';
+import { RootLinkParamList } from '../types/navigation';
 
 const Root = createNativeStackNavigator<RootLinkParamList>();
 

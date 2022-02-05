@@ -1,5 +1,5 @@
-import { CreateData, FetchData, Journal, UpdateData } from '../types/api';
 import { axiosInstance } from '.';
+import { CreateData, FetchData, Journal, UpdateData } from '../types/api';
 
 const API_PATH = '/journals/';
 

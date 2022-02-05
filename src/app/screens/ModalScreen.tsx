@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
+import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { StatusBar } from 'expo-status-bar';
-import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import { useThemeContext } from '../contexts/ThemeContext';
+import EditScreenInfo from '../components/EditScreenInfo';
 
 export default function ModalScreen() {
   const { ThemeToggle } = useThemeContext();

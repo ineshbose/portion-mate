@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { storeObject, getObject, removeItem } from './store';
-import { AuthError, AuthToken } from '../types/api';
-import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
 import { axiosInstance } from '.';
+import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
 import { useAppContext } from '../contexts/AppContext';
+import { AuthError, AuthToken } from '../types/api';
+import { storeObject, getObject, removeItem } from './store';
 
 const API_PATH = '/auth/o/';
 

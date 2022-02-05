@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   ImageProps,
   ListRenderItemInfo,
@@ -17,7 +17,9 @@ import {
   Icon,
   Text,
 } from '@ui-kitten/components';
+import { useAppContext } from '../contexts/AppContext';
 import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
+import { createUserLog, deleteUserLog } from '../api/logs';
 import {
   PortionItem,
   TrackItem,
@@ -25,8 +27,6 @@ import {
   UserLog,
   UserLogs,
 } from '../types/api';
-import { useAppContext } from '../contexts/AppContext';
-import { createUserLog, deleteUserLog } from '../api/logs';
 import { IconOptions } from '../types';
 
 const frequencyDisplay: { [frequency: number]: string } = {

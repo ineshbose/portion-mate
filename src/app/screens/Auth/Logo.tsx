@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Image } from 'react-native';
 import { Text } from '@ui-kitten/components';
 

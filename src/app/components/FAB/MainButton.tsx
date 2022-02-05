@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Animated,
@@ -7,10 +7,10 @@ import {
   Pressable,
   View,
 } from 'react-native';
+import { Button, Icon } from '@ui-kitten/components';
 import ActionItem from './ActionItem';
 import { MainButtonProps } from '../../types/FAB';
 import { RootActionParamList } from '../../types/navigation';
-import { Button, Icon } from '@ui-kitten/components';
 
 const DEFAULT_SHADOW_PROPS = {
   shadowOpacity: 0.35,

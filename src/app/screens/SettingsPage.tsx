@@ -1,4 +1,14 @@
-import * as React from 'react';
+import React from 'react';
+import {
+  ImageProps,
+  Pressable,
+  PressableProps,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  ViewProps,
+} from 'react-native';
 import {
   Avatar,
   Button,
@@ -14,21 +24,11 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import {
-  ImageProps,
-  Pressable,
-  PressableProps,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-  ViewProps,
-} from 'react-native';
+import { useAppContext } from '../contexts/AppContext';
 import { useThemeContext } from '../contexts/ThemeContext';
+import { deleteUser, updateUser } from '../api/user';
 import { RootTabScreenProps } from '../types/navigation';
 import { IconOptions } from '../types';
-import { deleteUser, updateUser } from '../api/user';
-import { useAppContext } from '../contexts/AppContext';
 import { passwordAccessory } from './Auth/FormStyle';
 
 type SettingProps = PressableProps & {

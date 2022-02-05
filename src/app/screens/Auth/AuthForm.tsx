@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Logo from './Logo';
 import { KeyboardAvoidingView, View } from 'react-native';
 import { Button, Input, Layout } from '@ui-kitten/components';

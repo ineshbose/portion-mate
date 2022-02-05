@@ -1,16 +1,16 @@
+import React from 'react';
+import { Image, ImageProps, Pressable, View } from 'react-native';
+import {
+  getFocusedRouteNameFromRoute,
+  ParamListBase,
+  RouteProp,
+} from '@react-navigation/native';
 import {
   BottomTabBarProps,
   BottomTabHeaderProps,
   BottomTabScreenProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import * as React from 'react';
-import { Image, ImageProps, Pressable, View } from 'react-native';
-import {
-  RootTabParamList,
-  RouteActionIcon,
-  TabConfig,
-} from '../types/navigation';
 import {
   BottomNavigation,
   BottomNavigationTab,
@@ -21,19 +21,19 @@ import {
   Text,
   TopNavigation,
 } from '@ui-kitten/components';
+import { useAppContext } from '../contexts/AppContext';
 import HomePage from '../screens/HomePage';
 import StatsPage from '../screens/StatsPage';
 import JournalPage from '../screens/JournalPage';
 import ResourcesPage from '../screens/ResourcesPage';
-import { useAppContext } from '../contexts/AppContext';
-import {
-  getFocusedRouteNameFromRoute,
-  ParamListBase,
-  RouteProp,
-} from '@react-navigation/native';
 import SettingsPage from '../screens/SettingsPage';
 import { IconOptions } from '../types';
-import { FAB } from '../components/FAB';
+import {
+  RootTabParamList,
+  RouteActionIcon,
+  TabConfig,
+} from '../types/navigation';
+import FAB from '../components/FAB';
 import ActionNavigator from './ActionNavigator';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();

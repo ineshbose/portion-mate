@@ -1,5 +1,5 @@
+import React from 'react';
 import { Button, ButtonProps } from '@ui-kitten/components';
-import * as React from 'react';
 import { ColorScheme } from '../types';
 
 type ThemeContextType = {

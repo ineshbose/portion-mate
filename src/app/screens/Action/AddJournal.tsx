@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Button, Input, Layout, TopNavigation } from '@ui-kitten/components';
+import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { NavProps, RootActionParamList } from '../../types/navigation';
-import { FAB } from '../../components/FAB';
-import { FormError } from '../../types/api';
+import { Button, Input, Layout, TopNavigation } from '@ui-kitten/components';
+import FAB from '../../components/FAB';
 import HomePage from '../HomePage';
-import { createJournal } from '../../api/journals';
 import { useAppContext } from '../../contexts/AppContext';
+import { createJournal } from '../../api/journals';
+import { FormError } from '../../types/api';
+import { NavProps, RootActionParamList } from '../../types/navigation';
 
 const yesterdayDate = new Date();
 yesterdayDate.setDate(yesterdayDate.getDate() + 1);
@@ -43,18 +43,24 @@ export default function AddJournal({
   const goBack = () => navigation.goBack();
 
   const recommendedMeal = () => {
-    var mealName = '';
+    let mealName = '';
 
     if (
       (time >= INTERVAL_TIMES.LAST_NIGHT && time < INTERVAL_TIMES.MORNING) ||
-      (time >= INTERVAL_TIMES.NIGHT && INTERVAL_TIMES.NEXT_MORNING)
+      (time >= INTERVAL_TIMES.NIGHT && time < INTERVAL_TIMES.NEXT_MORNING)
     ) {
       mealName = 'Midnight Snack';
-    } else if (time >= INTERVAL_TIMES.MORNING && INTERVAL_TIMES.AFTERNOON) {
+    } else if (
+      time >= INTERVAL_TIMES.MORNING &&
+      time < INTERVAL_TIMES.AFTERNOON
+    ) {
       mealName = 'Breakfast';
-    } else if (time >= INTERVAL_TIMES.AFTERNOON && INTERVAL_TIMES.EVENING) {
+    } else if (
+      time >= INTERVAL_TIMES.AFTERNOON &&
+      time < INTERVAL_TIMES.EVENING
+    ) {
       mealName = 'Lunch';
-    } else if (time >= INTERVAL_TIMES.EVENING && INTERVAL_TIMES.NIGHT) {
+    } else if (time >= INTERVAL_TIMES.EVENING && time < INTERVAL_TIMES.NIGHT) {
       mealName = 'Dinner';
     }
 
