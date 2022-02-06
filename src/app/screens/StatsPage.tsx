@@ -5,7 +5,7 @@ import { LineChart, PieChart } from 'react-native-chart-kit';
 import { useAppContext } from '../contexts/AppContext';
 import { useThemeContext } from '../contexts/ThemeContext';
 import { PortionItem, TrackItem, TrackItems } from '../types/api';
-import ScreenLayout from '../constants/Layout';
+import Display from '../constants/Display';
 
 const CHART_CONFIG = {
   backgroundColor: '#e26a00',
@@ -40,7 +40,9 @@ export default function StatsPage() {
   const { items, headerAction } = useAppContext();
   const isAction = headerAction === 'Stats';
   const { theme } = useThemeContext();
-  const { width } = ScreenLayout.window;
+  const {
+    window: { width },
+  } = Display;
   const [frequency, setFrequency] = React.useState<number>(0);
 
   const renderPieData = (item: TrackItem) => ({

@@ -144,10 +144,7 @@ export default function MainButton(Props: MainButtonProps) {
   return (
     <Animated.View
       pointerEvents="box-none"
-      style={[
-        styles.overlay,
-        { backgroundColor: 'transparent', display: visible ? 'flex' : 'none' },
-      ]}
+      style={[styles.overlay, { display: visible ? 'flex' : 'none' }]}
     >
       {active && showBackground && (
         <Pressable
@@ -177,20 +174,15 @@ export default function MainButton(Props: MainButtonProps) {
         >
           {actions.map((action) => (
             <ActionItem
-              paddingTopBottom={actionsPaddingTopBottom}
-              distanceToEdge={distanceToEdge}
               key={action.name}
-              shadow={shadowOptions}
-              tintColor="#fff"
               color={color}
-              buttonSize={40}
-              textElevation={5}
-              margin={8}
-              {...action}
               position={position}
+              shadow={shadowOptions}
               active={active}
-              onPress={pressAction}
               animated={animated}
+              onPress={pressAction}
+              paddingTopBottom={actionsPaddingTopBottom}
+              {...action}
             />
           ))}
         </Animated.View>
@@ -282,10 +274,7 @@ export default function MainButton(Props: MainButtonProps) {
               >
                 <View
                   style={[
-                    {
-                      width: 2,
-                      position: 'absolute',
-                    },
+                    styles.iconHorizontalContainer,
                     {
                       height: iconHeight,
                       backgroundColor: active ? color : iconColor,
@@ -294,10 +283,7 @@ export default function MainButton(Props: MainButtonProps) {
                 />
                 <View
                   style={[
-                    {
-                      height: 2,
-                      position: 'absolute',
-                    },
+                    styles.iconVerticalContainer,
                     {
                       width: iconWidth,
                       backgroundColor: active ? color : iconColor,
@@ -343,6 +329,7 @@ const styles = StyleSheet.create({
     top: 0,
     elevation: 0,
     zIndex: 0,
+    backgroundColor: 'transparent',
   },
   buttonContainer: {
     overflow: 'hidden',
@@ -364,5 +351,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  iconHorizontalContainer: {
+    width: 2,
+    position: 'absolute',
+    height: 15,
+  },
+  iconVerticalContainer: {
+    height: 2,
+    position: 'absolute',
+    width: 15,
   },
 });
