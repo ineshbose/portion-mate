@@ -1,6 +1,5 @@
 import { default as colors } from '../assets/theme.json';
-
-type StatusOptions = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+import { StatusOptions } from '../types/styles';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const states: StatusOptions[] = [

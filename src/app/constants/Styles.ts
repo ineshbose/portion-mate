@@ -1,31 +1,16 @@
-import { FlexStyle, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import {
+  GlobalStyleSheet,
+  SpacingDirections,
+  SpacingTypes,
+  StyleNumValues,
+} from '../types/styles';
 
-type FlexStyleProp<T extends keyof FlexStyle> = Pick<FlexStyle, T>;
+const NUMS: StyleNumValues[] = [1, 2, 3, 4, 5];
 
-type DisplayStyles = {
-  displayFlex: FlexStyleProp<'display'>;
-  displayNone: FlexStyleProp<'display'>;
-  flexOne: FlexStyleProp<'flex'>;
-  flexDirectionRow: FlexStyleProp<'flexDirection'>;
-  flexCenter: FlexStyleProp<'alignItems' | 'justifyContent'>;
-};
+const SPACINGS: SpacingTypes[] = ['margin', 'padding'];
 
-type Num = 1 | 2 | 3 | 4 | 5;
-const NUMS: Num[] = [1, 2, 3, 4, 5];
-
-type GridType = 'margin' | 'padding';
-const GRIDS: GridType[] = ['margin', 'padding'];
-
-type AREA =
-  | ''
-  | 'Horizontal'
-  | 'Vertical'
-  | 'Top'
-  | 'Bottom'
-  | 'Left'
-  | 'Right';
-
-const AREAS: AREA[] = [
+const DIRECTIONS: SpacingDirections[] = [
   '',
   'Horizontal',
   'Vertical',
@@ -35,13 +20,7 @@ const AREAS: AREA[] = [
   'Right',
 ];
 
-type GridStyles<T extends GridType> = {
-  [P in `${T}${AREA}${Num}`]: FlexStyleProp<`${T}${AREA}`>;
-};
-
-const PROVIDED_STYLES = <
-  DisplayStyles & GridStyles<'margin'> & GridStyles<'padding'>
->{
+const PROVIDED_STYLES = <GlobalStyleSheet>{
   displayFlex: {
     display: 'flex',
   },
@@ -61,10 +40,10 @@ const PROVIDED_STYLES = <
 };
 
 NUMS.forEach((num) =>
-  GRIDS.forEach((prop) =>
-    AREAS.forEach((area) => {
-      PROVIDED_STYLES[`${prop}${area}${num}`] = {
-        [`${prop}${area}`]: num * 10,
+  SPACINGS.forEach((spacing) =>
+    DIRECTIONS.forEach((direction) => {
+      PROVIDED_STYLES[`${spacing}${direction}${num}`] = {
+        [`${spacing}${direction}`]: num * 10,
       };
     })
   )
