@@ -145,10 +145,8 @@ export default function ResourcesPage() {
               <Text>
                 <Markdown
                   style={{
-                    body: {
-                      paddingHorizontal: 10,
-                    },
-                    image: { flex: 1, maxWidth: 400, margin: 'auto' },
+                    body: styles.contentContainer,
+                    image: styles.contentImage,
                   }}
                 >
                   {selectedResource.content}
@@ -179,6 +177,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  contentContainer: {
+    paddingHorizontal: 10,
+  },
+  contentImage: {
+    flex: 1,
+    maxWidth: 400,
+    margin: 'auto',
+  },
   noResourceContainer: {
     flex: 1,
     alignItems: 'center',
@@ -189,20 +195,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  list: {
-    flex: 1,
-  },
-  listContent: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
   item: {
-    marginVertical: 8,
-  },
-  itemHeader: {
-    height: 220,
-  },
-  itemContent: {
     marginVertical: 8,
   },
   itemFooter: {

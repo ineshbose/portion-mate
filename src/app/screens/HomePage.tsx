@@ -125,7 +125,7 @@ export default function HomePage() {
 
   const itemCheckBox = (item: TrackItem, idx: number) => (
     <CheckBox
-      style={{ marginRight: 2 }}
+      style={styles.checkbox}
       key={idx}
       checked={idx < (item.logs as UserLogs).length}
       onChange={(checked) => updateItemLogs(checked ? 'add' : 'remove', item)}
@@ -234,13 +234,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  checkbox: {
+    marginRight: 2,
   },
 });

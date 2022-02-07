@@ -58,46 +58,36 @@ export default function AddItem({
   };
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
+    <KeyboardAvoidingView style={styles.container}>
       <Layout style={styles.container}>
         <TopNavigation
           alignment="start"
           title="New Item"
           accessoryRight={renderCancelAccessory}
         />
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <View
-            style={{
-              maxWidth: 500,
-              marginTop: 100,
-            }}
-          >
+        <View style={styles.formContainer}>
+          <View style={styles.formInnerContainer}>
             <Input
               placeholder="Enter name"
               onChangeText={setName}
-              style={{ margin: 2 }}
+              style={styles.formElement}
               caption={error?.name}
               status={error?.name ? 'danger' : 'basic'}
               size="large"
             />
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.rowForm}>
               <Input
                 placeholder="target"
                 value={`${target}`}
                 onChangeText={(t) => setTarget(strToNum(t))}
-                style={{ flex: 1, margin: 2 }}
+                style={[styles.container, styles.formElement]}
                 size="large"
               />
               <Select
                 value={frequencies[selectedFrequency.row].toLowerCase()}
                 selectedIndex={selectedFrequency}
                 onSelect={(index) => setSelectedFrequency(index as IndexPath)}
-                style={{ flex: 1, margin: 2 }}
+                style={[styles.container, styles.formElement]}
                 size="large"
                 disabled
               >
@@ -123,5 +113,19 @@ export default function AddItem({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  formContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rowForm: {
+    flexDirection: 'row',
+  },
+  formInnerContainer: {
+    maxWidth: 500,
+    marginTop: 100,
+  },
+  formElement: {
+    margin: 2,
   },
 });

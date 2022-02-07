@@ -10,8 +10,8 @@ export default function ModalScreen() {
   const { ThemeToggle } = useThemeContext();
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Layout style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Layout style={[styles.container, styles.centerContainer]}>
         <Text style={styles.title}>Modal</Text>
         <View style={styles.separator} />
         <EditScreenInfo path="/screens/ModalScreen.tsx" />
@@ -27,6 +27,8 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  centerContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },

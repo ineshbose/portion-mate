@@ -86,13 +86,13 @@ export default function StatsPage() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       {isAction ? (
-        <Layout style={styles.container}>
+        <Layout style={[styles.container, styles.centerContainer]}>
           <Calendar max={todayDate} />
         </Layout>
       ) : (
-        <Layout style={{ flex: 1 }}>
+        <Layout style={styles.container}>
           <TabBar selectedIndex={frequency} onSelect={setFrequency}>
             <Tab title="DAILY" />
             <Tab title="WEEKLY" disabled />
@@ -117,7 +117,7 @@ export default function StatsPage() {
               height={360}
               chartConfig={CHART_CONFIG}
               bezier
-              style={{ borderRadius: 15, marginTop: 50, marginHorizontal: 20 }}
+              style={styles.lineChart}
             />
           </ScrollView>
         </Layout>
@@ -129,7 +129,14 @@ export default function StatsPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  centerContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  lineChart: {
+    borderRadius: 15,
+    marginTop: 50,
+    marginHorizontal: 20,
   },
 });

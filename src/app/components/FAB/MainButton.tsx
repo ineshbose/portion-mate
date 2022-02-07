@@ -266,12 +266,7 @@ export default function MainButton(Props: MainButtonProps) {
                 )}
               />
             ) : (
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+              <View style={styles.buttonContainer}>
                 <View
                   style={[
                     styles.iconHorizontalContainer,

@@ -84,19 +84,14 @@ export default function AddJournal({
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <Layout style={styles.container}>
         <TopNavigation
           alignment="start"
           title="Journal Entry"
           accessoryRight={renderCancelAccessory}
         />
-        <View
-          style={{
-            flexDirection: 'row',
-            margin: 10,
-          }}
-        >
+        <View style={styles.formContainer}>
           <Input
             placeholder={recommendedMeal() || 'meal'}
             onChangeText={setMeal}
@@ -108,7 +103,7 @@ export default function AddJournal({
             placeholder="time"
             value={`${time.toDateString()} ${time.toLocaleTimeString()}`}
             onChangeText={(t) => setTime(new Date(t))}
-            style={{ marginHorizontal: 5 }}
+            style={styles.timeInput}
             size="large"
             disabled
           />
@@ -117,8 +112,8 @@ export default function AddJournal({
           multiline
           placeholder="journal entry..."
           onChangeText={setContent}
-          textStyle={{ minHeight: 100 }}
-          style={{ margin: 10 }}
+          textStyle={styles.journalEntryText}
+          style={styles.journalEntry}
         />
       </Layout>
       <HomePage />
@@ -136,5 +131,18 @@ export default function AddJournal({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  formContainer: {
+    flexDirection: 'row',
+    margin: 10,
+  },
+  timeInput: {
+    marginHorizontal: 5,
+  },
+  journalEntry: {
+    margin: 10,
+  },
+  journalEntryText: {
+    minHeight: 100,
   },
 });

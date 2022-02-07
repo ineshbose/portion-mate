@@ -17,7 +17,7 @@ export default function AuthForm(formProps: FormProps) {
 
   return (
     <>
-      <KeyboardAvoidingView style={[styles.container, { flex: 1 }]}>
+      <KeyboardAvoidingView style={styles.container}>
         <Layout style={styles.formContainer}>
           <View style={styles.headerContainer}>
             <Logo />
@@ -27,7 +27,7 @@ export default function AuthForm(formProps: FormProps) {
               <Button
                 status="danger"
                 appearance="outline"
-                style={{ marginVertical: 10 }}
+                style={styles.errorMessage}
               >
                 {error?.error_description}
               </Button>

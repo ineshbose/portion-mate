@@ -35,7 +35,7 @@ export default function LoginForm({
       />
       <Button
         onPress={() => signIn(email, password).catch(setError)}
-        style={[styles.formElement, { marginTop: 10 }]}
+        style={[styles.formElement, styles.loginButton]}
       >
         log in
       </Button>

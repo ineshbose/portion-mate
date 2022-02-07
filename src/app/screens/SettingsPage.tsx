@@ -167,7 +167,7 @@ export default function SettingsPage({
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <Layout style={styles.container}>
         {user ? (
           <>
@@ -184,7 +184,7 @@ export default function SettingsPage({
                     uri: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp',
                   }}
                   size="giant"
-                  style={{ alignSelf: 'center', marginBottom: 10 }}
+                  style={styles.avatar}
                 />
                 <Input
                   placeholder="forename"
@@ -287,12 +287,12 @@ export default function SettingsPage({
               />
               <Modal
                 visible={warnModalVisibility}
-                backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                backdropStyle={styles.alertBackdrop}
                 onBackdropPress={() => setWarnModalVisibility(false)}
               >
                 <Card
                   status="danger"
-                  style={{ flex: 1, margin: 2 }}
+                  style={[styles.container, styles.cardMargin]}
                   header={cardHeader}
                 >
                   <Button
@@ -316,7 +316,7 @@ export default function SettingsPage({
             </ScrollView>
           </>
         ) : (
-          <Layout style={styles.noSettingsContainer}>
+          <Layout style={[styles.container, styles.noSettingsContainer]}>
             <Text style={styles.noSettingsTitle}>
               {'Something went wrong. Please login.'}
             </Text>
@@ -343,8 +343,17 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     marginHorizontal: 10,
   },
+  avatar: {
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
+  cardMargin: {
+    margin: 2,
+  },
+  alertBackdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
   noSettingsContainer: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,

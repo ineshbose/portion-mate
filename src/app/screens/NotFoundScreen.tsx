@@ -10,8 +10,8 @@ export default function NotFoundScreen({
 }: RootStackScreenProps<'NotFound'>) {
   const { ThemeToggle } = useThemeContext();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Layout style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Layout style={[styles.container, styles.messageContainer]}>
         <Text style={styles.title}>{"This screen doesn't exist."}</Text>
         <TouchableOpacity
           onPress={() => navigation.replace('Root')}
@@ -28,6 +28,8 @@ export default function NotFoundScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  messageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,

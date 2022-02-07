@@ -129,15 +129,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     elevation: 5,
   },
-  iconLogo: {
-    resizeMode: 'cover',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  icon: {
-    resizeMode: 'contain',
-    width: 20,
-    height: 20,
-  },
 });

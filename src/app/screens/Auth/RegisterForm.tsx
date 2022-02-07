@@ -75,7 +75,7 @@ export default function RegisterForm({
         checked={agreedTerms}
         onChange={setAgreedTerms}
         status={error?.agreedTerms && !agreedTerms ? 'danger' : 'primary'}
-        style={{ marginVertical: 10 }}
+        style={styles.agreedSpacing}
       >
         <Text>{'I read and agree to the Terms & Conditions'}</Text>
       </CheckBox>

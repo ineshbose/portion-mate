@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ImageProps, Pressable, View } from 'react-native';
+import { Image, ImageProps, Pressable, StyleSheet, View } from 'react-native';
 import {
   getFocusedRouteNameFromRoute,
   ParamListBase,
@@ -93,15 +93,11 @@ export default function BottomTabNavigator({
   const navigationLeftAccessory = (props: {} | undefined) => (
     <Pressable
       {...props}
-      style={{ flexDirection: 'row', alignItems: 'center' }}
+      style={[styles.topActionsContainer, styles.appIconContainer]}
       onPress={() => navigation.navigate('Home')}
     >
       <Image
-        style={{
-          height: 30,
-          width: 30,
-          marginRight: 5,
-        }}
+        style={styles.appIcon}
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
@@ -139,7 +135,7 @@ export default function BottomTabNavigator({
     props: {} | undefined,
     { route: { name } }: BottomTabHeaderProps
   ) => (
-    <View style={{ flexDirection: 'row' }} {...props}>
+    <View style={styles.topActionsContainer} {...props}>
       {headerButtonIcons[name] && (
         <Button
           appearance="ghost"
@@ -149,7 +145,7 @@ export default function BottomTabNavigator({
       )}
       <OverflowMenu
         anchor={userOptionsToggle}
-        backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        backdropStyle={styles.backdropBackground}
         onBackdropPress={() => setModalVisible(false)}
         visible={modalVisible}
         onSelect={() => setModalVisible(false)}
@@ -245,3 +241,20 @@ export default function BottomTabNavigator({
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  topActionsContainer: {
+    flexDirection: 'row',
+  },
+  appIconContainer: {
+    alignItems: 'center',
+  },
+  appIcon: {
+    height: 30,
+    width: 30,
+    marginRight: 5,
+  },
+  backdropBackground: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+});
