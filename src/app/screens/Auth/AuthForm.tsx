@@ -4,7 +4,7 @@ import { KeyboardAvoidingView, View } from 'react-native';
 import { Button, Input, Layout } from '@ui-kitten/components';
 import { AuthError } from '../../types/api';
 import styles from './FormStyle';
-import { useThemeContext } from '../../contexts/ThemeContext';
+import { useThemeContext } from '../../contexts';
 
 type FormProps = {
   children: (Input | JSX.Element | undefined)[];

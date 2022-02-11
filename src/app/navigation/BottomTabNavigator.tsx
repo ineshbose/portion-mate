@@ -21,12 +21,14 @@ import {
   Text,
   TopNavigation,
 } from '@ui-kitten/components';
-import { useAppContext } from '../contexts/AppContext';
-import HomePage from '../screens/HomePage';
-import StatsPage from '../screens/StatsPage';
-import JournalPage from '../screens/JournalPage';
-import ResourcesPage from '../screens/ResourcesPage';
-import SettingsPage from '../screens/SettingsPage';
+import { useAppContext } from '../contexts';
+import {
+  HomePage,
+  JournalPage,
+  ResourcesPage,
+  SettingsPage,
+  StatsPage,
+} from '../screens/BottomTab';
 import { IconOptions } from '../types';
 import {
   RootTabParamList,

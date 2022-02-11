@@ -3,7 +3,7 @@ import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { StatusBar } from 'expo-status-bar';
 
-import { useThemeContext } from '../contexts/ThemeContext';
+import { useThemeContext } from '../contexts';
 import EditScreenInfo from '../components/EditScreenInfo';
 
 export default function ModalScreen() {

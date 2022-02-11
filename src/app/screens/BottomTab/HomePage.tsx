@@ -17,17 +17,21 @@ import {
   Icon,
   Text,
 } from '@ui-kitten/components';
-import { useAppContext } from '../contexts/AppContext';
-import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
-import { createUserLog, deleteUserLog } from '../api/logs';
+import { useAppContext } from '../../contexts';
+import {
+  deleteTrackItem,
+  getTrackItems,
+  updateTrackItem,
+} from '../../api/items';
+import { createUserLog, deleteUserLog } from '../../api/logs';
 import {
   PortionItem,
   TrackItem,
   TrackItems,
   UserLog,
   UserLogs,
-} from '../types/api';
-import { IconOptions } from '../types';
+} from '../../types/api';
+import { IconOptions } from '../../types';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',

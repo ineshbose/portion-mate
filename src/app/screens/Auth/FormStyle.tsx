@@ -27,8 +27,8 @@ const formStyle = StyleSheet.create({
     right: 0,
   },
   viewPassword: {
-    minHeight: '',
-    minWidth: '',
+    minHeight: 0,
+    minWidth: 0,
     paddingVertical: 0,
     paddingHorizontal: 0,
   },

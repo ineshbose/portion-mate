@@ -21,10 +21,10 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 import Markdown from 'react-native-markdown-display';
-import { useAppContext } from '../contexts/AppContext';
-import { bookmarkResource, getResources } from '../api/resources';
-import { Resource, Resources } from '../types/api';
-import { IconOptions } from '../types';
+import { useAppContext } from '../../contexts';
+import { bookmarkResource, getResources } from '../../api/resources';
+import { Resource, Resources } from '../../types/api';
+import { IconOptions } from '../../types';
 
 export default function ResourcesPage() {
   const { headerAction } = useAppContext();

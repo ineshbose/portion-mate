@@ -2,10 +2,9 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Calendar, Layout, Tab, TabBar } from '@ui-kitten/components';
 import { LineChart, PieChart } from 'react-native-chart-kit';
-import { useAppContext } from '../contexts/AppContext';
-import { useThemeContext } from '../contexts/ThemeContext';
-import { PortionItem, TrackItem, TrackItems } from '../types/api';
-import Display from '../constants/Display';
+import { useAppContext, useThemeContext } from '../../contexts';
+import { PortionItem, TrackItem, TrackItems } from '../../types/api';
+import Display from '../../constants/Display';
 
 const CHART_CONFIG = {
   backgroundColor: '#e26a00',

@@ -1,8 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootAuthParamList } from '../types/navigation';
-import LoginForm from '../screens/Auth/LoginForm';
-import RegisterForm from '../screens/Auth/RegisterForm';
+import { LoginForm, RegisterForm } from '../screens/Auth';
 
 const Auth = createNativeStackNavigator<RootAuthParamList>();
 

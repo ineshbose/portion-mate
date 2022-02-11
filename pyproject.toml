@@ -5,7 +5,10 @@ description = ""
 authors = []
 
 [tool.poetry.dependencies]
-python = "^3.8"
+# Commented out to suppress libraries.io warnings
+# Uncomment when working on dependencies
+# python = "^3.8"
+
 portion-mate-src = { path = "./src", develop = true }
 portion-mate-docs = { path = "./docs", develop = true }
 

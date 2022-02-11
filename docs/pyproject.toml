@@ -8,7 +8,10 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+# Commented out to suppress libraries.io warnings
+# Uncomment when working on dependencies
+# python = "^3.6"
+
 mkdocs = "^1.2.3"
 mkdocs-material = "^7.3.4"
 mkdocs-material-extensions = "^1.0.3"

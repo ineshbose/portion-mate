@@ -10,7 +10,7 @@ import {
   TopNavigation,
 } from '@ui-kitten/components';
 import FAB from '../../components/FAB';
-import { useAppContext } from '../../contexts/AppContext';
+import { useAppContext } from '../../contexts';
 import { createTrackItem } from '../../api/items';
 import { NavProps, RootActionParamList } from '../../types/navigation';
 import { FormError, FrequencyDisplay } from '../../types/api';

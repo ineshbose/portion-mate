@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 
-import { useThemeContext } from '../contexts/ThemeContext';
+import { useThemeContext } from '../contexts';
 import { RootStackScreenProps } from '../types/navigation';
 
 export default function NotFoundScreen({

@@ -16,7 +16,7 @@ export const ThemeContext = React.createContext<ThemeContextType>({
   ThemeToggle: () => <Button />,
 });
 
-export const useThemeContext = () => {
+const useThemeContext = () => {
   const context = React.useContext(ThemeContext);
 
   if (!context) {
@@ -27,3 +27,5 @@ export const useThemeContext = () => {
 
   return context;
 };
+
+export default useThemeContext;

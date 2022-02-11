@@ -24,12 +24,11 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import { useAppContext } from '../contexts/AppContext';
-import { useThemeContext } from '../contexts/ThemeContext';
-import { deleteUser, updateUser } from '../api/user';
-import { RootTabScreenProps } from '../types/navigation';
-import { IconOptions } from '../types';
-import { passwordAccessory } from './Auth/FormStyle';
+import { useAppContext, useThemeContext } from '../../contexts';
+import { deleteUser, updateUser } from '../../api/user';
+import { RootTabScreenProps } from '../../types/navigation';
+import { IconOptions } from '../../types';
+import { passwordAccessory } from '../Auth/FormStyle';
 
 type SettingProps = PressableProps & {
   hint: string;

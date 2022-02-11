@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Input } from '@ui-kitten/components';
 import { AuthError } from '../../types/api';
-import { useAppContext } from '../../contexts/AppContext';
+import { useAppContext } from '../../contexts';
 import { RootAuthScreenProps } from '../../types/navigation';
 import AuthForm from './AuthForm';
 import styles, { passwordAccessory } from './FormStyle';

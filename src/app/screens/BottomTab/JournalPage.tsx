@@ -18,10 +18,10 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components';
-import { useAppContext } from '../contexts/AppContext';
-import { deleteJournal, getJournals } from '../api/journals';
-import { Journal, Journals } from '../types/api';
-import { IconOptions } from '../types';
+import { useAppContext } from '../../contexts';
+import { deleteJournal, getJournals } from '../../api/journals';
+import { Journal, Journals } from '../../types/api';
+import { IconOptions } from '../../types';
 
 const TODAY = new Date();
 

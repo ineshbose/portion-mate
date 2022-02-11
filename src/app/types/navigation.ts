@@ -39,6 +39,7 @@ export type NavProps<
 export type RootLinkParamList = {
   BottomTab: NavigatorScreenParams<RootTabParamList> | undefined;
   Auth: NavigatorScreenParams<RootAuthParamList> | undefined;
+  Loading: undefined;
 };
 
 export type RootStackScreenProps<
