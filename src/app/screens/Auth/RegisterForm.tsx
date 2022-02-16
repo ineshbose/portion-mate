@@ -4,6 +4,7 @@ import { RootAuthScreenProps } from '../../types/navigation';
 import { useAppContext } from '../../contexts';
 import AuthForm from './AuthForm';
 import styles, { passwordAccessory } from './FormStyle';
+import { FormError } from '../../types/api';
 
 export default function RegisterForm({
   navigation,
@@ -18,7 +19,7 @@ export default function RegisterForm({
   const [confirmPassword, setConfirmPassword] = React.useState<string>('');
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
   const [agreedTerms, setAgreedTerms] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<any>();
+  const [error, setError] = React.useState<FormError | any>();
 
   return (
     <AuthForm>

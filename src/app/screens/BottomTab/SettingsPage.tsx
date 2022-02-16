@@ -28,6 +28,7 @@ import { useAppContext, useThemeContext } from '../../contexts';
 import { deleteUser, updateUser } from '../../api/user';
 import { RootTabScreenProps } from '../../types/navigation';
 import { IconOptions } from '../../types';
+import { FormError } from '../../types/api';
 import { passwordAccessory } from '../Auth/FormStyle';
 
 type SettingProps = PressableProps & {
@@ -90,7 +91,7 @@ export default function SettingsPage({
   const [passwordVisibility, setPasswordVisibility] =
     React.useState<boolean>(false);
 
-  const [error, setError] = React.useState<any>();
+  const [error, setError] = React.useState<FormError | any>();
 
   const [warnModalVisibility, setWarnModalVisibility] =
     React.useState<boolean>(false);

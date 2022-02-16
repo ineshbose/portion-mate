@@ -25,7 +25,7 @@ export const addRefreshInterceptor = (callback?: Function) => {
             return refreshToken().then(() => axiosInstance(error.config));
           } else {
             if (callback) {
-              callback();
+              return callback();
             }
           }
         }

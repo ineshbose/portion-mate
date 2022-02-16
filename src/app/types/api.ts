@@ -26,7 +26,7 @@ export type PaginationData<T> = {
 export type FetchData<T> = PaginationData<T> | T[];
 
 export type CreateData<
-  T extends GenericModel | ModelID,
+  T extends GenericModel | ModelID = GenericModel,
   R extends keyof T | string = 'name'
 > = Partial<Omit<T, 'id' | R>> & {
   [P in R]: R extends keyof T
@@ -36,7 +36,7 @@ export type CreateData<
     : any;
 };
 
-export type UpdateData<T extends GenericModel> = Partial<T> & {
+export type UpdateData<T extends GenericModel = GenericModel> = Partial<T> & {
   id: T['id'];
 };
 

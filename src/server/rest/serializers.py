@@ -37,6 +37,16 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 if field_name in self.fields:
                     self.fields.pop(field_name)
 
+    def get_auth_user(self, default=None, *args, **kwargs):
+        """
+        Get an authenticated user, else None.
+        """
+        return (
+            self.context["request"].user
+            if self.context.get("request") and hasattr(self.context["request"], "user")
+            else default
+        )
+
 
 class UserSerializer(DynamicFieldsModelSerializer):
     old_password = serializers.CharField(
@@ -133,13 +143,9 @@ class TrackItemSerializer(DynamicFieldsModelSerializer):
 
     def create(self, validated_data):
         item = validated_data.pop("item")
-        validated_data["item"] = models.PortionItem.objects.get_or_create(**item)[0]
 
-        validated_data["user"] = (
-            self.context["request"].user
-            if self.context.get("request") and hasattr(self.context["request"], "user")
-            else False
-        )
+        validated_data["item"] = models.PortionItem.objects.get_or_create(**item)[0]
+        validated_data["user"] = self.get_auth_user()
 
         return super().create(validated_data)
 
@@ -154,11 +160,8 @@ class ResourceSerializer(DynamicFieldsModelSerializer):
     bookmarked = serializers.SerializerMethodField()
 
     def get_bookmarked(self, obj):
-        return (
-            self.context["request"].user in obj.bookmarked_users.all()
-            if self.context.get("request") and hasattr(self.context["request"], "user")
-            else False
-        )
+        user = self.get_auth_user()
+        return user in obj.bookmarked_users.all() if user else False
 
     class Meta:
         model = models.Resource
@@ -180,9 +183,5 @@ class JournalSerializer(DynamicFieldsModelSerializer):
         extra_kwargs = {"user": {"write_only": True, "required": False}}
 
     def create(self, validated_data):
-        validated_data["user"] = (
-            self.context["request"].user
-            if self.context.get("request") and hasattr(self.context["request"], "user")
-            else False
-        )
+        validated_data["user"] = self.get_auth_user()
         return super().create(validated_data)
