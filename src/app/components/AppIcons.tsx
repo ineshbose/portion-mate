@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StyleType } from '@ui-kitten/components';

@@ -1,9 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { storeObject, getObject, removeItem } from './store';
-import { AuthError, AuthToken } from '../types/api';
-import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
 import { axiosInstance } from '.';
-import { useAppContext } from '../contexts/AppContext';
+import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
+import { AuthError, AuthToken } from '../types/api';
+import { storeObject, getObject, removeItem } from './store';
 
 const API_PATH = '/auth/o/';
 
@@ -13,7 +12,7 @@ export const updateAuthHeaderAndStore = async (token: AuthToken) => {
   return token;
 };
 
-export const addRefreshInterceptor = () => {
+export const addRefreshInterceptor = (callback?: Function) => {
   return axiosInstance.interceptors.response.use(
     function (response: AxiosRequestConfig<any>) {
       return response;
@@ -25,7 +24,9 @@ export const addRefreshInterceptor = () => {
             error.config.headers.retry = 'true';
             return refreshToken().then(() => axiosInstance(error.config));
           } else {
-            useAppContext().helpers.signOut();
+            if (callback) {
+              return callback();
+            }
           }
         }
       }
@@ -34,7 +35,11 @@ export const addRefreshInterceptor = () => {
   );
 };
 
-export const getToken = async (username: string, password: string) => {
+export const getToken = async (
+  username: string,
+  password: string,
+  interceptorCallback?: Function
+) => {
   try {
     const response = await axiosInstance.post<AuthToken>(`${API_PATH}token/`, {
       username,
@@ -44,7 +49,7 @@ export const getToken = async (username: string, password: string) => {
       client_secret: CLIENT_SECRET,
     });
 
-    response.data.interceptor = addRefreshInterceptor();
+    response.data.interceptor = addRefreshInterceptor(interceptorCallback);
     return await updateAuthHeaderAndStore(response.data);
   } catch (e) {
     throw axios.isAxiosError(e) ? (e.response?.data as AuthError) : e;

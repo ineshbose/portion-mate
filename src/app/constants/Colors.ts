@@ -1,8 +1,20 @@
+import { default as colors } from '../assets/theme.json';
+import { StatusOptions } from '../types/styles';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const states: StatusOptions[] = [
+  'primary',
+  'success',
+  'info',
+  'warning',
+  'danger',
+];
+
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
 
-const primary = '#fd7e14';
-const secondary = '#ffc107';
+const primary = colors['color-primary-500'];
+const secondary = colors['color-warning-500'];
 
 export default {
   light: {

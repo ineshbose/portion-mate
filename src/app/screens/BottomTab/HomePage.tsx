@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import {
-  ImageProps,
   ListRenderItemInfo,
   SafeAreaView,
   StyleSheet,
@@ -14,20 +13,23 @@ import {
   Layout,
   List,
   ListItem,
-  Icon,
   Text,
 } from '@ui-kitten/components';
-import { deleteTrackItem, getTrackItems, updateTrackItem } from '../api/items';
+import { useAppContext } from '../../contexts';
+import {
+  deleteTrackItem,
+  getTrackItems,
+  updateTrackItem,
+} from '../../api/items';
+import { createUserLog, deleteUserLog } from '../../api/logs';
 import {
   PortionItem,
   TrackItem,
   TrackItems,
   UserLog,
   UserLogs,
-} from '../types/api';
-import { useAppContext } from '../contexts/AppContext';
-import { createUserLog, deleteUserLog } from '../api/logs';
-import { IconOptions } from '../types';
+} from '../../types/api';
+import { renderIcon } from '../../constants/helpers';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -118,14 +120,9 @@ export default function HomePage() {
     setItems(newItems);
   };
 
-  const actionIcon = (
-    props: Partial<ImageProps> | undefined,
-    action: IconOptions
-  ) => <Icon key={action} name={action} {...props} />;
-
   const itemCheckBox = (item: TrackItem, idx: number) => (
     <CheckBox
-      style={{ marginRight: 2 }}
+      style={styles.checkbox}
       key={idx}
       checked={idx < (item.logs as UserLogs).length}
       onChange={(checked) => updateItemLogs(checked ? 'add' : 'remove', item)}
@@ -161,11 +158,11 @@ export default function HomePage() {
         {item.target}
         <ButtonGroup appearance="ghost">
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'add')}
+            accessoryLeft={(p) => renderIcon(p, 'add')}
             onPress={() => updateItemSettings(true, 'add', item)}
           />
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'remove')}
+            accessoryLeft={(p) => renderIcon(p, 'remove')}
             disabled={item.target < 1}
             onPress={() => updateItemSettings(true, 'remove', item)}
           />
@@ -185,11 +182,11 @@ export default function HomePage() {
     isAction ? (
       <ButtonGroup appearance="ghost">
         <Button
-          accessoryLeft={(p) => actionIcon(p, 'delete')}
+          accessoryLeft={(p) => renderIcon(p, 'delete')}
           onPress={() => updateItemSettings(false, 'remove', item)}
         />
         <Button
-          accessoryLeft={(p) => actionIcon(p, 'reorder')}
+          accessoryLeft={(p) => renderIcon(p, 'reorder')}
           disabled
           onPress={() => updateItemSettings(false, 'add', item)}
         />
@@ -201,12 +198,12 @@ export default function HomePage() {
         </Text>
         <ButtonGroup appearance="ghost">
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'remove')}
+            accessoryLeft={(p) => renderIcon(p, 'remove')}
             disabled={(item.logs as UserLogs).length < 1}
             onPress={() => updateItemLogs('remove', item)}
           />
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'add')}
+            accessoryLeft={(p) => renderIcon(p, 'add')}
             onPress={() => updateItemLogs('add', item)}
           />
         </ButtonGroup>
@@ -234,13 +231,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  checkbox: {
+    marginRight: 2,
   },
 });

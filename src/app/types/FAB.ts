@@ -52,29 +52,21 @@ export type MainButtonProps = {
 };
 
 export type ActionItemProps = {
-  tintColor: string;
   color: string;
   icon: IconOptions;
   name: Actions;
-  buttonSize?: number;
-  textContainerStyle?: ViewStyle;
   text?: string;
+  textColor?: string;
   textStyle?: TextStyle;
   textProps?: TextProps;
+  textElevation?: number;
   textBackground?: string;
-  textColor?: string;
-  shadow: Shadow;
-  textElevation: number;
-  position: 'left' | 'right' | 'center';
+  shadow?: Shadow;
+  position?: 'left' | 'right' | 'center';
   active: boolean;
-  distanceToEdge:
-    | number
-    | {
-        vertical: number;
-        horizontal: number;
-      };
-  paddingTopBottom: number;
-  margin: number;
   animated: boolean;
+  paddingTopBottom?: number;
+  buttonSize?: number;
+  textContainerStyle?: ViewStyle;
   onPress: (name?: Actions) => void;
 };

@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import {
-  Button,
   IndexPath,
   Input,
   Layout,
@@ -8,12 +8,11 @@ import {
   SelectItem,
   TopNavigation,
 } from '@ui-kitten/components';
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
-import { FAB } from '../../components/FAB';
-import { NavProps, RootActionParamList } from '../../types/navigation';
+import { useAppContext } from '../../contexts';
 import { createTrackItem } from '../../api/items';
-import { useAppContext } from '../../contexts/AppContext';
+import { NavProps, RootActionParamList } from '../../types/navigation';
 import { FormError, FrequencyDisplay } from '../../types/api';
+import { ActionButton, renderCancelAccessory } from './utils';
 
 const FREQUENCY_OPTIONS: { [f in FrequencyDisplay]: number } = {
   DAILY: 1,
@@ -41,12 +40,6 @@ export default function AddItem({
 
   const goBack = () => navigation.goBack();
 
-  const renderCancelAccessory = (props: {} | undefined) => (
-    <Button appearance="ghost" status="basic" {...props} onPress={goBack}>
-      Cancel
-    </Button>
-  );
-
   const createItem = async () => {
     const newItem = await createTrackItem({
       item: { name },
@@ -58,46 +51,36 @@ export default function AddItem({
   };
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
+    <KeyboardAvoidingView style={styles.container}>
       <Layout style={styles.container}>
         <TopNavigation
           alignment="start"
           title="New Item"
-          accessoryRight={renderCancelAccessory}
+          accessoryRight={(p) => renderCancelAccessory(p, goBack)}
         />
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <View
-            style={{
-              maxWidth: 500,
-              marginTop: 100,
-            }}
-          >
+        <View style={styles.formContainer}>
+          <View style={styles.formInnerContainer}>
             <Input
               placeholder="Enter name"
               onChangeText={setName}
-              style={{ margin: 2 }}
+              style={styles.formElement}
               caption={error?.name}
               status={error?.name ? 'danger' : 'basic'}
               size="large"
             />
-            <View style={{ flexDirection: 'row' }}>
+            <View style={styles.rowForm}>
               <Input
                 placeholder="target"
                 value={`${target}`}
                 onChangeText={(t) => setTarget(strToNum(t))}
-                style={{ flex: 1, margin: 2 }}
+                style={[styles.container, styles.formElement]}
                 size="large"
               />
               <Select
                 value={frequencies[selectedFrequency.row].toLowerCase()}
                 selectedIndex={selectedFrequency}
                 onSelect={(index) => setSelectedFrequency(index as IndexPath)}
-                style={{ flex: 1, margin: 2 }}
+                style={[styles.container, styles.formElement]}
                 size="large"
                 disabled
               >
@@ -109,9 +92,7 @@ export default function AddItem({
           </View>
         </View>
       </Layout>
-      <FAB
-        floatingIcon="check"
-        color="green"
+      <ActionButton
         onPressMain={() =>
           name ? createItem() : setError({ name: 'This field is required.' })
         }
@@ -123,5 +104,19 @@ export default function AddItem({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  formContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rowForm: {
+    flexDirection: 'row',
+  },
+  formInnerContainer: {
+    maxWidth: 500,
+    marginTop: 100,
+  },
+  formElement: {
+    margin: 2,
   },
 });

@@ -1,16 +1,16 @@
+import React from 'react';
+import { Image, ImageProps, Pressable, StyleSheet, View } from 'react-native';
+import {
+  getFocusedRouteNameFromRoute,
+  ParamListBase,
+  RouteProp,
+} from '@react-navigation/native';
 import {
   BottomTabBarProps,
   BottomTabHeaderProps,
   BottomTabScreenProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import * as React from 'react';
-import { Image, ImageProps, Pressable, View } from 'react-native';
-import {
-  RootTabParamList,
-  RouteActionIcon,
-  TabConfig,
-} from '../types/navigation';
 import {
   BottomNavigation,
   BottomNavigationTab,
@@ -21,19 +21,21 @@ import {
   Text,
   TopNavigation,
 } from '@ui-kitten/components';
-import HomePage from '../screens/HomePage';
-import StatsPage from '../screens/StatsPage';
-import JournalPage from '../screens/JournalPage';
-import ResourcesPage from '../screens/ResourcesPage';
-import { useAppContext } from '../contexts/AppContext';
+import { useAppContext } from '../contexts';
 import {
-  getFocusedRouteNameFromRoute,
-  ParamListBase,
-  RouteProp,
-} from '@react-navigation/native';
-import SettingsPage from '../screens/SettingsPage';
+  HomePage,
+  JournalPage,
+  ResourcesPage,
+  SettingsPage,
+  StatsPage,
+} from '../screens/BottomTab';
 import { IconOptions } from '../types';
-import { FAB } from '../components/FAB';
+import {
+  RootTabParamList,
+  RouteActionIcon,
+  TabConfig,
+} from '../types/navigation';
+import FAB from '../components/FAB';
 import ActionNavigator from './ActionNavigator';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
@@ -93,15 +95,11 @@ export default function BottomTabNavigator({
   const navigationLeftAccessory = (props: {} | undefined) => (
     <Pressable
       {...props}
-      style={{ flexDirection: 'row', alignItems: 'center' }}
+      style={[styles.topActionsContainer, styles.appIconContainer]}
       onPress={() => navigation.navigate('Home')}
     >
       <Image
-        style={{
-          height: 30,
-          width: 30,
-          marginRight: 5,
-        }}
+        style={styles.appIcon}
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
@@ -139,7 +137,7 @@ export default function BottomTabNavigator({
     props: {} | undefined,
     { route: { name } }: BottomTabHeaderProps
   ) => (
-    <View style={{ flexDirection: 'row' }} {...props}>
+    <View style={styles.topActionsContainer} {...props}>
       {headerButtonIcons[name] && (
         <Button
           appearance="ghost"
@@ -149,7 +147,7 @@ export default function BottomTabNavigator({
       )}
       <OverflowMenu
         anchor={userOptionsToggle}
-        backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        backdropStyle={styles.backdropBackground}
         onBackdropPress={() => setModalVisible(false)}
         visible={modalVisible}
         onSelect={() => setModalVisible(false)}
@@ -245,3 +243,20 @@ export default function BottomTabNavigator({
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  topActionsContainer: {
+    flexDirection: 'row',
+  },
+  appIconContainer: {
+    alignItems: 'center',
+  },
+  appIcon: {
+    height: 30,
+    width: 30,
+    marginRight: 5,
+  },
+  backdropBackground: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+});

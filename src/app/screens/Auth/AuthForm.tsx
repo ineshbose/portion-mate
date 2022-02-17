@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import Logo from './Logo';
 import { KeyboardAvoidingView, View } from 'react-native';
 import { Button, Input, Layout } from '@ui-kitten/components';
 import { AuthError } from '../../types/api';
 import styles from './FormStyle';
-import { useThemeContext } from '../../contexts/ThemeContext';
+import { useThemeContext } from '../../contexts';
 
 type FormProps = {
   children: (Input | JSX.Element | undefined)[];
@@ -17,7 +17,7 @@ export default function AuthForm(formProps: FormProps) {
 
   return (
     <>
-      <KeyboardAvoidingView style={[styles.container, { flex: 1 }]}>
+      <KeyboardAvoidingView style={styles.container}>
         <Layout style={styles.formContainer}>
           <View style={styles.headerContainer}>
             <Logo />
@@ -27,7 +27,7 @@ export default function AuthForm(formProps: FormProps) {
               <Button
                 status="danger"
                 appearance="outline"
-                style={{ marginVertical: 10 }}
+                style={styles.errorMessage}
               >
                 {error?.error_description}
               </Button>

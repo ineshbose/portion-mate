@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Image } from 'react-native';
+import React from 'react';
+import { Image, StyleSheet } from 'react-native';
 import { Text } from '@ui-kitten/components';
 
 export default function Logo() {
@@ -9,12 +9,16 @@ export default function Logo() {
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
-        style={{
-          height: 200,
-          width: 200,
-        }}
+        style={styles.appLogo}
       />
       <Text>Portion Mate</Text>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  appLogo: {
+    height: 200,
+    width: 200,
+  },
+});

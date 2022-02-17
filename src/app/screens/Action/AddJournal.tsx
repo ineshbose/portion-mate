@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Button, Input, Layout, TopNavigation } from '@ui-kitten/components';
+import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { NavProps, RootActionParamList } from '../../types/navigation';
-import { FAB } from '../../components/FAB';
-import { FormError } from '../../types/api';
-import HomePage from '../HomePage';
+import { Input, Layout, TopNavigation } from '@ui-kitten/components';
+import HomePage from '../BottomTab/HomePage';
+import { useAppContext } from '../../contexts';
 import { createJournal } from '../../api/journals';
-import { useAppContext } from '../../contexts/AppContext';
+import { FormError } from '../../types/api';
+import { NavProps, RootActionParamList } from '../../types/navigation';
+import { ActionButton, renderCancelAccessory } from './utils';
 
 const yesterdayDate = new Date();
 yesterdayDate.setDate(yesterdayDate.getDate() + 1);
@@ -43,18 +43,24 @@ export default function AddJournal({
   const goBack = () => navigation.goBack();
 
   const recommendedMeal = () => {
-    var mealName = '';
+    let mealName = '';
 
     if (
       (time >= INTERVAL_TIMES.LAST_NIGHT && time < INTERVAL_TIMES.MORNING) ||
-      (time >= INTERVAL_TIMES.NIGHT && INTERVAL_TIMES.NEXT_MORNING)
+      (time >= INTERVAL_TIMES.NIGHT && time < INTERVAL_TIMES.NEXT_MORNING)
     ) {
       mealName = 'Midnight Snack';
-    } else if (time >= INTERVAL_TIMES.MORNING && INTERVAL_TIMES.AFTERNOON) {
+    } else if (
+      time >= INTERVAL_TIMES.MORNING &&
+      time < INTERVAL_TIMES.AFTERNOON
+    ) {
       mealName = 'Breakfast';
-    } else if (time >= INTERVAL_TIMES.AFTERNOON && INTERVAL_TIMES.EVENING) {
+    } else if (
+      time >= INTERVAL_TIMES.AFTERNOON &&
+      time < INTERVAL_TIMES.EVENING
+    ) {
       mealName = 'Lunch';
-    } else if (time >= INTERVAL_TIMES.EVENING && INTERVAL_TIMES.NIGHT) {
+    } else if (time >= INTERVAL_TIMES.EVENING && time < INTERVAL_TIMES.NIGHT) {
       mealName = 'Dinner';
     }
 
@@ -71,26 +77,15 @@ export default function AddJournal({
     goBack();
   };
 
-  const renderCancelAccessory = (props: {} | undefined) => (
-    <Button appearance="ghost" status="basic" {...props} onPress={goBack}>
-      Cancel
-    </Button>
-  );
-
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <Layout style={styles.container}>
         <TopNavigation
           alignment="start"
           title="Journal Entry"
-          accessoryRight={renderCancelAccessory}
+          accessoryRight={(p) => renderCancelAccessory(p, goBack)}
         />
-        <View
-          style={{
-            flexDirection: 'row',
-            margin: 10,
-          }}
-        >
+        <View style={styles.formContainer}>
           <Input
             placeholder={recommendedMeal() || 'meal'}
             onChangeText={setMeal}
@@ -102,7 +97,7 @@ export default function AddJournal({
             placeholder="time"
             value={`${time.toDateString()} ${time.toLocaleTimeString()}`}
             onChangeText={(t) => setTime(new Date(t))}
-            style={{ marginHorizontal: 5 }}
+            style={styles.timeInput}
             size="large"
             disabled
           />
@@ -111,14 +106,12 @@ export default function AddJournal({
           multiline
           placeholder="journal entry..."
           onChangeText={setContent}
-          textStyle={{ minHeight: 100 }}
-          style={{ margin: 10 }}
+          textStyle={styles.journalEntryText}
+          style={styles.journalEntry}
         />
       </Layout>
       <HomePage />
-      <FAB
-        floatingIcon="check"
-        color="green"
+      <ActionButton
         onPressMain={() =>
           meal ? logEntry() : setError({ meal: 'This field is required.' })
         }
@@ -130,5 +123,18 @@ export default function AddJournal({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  formContainer: {
+    flexDirection: 'row',
+    margin: 10,
+  },
+  timeInput: {
+    marginHorizontal: 5,
+  },
+  journalEntry: {
+    margin: 10,
+  },
+  journalEntryText: {
+    minHeight: 100,
   },
 });

@@ -1,4 +1,7 @@
 {
+  "strict": {
+    "text-font-family": "Roboto"
+  },
   "components": {
     "BottomNavigationTab": {
       "meta": {
@@ -14,14 +17,14 @@
             "iconTintColor": "color-primary-800",
             "textColor": "color-primary-800",
             "state": {
-                "hover": {
-                    "textColor": "color-primary-200",
-                    "iconTintColor": "color-primary-200"
-                },
-                "selected": {
-                    "textColor": "color-basic-100",
-                    "iconTintColor": "color-basic-100"
-                }
+              "hover": {
+                "textColor": "color-primary-200",
+                "iconTintColor": "color-primary-200"
+              },
+              "selected": {
+                "textColor": "color-basic-100",
+                "iconTintColor": "color-basic-100"
+              }
             }
           }
         }

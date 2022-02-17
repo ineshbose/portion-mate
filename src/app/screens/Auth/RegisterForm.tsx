@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, CheckBox, Input, Text } from '@ui-kitten/components';
 import { RootAuthScreenProps } from '../../types/navigation';
-import { useAppContext } from '../../contexts/AppContext';
+import { useAppContext } from '../../contexts';
 import AuthForm from './AuthForm';
-import styles, { passwordAccessory } from './FormStyle';
+import styles, { passwordAccessory, SwitchForm } from './FormStyle';
+import { FormError } from '../../types/api';
 
 export default function RegisterForm({
   navigation,
@@ -18,7 +19,7 @@ export default function RegisterForm({
   const [confirmPassword, setConfirmPassword] = React.useState<string>('');
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
   const [agreedTerms, setAgreedTerms] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<any>();
+  const [error, setError] = React.useState<FormError | any>();
 
   return (
     <AuthForm>
@@ -75,7 +76,7 @@ export default function RegisterForm({
         checked={agreedTerms}
         onChange={setAgreedTerms}
         status={error?.agreedTerms && !agreedTerms ? 'danger' : 'primary'}
-        style={{ marginVertical: 10 }}
+        style={styles.agreedSpacing}
       >
         <Text>{'I read and agree to the Terms & Conditions'}</Text>
       </CheckBox>
@@ -94,13 +95,7 @@ export default function RegisterForm({
       >
         register
       </Button>
-      <Button
-        onPress={() => navigation.navigate('Login')}
-        status="warning"
-        style={styles.formElement}
-      >
-        log into existing account
-      </Button>
+      <SwitchForm navigation={navigation} page="Login" />
     </AuthForm>
   );
 }

@@ -3,8 +3,8 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import * as React from 'react';
 import { ContextProvider } from '../contexts/AppContext';
 
 import LinkingConfiguration from './LinkingConfiguration';

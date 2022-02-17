@@ -1,13 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Calendar, Layout, Tab, TabBar } from '@ui-kitten/components';
 import { LineChart, PieChart } from 'react-native-chart-kit';
-import ScreenLayout from '../constants/Layout';
-import { useAppContext } from '../contexts/AppContext';
-import { PortionItem, TrackItem, TrackItems } from '../types/api';
-import { useThemeContext } from '../contexts/ThemeContext';
+import { useAppContext, useThemeContext } from '../../contexts';
+import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart';
+import { PortionItem, TrackItem, TrackItems } from '../../types/api';
+import Display from '../../constants/Display';
 
-const CHART_CONFIG = {
+const CHART_CONFIG: AbstractChartConfig = {
   backgroundColor: '#e26a00',
   backgroundGradientFrom: '#fb8c00',
   backgroundGradientTo: '#ffa726',
@@ -18,6 +18,9 @@ const CHART_CONFIG = {
     r: '6',
     strokeWidth: '2',
     stroke: '#ffa726',
+  },
+  propsForLabels: {
+    fontFamily: 'Roboto',
   },
 };
 
@@ -40,7 +43,9 @@ export default function StatsPage() {
   const { items, headerAction } = useAppContext();
   const isAction = headerAction === 'Stats';
   const { theme } = useThemeContext();
-  const { width } = ScreenLayout.window;
+  const {
+    window: { width },
+  } = Display;
   const [frequency, setFrequency] = React.useState<number>(0);
 
   const renderPieData = (item: TrackItem) => ({
@@ -49,6 +54,7 @@ export default function StatsPage() {
     color: `#${(((Math.random() + 2) * 16777216) | 0).toString(16).slice(1)}`,
     legendFontColor: theme === 'light' ? '#00000' : '#ffffff',
     legendFontSize: 15,
+    legendFontFamily: 'Roboto',
   });
 
   const renderLineData = (trackItems: TrackItems) => {
@@ -84,13 +90,13 @@ export default function StatsPage() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       {isAction ? (
-        <Layout style={styles.container}>
+        <Layout style={[styles.container, styles.centerContainer]}>
           <Calendar max={todayDate} />
         </Layout>
       ) : (
-        <Layout style={{ flex: 1 }}>
+        <Layout style={styles.container}>
           <TabBar selectedIndex={frequency} onSelect={setFrequency}>
             <Tab title="DAILY" />
             <Tab title="WEEKLY" disabled />
@@ -115,7 +121,7 @@ export default function StatsPage() {
               height={360}
               chartConfig={CHART_CONFIG}
               bezier
-              style={{ borderRadius: 15, marginTop: 50, marginHorizontal: 20 }}
+              style={styles.lineChart}
             />
           </ScrollView>
         </Layout>
@@ -127,7 +133,14 @@ export default function StatsPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  centerContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  lineChart: {
+    borderRadius: 15,
+    marginTop: 50,
+    marginHorizontal: 20,
   },
 });

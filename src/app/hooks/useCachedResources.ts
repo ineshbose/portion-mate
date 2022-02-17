@@ -1,7 +1,7 @@
+import React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import * as React from 'react';
+import { loadAsync } from 'expo-font';
+import { preventAutoHideAsync, hideAsync } from 'expo-splash-screen';
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -10,10 +10,10 @@ export default function useCachedResources() {
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHideAsync();
+        preventAutoHideAsync();
 
         // Load fonts
-        await Font.loadAsync({
+        await loadAsync({
           ...FontAwesome.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
         });
@@ -22,7 +22,7 @@ export default function useCachedResources() {
         console.warn(e);
       } finally {
         setLoadingComplete(true);
-        SplashScreen.hideAsync();
+        hideAsync();
       }
     }
 

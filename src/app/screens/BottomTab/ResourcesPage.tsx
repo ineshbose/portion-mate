@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import {
-  ImageProps,
   Linking,
   ListRenderItemInfo,
   SafeAreaView,
@@ -13,7 +12,6 @@ import {
   Button,
   ButtonGroup,
   Card,
-  Icon,
   Layout,
   List,
   Text,
@@ -21,10 +19,10 @@ import {
   TopNavigationAction,
 } from '@ui-kitten/components';
 import Markdown from 'react-native-markdown-display';
-import { Resource, Resources } from '../types/api';
-import { bookmarkResource, getResources } from '../api/resources';
-import { IconOptions } from '../types';
-import { useAppContext } from '../contexts/AppContext';
+import { useAppContext } from '../../contexts';
+import { bookmarkResource, getResources } from '../../api/resources';
+import { Resource, Resources } from '../../types/api';
+import { getItems, renderIcon } from '../../constants/helpers';
 
 export default function ResourcesPage() {
   const { headerAction } = useAppContext();
@@ -34,14 +32,18 @@ export default function ResourcesPage() {
   const [selectedResource, setSelectedResource] = React.useState<Resource>();
 
   React.useEffect(() => {
-    const getItems = async () => {
-      if (!fetched) {
-        setResources((await getResources()) as Resources);
-        setFetched(true);
-      }
-    };
+    // const getItems = async () => {
+    //   if (!fetched) {
+    //     setResources(await getResources());
+    //     setFetched(true);
+    //   }
+    // };
 
-    getItems();
+    // getItems();
+    getItems(
+      { fetched, setFetched },
+      { fetchItems: getResources, setItems: setResources }
+    );
   }, [fetched, setResources, setFetched]);
 
   const bookmarkAction = async (resource: Resource) => {
@@ -60,25 +62,17 @@ export default function ResourcesPage() {
     setResources(newResources);
   };
 
-  const renderActionIcon = (
-    props: Partial<ImageProps> | undefined,
-    name: IconOptions
-  ) => <Icon key={name} name={name} {...props} />;
-
   const renderMoreAction = (props: {} | undefined) =>
     selectedResource ? (
       <ButtonGroup {...props} appearance="ghost" status="basic">
         <Button
           accessoryLeft={(p) =>
-            renderActionIcon(
-              p,
-              selectedResource.bookmarked ? 'star' : 'star-outline'
-            )
+            renderIcon(p, selectedResource.bookmarked ? 'star' : 'star-outline')
           }
           onPress={() => bookmarkAction(selectedResource)}
         />
         <Button
-          accessoryLeft={(p) => renderActionIcon(p, 'open-in-new')}
+          accessoryLeft={(p) => renderIcon(p, 'open-in-new')}
           onPress={() => Linking.openURL(selectedResource.link)}
         />
       </ButtonGroup>
@@ -88,7 +82,7 @@ export default function ResourcesPage() {
 
   const renderBackAction = (props: {} | undefined) => (
     <TopNavigationAction
-      icon={(p) => renderActionIcon(p, 'arrow-back')}
+      icon={(p) => renderIcon(p, 'arrow-back')}
       onPress={() => setSelectedResource(undefined)}
       {...props}
     />
@@ -109,7 +103,7 @@ export default function ResourcesPage() {
         appearance="ghost"
         status="basic"
         accessoryLeft={(p) =>
-          renderActionIcon(p, info.item.bookmarked ? 'star' : 'star-outline')
+          renderIcon(p, info.item.bookmarked ? 'star' : 'star-outline')
         }
         onPress={() => bookmarkAction(info.item)}
       />
@@ -145,10 +139,8 @@ export default function ResourcesPage() {
               <Text>
                 <Markdown
                   style={{
-                    body: {
-                      paddingHorizontal: 10,
-                    },
-                    image: { flex: 1, maxWidth: 400, margin: 'auto' },
+                    body: styles.contentContainer,
+                    image: styles.contentImage,
                   }}
                 >
                   {selectedResource.content}
@@ -179,6 +171,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  contentContainer: {
+    paddingHorizontal: 10,
+  },
+  contentImage: {
+    flex: 1,
+    maxWidth: 400,
+    margin: 'auto',
+  },
   noResourceContainer: {
     flex: 1,
     alignItems: 'center',
@@ -189,20 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  list: {
-    flex: 1,
-  },
-  listContent: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
   item: {
-    marginVertical: 8,
-  },
-  itemHeader: {
-    height: 220,
-  },
-  itemContent: {
     marginVertical: 8,
   },
   itemFooter: {

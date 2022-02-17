@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { Layout, Text } from '@ui-kitten/components';
+import React from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Layout, Text } from '@ui-kitten/components';
 
+import { useThemeContext } from '../contexts';
 import { RootStackScreenProps } from '../types/navigation';
-import { useThemeContext } from '../contexts/ThemeContext';
 
 export default function NotFoundScreen({
   navigation,
 }: RootStackScreenProps<'NotFound'>) {
   const { ThemeToggle } = useThemeContext();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Layout style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Layout style={[styles.container, styles.messageContainer]}>
         <Text style={styles.title}>{"This screen doesn't exist."}</Text>
         <TouchableOpacity
           onPress={() => navigation.replace('Root')}
@@ -28,6 +28,8 @@ export default function NotFoundScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  messageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,

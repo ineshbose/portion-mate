@@ -1,27 +1,25 @@
-import * as React from 'react';
+import React from 'react';
 import {
-  Button,
-  Calendar,
-  Card,
-  Icon,
-  Layout,
-  List,
-  Text,
-  TopNavigation,
-  TopNavigationAction,
-} from '@ui-kitten/components';
-import {
-  ImageProps,
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
-import { useAppContext } from '../contexts/AppContext';
-import { Journal, Journals } from '../types/api';
-import { deleteJournal, getJournals } from '../api/journals';
-import { IconOptions } from '../types';
+import {
+  Button,
+  Calendar,
+  Card,
+  Layout,
+  List,
+  Text,
+  TopNavigation,
+  TopNavigationAction,
+} from '@ui-kitten/components';
+import { useAppContext } from '../../contexts';
+import { deleteJournal, getJournals } from '../../api/journals';
+import { Journal } from '../../types/api';
+import { renderIcon } from '../../constants/helpers';
 
 const TODAY = new Date();
 
@@ -39,7 +37,7 @@ export default function JournalPage() {
   React.useEffect(() => {
     const getItems = async () => {
       if (!fetched) {
-        setJournals((await getJournals()) as Journals);
+        setJournals(await getJournals());
         setFetched(true);
       }
     };
@@ -62,8 +60,8 @@ export default function JournalPage() {
 
   const renderItem = (info: ListRenderItemInfo<Journal>) => (
     <Card style={styles.item} onPress={() => setSelectedJournal(info.item)}>
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={{ fontSize: 30, marginRight: 10 }}>
+      <View style={styles.flexRow}>
+        <Text style={styles.itemDate}>
           {new Date(info.item.entry_time).toLocaleTimeString().slice(0, 5)}
         </Text>
         <Text category="h3">{info.item.meal}</Text>
@@ -72,18 +70,13 @@ export default function JournalPage() {
     </Card>
   );
 
-  const renderActionIcon = (
-    props: Partial<ImageProps> | undefined,
-    name: IconOptions
-  ) => <Icon key={name} name={name} {...props} />;
-
   const accessoryLeft = (props: {} | undefined) => {
     const prevDay = new Date(date);
     prevDay.setDate(prevDay.getDate() - 1);
 
     return selectedJournal ? (
       <TopNavigationAction
-        icon={(p) => renderActionIcon(p, 'arrow-back')}
+        icon={(p) => renderIcon(p, 'arrow-back')}
         onPress={() => setSelectedJournal(undefined)}
         {...props}
       />
@@ -91,7 +84,7 @@ export default function JournalPage() {
       <Button
         appearance="ghost"
         status="basic"
-        accessoryLeft={(p) => renderActionIcon(p, 'arrow-back')}
+        accessoryLeft={(p) => renderIcon(p, 'arrow-back')}
         onPress={() => setDate(prevDay)}
       >
         {prevDay.toLocaleDateString()}
@@ -105,7 +98,7 @@ export default function JournalPage() {
 
     return selectedJournal ? (
       <TopNavigationAction
-        icon={(p) => renderActionIcon(p, 'delete')}
+        icon={(p) => renderIcon(p, 'delete')}
         onPress={removeJournal}
         {...props}
       />
@@ -113,7 +106,7 @@ export default function JournalPage() {
       <Button
         appearance="ghost"
         status="basic"
-        accessoryRight={(p) => renderActionIcon(p, 'arrow-forward')}
+        accessoryRight={(p) => renderIcon(p, 'arrow-forward')}
         onPress={() => setDate(nextDay)}
       >
         {nextDay.toLocaleDateString()}
@@ -124,15 +117,9 @@ export default function JournalPage() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       {isAction ? (
-        <Layout
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <Layout style={[styles.container, styles.centerContent]}>
           <Calendar
             date={date}
             max={TODAY}
@@ -143,7 +130,7 @@ export default function JournalPage() {
           />
         </Layout>
       ) : (
-        <Layout style={{ flex: 1 }}>
+        <Layout style={styles.container}>
           <TopNavigation
             alignment="center"
             title={
@@ -153,29 +140,37 @@ export default function JournalPage() {
             accessoryRight={accessoryRight}
           />
           {selectedJournal ? (
-            <ScrollView style={{ padding: 10 }}>
-              <View style={{ flexDirection: 'row', marginTop: 40 }}>
+            <ScrollView style={styles.selectedJournalContainer}>
+              <View style={[styles.flexRow, styles.journalInfo]}>
                 <Text category="label">Time</Text>
-                <Text style={{ marginHorizontal: 10 }}>
+                <Text style={styles.horizontalMargin}>
                   {new Date(selectedJournal.entry_time).toDateString()}
                 </Text>
                 <Text>
                   {new Date(selectedJournal.entry_time).toLocaleTimeString()}
                 </Text>
               </View>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={styles.flexRow}>
                 <Text category="label">Meal</Text>
-                <Text style={{ marginHorizontal: 10 }}>
+                <Text style={styles.horizontalMargin}>
                   {selectedJournal.meal}
                 </Text>
               </View>
-              <Text style={{ marginTop: 40 }}>{selectedJournal.content}</Text>
+              <Text style={styles.journalContent}>
+                {selectedJournal.content}
+              </Text>
             </ScrollView>
           ) : journals && journals.length > 0 ? (
             <List data={journals} renderItem={renderItem} />
           ) : (
-            <Layout style={styles.noResourceContainer}>
-              <Text style={styles.noResourceTitle}>{'No journals added'}</Text>
+            <Layout
+              style={[
+                styles.container,
+                styles.centerContent,
+                styles.noJournalContainer,
+              ]}
+            >
+              <Text style={styles.noJournalTitle}>{'No journals added'}</Text>
             </Layout>
           )}
         </Layout>
@@ -188,39 +183,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  noResourceContainer: {
-    flex: 1,
+  centerContent: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  noJournalContainer: {
     padding: 20,
   },
-  noResourceTitle: {
+  noJournalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  list: {
-    flex: 1,
-  },
-  listContent: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
   },
   item: {
     marginVertical: 8,
   },
-  itemHeader: {
-    height: 220,
+  itemDate: {
+    fontSize: 30,
+    marginRight: 10,
   },
-  itemContent: {
-    marginVertical: 8,
+  selectedJournalContainer: {
+    padding: 10,
   },
-  itemFooter: {
+  flexRow: {
     flexDirection: 'row',
-    marginHorizontal: -8,
   },
-  itemAuthoringContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 16,
+  journalInfo: {
+    marginTop: 40,
+  },
+  horizontalMargin: {
+    marginHorizontal: 10,
+  },
+  journalContent: {
+    marginTop: 40,
   },
 });

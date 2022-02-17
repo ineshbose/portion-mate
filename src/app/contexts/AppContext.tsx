@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   addRefreshInterceptor,
   getToken,
@@ -40,7 +40,7 @@ export const ContextProvider = ({ children }: ChildComponents) => {
       try {
         const authData = (await getObject('auth_token')) as AuthToken;
         if (authData) {
-          authData.interceptor = addRefreshInterceptor();
+          authData.interceptor = addRefreshInterceptor(signOut);
           await updateAuthHeaderAndStore(authData);
           const userData = (await getUser()) as User;
           setUser(userData);
@@ -57,7 +57,7 @@ export const ContextProvider = ({ children }: ChildComponents) => {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const authData = (await getToken(email, password)) as AuthToken;
+      const authData = (await getToken(email, password, signOut)) as AuthToken;
       const userData = (await getUser()) as User;
       setUser(userData);
       setAuthToken(authData);
@@ -114,7 +114,7 @@ export const ContextProvider = ({ children }: ChildComponents) => {
   );
 };
 
-export const useAppContext = () => {
+const useAppContext = () => {
   const context = React.useContext(AppContext);
 
   if (!context) {
@@ -123,3 +123,5 @@ export const useAppContext = () => {
 
   return context;
 };
+
+export default useAppContext;

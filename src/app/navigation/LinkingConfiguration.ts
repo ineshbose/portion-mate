@@ -5,12 +5,12 @@
  */
 
 import { LinkingOptions } from '@react-navigation/native';
-import * as Linking from 'expo-linking';
+import { makeUrl } from 'expo-linking';
 
 import { RootStackParamList } from '../types/navigation';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [makeUrl('/')],
   config: {
     screens: {
       Root: {
@@ -37,6 +37,7 @@ const linking: LinkingOptions<RootStackParamList> = {
               Register: 'register',
             },
           },
+          Loading: {},
         },
       },
       Modal: 'modal',

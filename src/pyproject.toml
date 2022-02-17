@@ -8,20 +8,22 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+# Commented out to suppress libraries.io warnings
+# Uncomment when working on dependencies
+# python = "^3.8"
+
 Django = "^3.2"
-django-cleanup = "^5.2.0"
+django-cleanup = "^6.0.0"
 django-environ = "^0.8.1"
-django-extensions = "^3.1.5"
 djangorestframework = "^3.13.1"
-Pillow = "^8.4.0"
-django-oauth-toolkit = "^1.6.1"
-django-cors-headers = "^3.10.1"
+Pillow = "^9.0.1"
+django-oauth-toolkit = "^1.7.0"
+django-cors-headers = "^3.11.0"
 graphene-django = "^2.15.0"
 django-markdownx = "^3.0.1"
 
 [tool.poetry.dev-dependencies]
-black = "^21.10b0"
+black = "^22.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

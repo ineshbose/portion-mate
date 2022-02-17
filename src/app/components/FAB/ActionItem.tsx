@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, Animated, Pressable } from 'react-native';
 import { Button, Icon, Layout, Text } from '@ui-kitten/components';
 import { ActionItemProps } from '../../types/FAB';
@@ -8,18 +8,18 @@ export default function ActionItem(props: ActionItemProps) {
     name,
     text,
     icon,
-    color,
-    shadow,
-    animated,
-    buttonSize,
-    position,
-    textStyle,
-    textColor,
-    textProps,
-    textElevation,
-    textBackground,
-    textContainerStyle,
-    paddingTopBottom,
+    color = 'red',
+    shadow = {},
+    animated = true,
+    buttonSize = 40,
+    position = 'right',
+    textStyle = {},
+    textColor = 'black',
+    textProps = {},
+    textElevation = 5,
+    textBackground = 'white',
+    textContainerStyle = {},
+    paddingTopBottom = 8,
     onPress,
   } = props;
 
@@ -49,7 +49,7 @@ export default function ActionItem(props: ActionItemProps) {
             styles.textContainer,
             styles[`${position}TextContainer`],
             {
-              backgroundColor: textBackground || 'white',
+              backgroundColor: textBackground,
               elevation: textElevation,
               shadowOffset: {
                 height: textElevation,
@@ -82,7 +82,7 @@ export default function ActionItem(props: ActionItemProps) {
               backgroundColor: color,
               width: buttonSize,
               height: buttonSize,
-              borderRadius: (buttonSize || 40) / 2,
+              borderRadius: buttonSize / 2,
             },
             shadow,
           ]}
@@ -128,16 +128,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 5,
-  },
-  iconLogo: {
-    resizeMode: 'cover',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-  },
-  icon: {
-    resizeMode: 'contain',
-    width: 20,
-    height: 20,
   },
 });

@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, Input } from '@ui-kitten/components';
 import { AuthError } from '../../types/api';
-import { useAppContext } from '../../contexts/AppContext';
+import { useAppContext } from '../../contexts';
 import { RootAuthScreenProps } from '../../types/navigation';
 import AuthForm from './AuthForm';
-import styles, { passwordAccessory } from './FormStyle';
+import styles, { passwordAccessory, SwitchForm } from './FormStyle';
 
 export default function LoginForm({
   navigation,
@@ -35,17 +35,11 @@ export default function LoginForm({
       />
       <Button
         onPress={() => signIn(email, password).catch(setError)}
-        style={[styles.formElement, { marginTop: 10 }]}
+        style={[styles.formElement, styles.loginButton]}
       >
         log in
       </Button>
-      <Button
-        onPress={() => navigation.navigate('Register')}
-        status="warning"
-        style={styles.formElement}
-      >
-        create account
-      </Button>
+      <SwitchForm navigation={navigation} page="Register" />
     </AuthForm>
   );
 }
