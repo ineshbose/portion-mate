@@ -149,6 +149,12 @@ class TrackItemSerializer(DynamicFieldsModelSerializer):
 
         return super().create(validated_data)
 
+    def update(self, instance, validated_data):
+        item = validated_data.pop("item")
+        validated_data["item"] = models.PortionItem.objects.update_or_create(**item)[0]
+
+        return super().update(instance, validated_data)
+
 
 class UserLogSerializer(DynamicFieldsModelSerializer):
     class Meta:

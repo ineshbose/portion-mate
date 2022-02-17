@@ -3,10 +3,11 @@ import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Calendar, Layout, Tab, TabBar } from '@ui-kitten/components';
 import { LineChart, PieChart } from 'react-native-chart-kit';
 import { useAppContext, useThemeContext } from '../../contexts';
+import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart';
 import { PortionItem, TrackItem, TrackItems } from '../../types/api';
 import Display from '../../constants/Display';
 
-const CHART_CONFIG = {
+const CHART_CONFIG: AbstractChartConfig = {
   backgroundColor: '#e26a00',
   backgroundGradientFrom: '#fb8c00',
   backgroundGradientTo: '#ffa726',
@@ -17,6 +18,9 @@ const CHART_CONFIG = {
     r: '6',
     strokeWidth: '2',
     stroke: '#ffa726',
+  },
+  propsForLabels: {
+    fontFamily: 'Roboto',
   },
 };
 
@@ -50,6 +54,7 @@ export default function StatsPage() {
     color: `#${(((Math.random() + 2) * 16777216) | 0).toString(16).slice(1)}`,
     legendFontColor: theme === 'light' ? '#00000' : '#ffffff',
     legendFontSize: 15,
+    legendFontFamily: 'Roboto',
   });
 
   const renderLineData = (trackItems: TrackItems) => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ImageProps,
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
@@ -11,7 +10,6 @@ import {
   Button,
   Calendar,
   Card,
-  Icon,
   Layout,
   List,
   Text,
@@ -20,8 +18,8 @@ import {
 } from '@ui-kitten/components';
 import { useAppContext } from '../../contexts';
 import { deleteJournal, getJournals } from '../../api/journals';
-import { Journal, Journals } from '../../types/api';
-import { IconOptions } from '../../types';
+import { Journal } from '../../types/api';
+import { renderIcon } from '../../constants/helpers';
 
 const TODAY = new Date();
 
@@ -39,7 +37,7 @@ export default function JournalPage() {
   React.useEffect(() => {
     const getItems = async () => {
       if (!fetched) {
-        setJournals((await getJournals()) as Journals);
+        setJournals(await getJournals());
         setFetched(true);
       }
     };
@@ -72,18 +70,13 @@ export default function JournalPage() {
     </Card>
   );
 
-  const renderActionIcon = (
-    props: Partial<ImageProps> | undefined,
-    name: IconOptions
-  ) => <Icon key={name} name={name} {...props} />;
-
   const accessoryLeft = (props: {} | undefined) => {
     const prevDay = new Date(date);
     prevDay.setDate(prevDay.getDate() - 1);
 
     return selectedJournal ? (
       <TopNavigationAction
-        icon={(p) => renderActionIcon(p, 'arrow-back')}
+        icon={(p) => renderIcon(p, 'arrow-back')}
         onPress={() => setSelectedJournal(undefined)}
         {...props}
       />
@@ -91,7 +84,7 @@ export default function JournalPage() {
       <Button
         appearance="ghost"
         status="basic"
-        accessoryLeft={(p) => renderActionIcon(p, 'arrow-back')}
+        accessoryLeft={(p) => renderIcon(p, 'arrow-back')}
         onPress={() => setDate(prevDay)}
       >
         {prevDay.toLocaleDateString()}
@@ -105,7 +98,7 @@ export default function JournalPage() {
 
     return selectedJournal ? (
       <TopNavigationAction
-        icon={(p) => renderActionIcon(p, 'delete')}
+        icon={(p) => renderIcon(p, 'delete')}
         onPress={removeJournal}
         {...props}
       />
@@ -113,7 +106,7 @@ export default function JournalPage() {
       <Button
         appearance="ghost"
         status="basic"
-        accessoryRight={(p) => renderActionIcon(p, 'arrow-forward')}
+        accessoryRight={(p) => renderIcon(p, 'arrow-forward')}
         onPress={() => setDate(nextDay)}
       >
         {nextDay.toLocaleDateString()}

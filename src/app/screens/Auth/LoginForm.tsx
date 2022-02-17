@@ -4,7 +4,7 @@ import { AuthError } from '../../types/api';
 import { useAppContext } from '../../contexts';
 import { RootAuthScreenProps } from '../../types/navigation';
 import AuthForm from './AuthForm';
-import styles, { passwordAccessory } from './FormStyle';
+import styles, { passwordAccessory, SwitchForm } from './FormStyle';
 
 export default function LoginForm({
   navigation,
@@ -39,13 +39,7 @@ export default function LoginForm({
       >
         log in
       </Button>
-      <Button
-        onPress={() => navigation.navigate('Register')}
-        status="warning"
-        style={styles.formElement}
-      >
-        create account
-      </Button>
+      <SwitchForm navigation={navigation} page="Register" />
     </AuthForm>
   );
 }

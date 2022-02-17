@@ -3,7 +3,7 @@ import { Button, CheckBox, Input, Text } from '@ui-kitten/components';
 import { RootAuthScreenProps } from '../../types/navigation';
 import { useAppContext } from '../../contexts';
 import AuthForm from './AuthForm';
-import styles, { passwordAccessory } from './FormStyle';
+import styles, { passwordAccessory, SwitchForm } from './FormStyle';
 import { FormError } from '../../types/api';
 
 export default function RegisterForm({
@@ -95,13 +95,7 @@ export default function RegisterForm({
       >
         register
       </Button>
-      <Button
-        onPress={() => navigation.navigate('Login')}
-        status="warning"
-        style={styles.formElement}
-      >
-        log into existing account
-      </Button>
+      <SwitchForm navigation={navigation} page="Login" />
     </AuthForm>
   );
 }

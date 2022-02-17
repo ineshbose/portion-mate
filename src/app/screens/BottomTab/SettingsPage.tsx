@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ImageProps,
   Pressable,
   PressableProps,
   SafeAreaView,
@@ -14,7 +13,6 @@ import {
   Button,
   Card,
   Divider,
-  Icon,
   Input,
   Layout,
   Modal,
@@ -27,14 +25,20 @@ import {
 import { useAppContext, useThemeContext } from '../../contexts';
 import { deleteUser, updateUser } from '../../api/user';
 import { RootTabScreenProps } from '../../types/navigation';
-import { IconOptions } from '../../types';
 import { FormError } from '../../types/api';
 import { passwordAccessory } from '../Auth/FormStyle';
+import { renderIcon } from '../../constants/helpers';
 
 type SettingProps = PressableProps & {
   hint: string;
   hintProps?: TextProps;
   children?: React.ReactNode;
+};
+
+type FieldMap<T = string> = {
+  placeholder: string;
+  value: T;
+  onChangeText: React.Dispatch<React.SetStateAction<T>>;
 };
 
 function Setting(props: SettingProps) {
@@ -85,11 +89,47 @@ export default function SettingsPage({
   const [height, setHeight] = React.useState<number>(0);
   const [weight, setWeight] = React.useState<number>(0);
 
+  const numInfoMap: FieldMap<number>[] = [
+    {
+      placeholder: 'age',
+      value: age,
+      onChangeText: setAge,
+    },
+    {
+      placeholder: 'height (cm)',
+      value: height,
+      onChangeText: setHeight,
+    },
+    {
+      placeholder: 'weight (kg)',
+      value: weight,
+      onChangeText: setWeight,
+    },
+  ];
+
   const [oldPassword, setOldPassword] = React.useState<string>('');
   const [newPassword, setNewPassword] = React.useState<string>('');
   const [confirmPassword, setConfirmPassword] = React.useState<string>('');
   const [passwordVisibility, setPasswordVisibility] =
     React.useState<boolean>(false);
+
+  const passwordMap: FieldMap[] = [
+    {
+      placeholder: 'current password',
+      value: oldPassword,
+      onChangeText: setOldPassword,
+    },
+    {
+      placeholder: 'new password',
+      value: newPassword,
+      onChangeText: setNewPassword,
+    },
+    {
+      placeholder: 'repeat password',
+      value: confirmPassword,
+      onChangeText: setConfirmPassword,
+    },
+  ];
 
   const [error, setError] = React.useState<FormError | any>();
 
@@ -139,14 +179,9 @@ export default function SettingsPage({
     }
   };
 
-  const renderActionIcon = (
-    props: Partial<ImageProps> | undefined,
-    name: IconOptions
-  ) => <Icon key={name} name={name} {...props} />;
-
   const renderMoreAction = (props: {} | undefined) => (
     <TopNavigationAction
-      icon={(p) => renderActionIcon(p, 'save')}
+      icon={(p) => renderIcon(p, 'save')}
       onPress={updateProfile}
       {...props}
     />
@@ -154,7 +189,7 @@ export default function SettingsPage({
 
   const renderBackAction = (props: {} | undefined) => (
     <TopNavigationAction
-      icon={(p) => renderActionIcon(p, 'arrow-back')}
+      icon={(p) => renderIcon(p, 'arrow-back')}
       onPress={() => navigation.goBack()}
       {...props}
     />
@@ -196,78 +231,47 @@ export default function SettingsPage({
                   value={surname}
                   onChangeText={setSurname}
                 />
-                <Input
-                  placeholder="age"
-                  value={`${age || ''}`}
-                  onChangeText={(t) => setAge(strToNum(t))}
-                />
-                <Input
-                  placeholder="height (cm)"
-                  value={`${height || ''}`}
-                  onChangeText={(t) => setHeight(strToNum(t))}
-                />
-                <Input
-                  placeholder="weight (cm)"
-                  value={`${weight || ''}`}
-                  onChangeText={(t) => setWeight(strToNum(t))}
-                />
+                {numInfoMap.map((pMap) => (
+                  <Input
+                    key={pMap.placeholder}
+                    placeholder={pMap.placeholder}
+                    value={`${pMap.value || ''}`}
+                    onChangeText={(t) => pMap.onChangeText(strToNum(t))}
+                  />
+                ))}
               </SettingSection>
               <SettingSection hint="Change Password">
-                <Input
-                  placeholder="current password"
-                  onChangeText={setOldPassword}
-                  secureTextEntry={!passwordVisibility}
-                  accessoryRight={(props) =>
-                    passwordAccessory(
-                      props,
-                      setPasswordVisibility,
-                      passwordVisibility
-                    )
-                  }
-                  value={oldPassword}
-                  caption={error?.old_password}
-                  status={error?.old_password ? 'danger' : 'basic'}
-                />
-                <Input
-                  placeholder="new password"
-                  onChangeText={setNewPassword}
-                  secureTextEntry={!passwordVisibility}
-                  accessoryRight={(props) =>
-                    passwordAccessory(
-                      props,
-                      setPasswordVisibility,
-                      passwordVisibility
-                    )
-                  }
-                  value={newPassword}
-                  caption={error?.password}
-                  status={error?.password ? 'danger' : 'basic'}
-                />
-                <Input
-                  placeholder="repeat password"
-                  onChangeText={setConfirmPassword}
-                  secureTextEntry={!passwordVisibility}
-                  accessoryRight={(props) =>
-                    passwordAccessory(
-                      props,
-                      setPasswordVisibility,
-                      passwordVisibility
-                    )
-                  }
-                  value={confirmPassword}
-                  caption={
-                    error?.confirmPassword ||
-                    (confirmPassword && confirmPassword !== newPassword
-                      ? 'Does not match with your password.'
-                      : '')
-                  }
-                  status={
-                    error?.confirmPassword ||
-                    (confirmPassword && confirmPassword !== newPassword)
-                      ? 'danger'
-                      : 'basic'
-                  }
-                />
+                {passwordMap.map((pMap) => (
+                  <Input
+                    key={pMap.placeholder}
+                    {...pMap}
+                    secureTextEntry={!passwordVisibility}
+                    accessoryRight={(props) =>
+                      passwordAccessory(
+                        props,
+                        setPasswordVisibility,
+                        passwordVisibility
+                      )
+                    }
+                    {...(pMap.placeholder === 'repeat password'
+                      ? {
+                          caption:
+                            error?.confirmPassword ||
+                            (confirmPassword && confirmPassword !== newPassword
+                              ? 'Does not match with your password.'
+                              : ''),
+                          status:
+                            error?.confirmPassword ||
+                            (confirmPassword && confirmPassword !== newPassword)
+                              ? 'danger'
+                              : 'basic',
+                        }
+                      : {
+                          caption: error?.old_password,
+                          status: error?.old_password ? 'danger' : 'basic',
+                        })}
+                  />
+                ))}
               </SettingSection>
               <Setting hint="Notifications" />
               <Setting hint="Privacy" />

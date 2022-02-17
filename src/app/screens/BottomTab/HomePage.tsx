@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ImageProps,
   ListRenderItemInfo,
   SafeAreaView,
   StyleSheet,
@@ -14,7 +13,6 @@ import {
   Layout,
   List,
   ListItem,
-  Icon,
   Text,
 } from '@ui-kitten/components';
 import { useAppContext } from '../../contexts';
@@ -31,7 +29,7 @@ import {
   UserLog,
   UserLogs,
 } from '../../types/api';
-import { IconOptions } from '../../types';
+import { renderIcon } from '../../constants/helpers';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -122,11 +120,6 @@ export default function HomePage() {
     setItems(newItems);
   };
 
-  const actionIcon = (
-    props: Partial<ImageProps> | undefined,
-    action: IconOptions
-  ) => <Icon key={action} name={action} {...props} />;
-
   const itemCheckBox = (item: TrackItem, idx: number) => (
     <CheckBox
       style={styles.checkbox}
@@ -165,11 +158,11 @@ export default function HomePage() {
         {item.target}
         <ButtonGroup appearance="ghost">
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'add')}
+            accessoryLeft={(p) => renderIcon(p, 'add')}
             onPress={() => updateItemSettings(true, 'add', item)}
           />
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'remove')}
+            accessoryLeft={(p) => renderIcon(p, 'remove')}
             disabled={item.target < 1}
             onPress={() => updateItemSettings(true, 'remove', item)}
           />
@@ -189,11 +182,11 @@ export default function HomePage() {
     isAction ? (
       <ButtonGroup appearance="ghost">
         <Button
-          accessoryLeft={(p) => actionIcon(p, 'delete')}
+          accessoryLeft={(p) => renderIcon(p, 'delete')}
           onPress={() => updateItemSettings(false, 'remove', item)}
         />
         <Button
-          accessoryLeft={(p) => actionIcon(p, 'reorder')}
+          accessoryLeft={(p) => renderIcon(p, 'reorder')}
           disabled
           onPress={() => updateItemSettings(false, 'add', item)}
         />
@@ -205,12 +198,12 @@ export default function HomePage() {
         </Text>
         <ButtonGroup appearance="ghost">
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'remove')}
+            accessoryLeft={(p) => renderIcon(p, 'remove')}
             disabled={(item.logs as UserLogs).length < 1}
             onPress={() => updateItemLogs('remove', item)}
           />
           <Button
-            accessoryLeft={(p) => actionIcon(p, 'add')}
+            accessoryLeft={(p) => renderIcon(p, 'add')}
             onPress={() => updateItemLogs('add', item)}
           />
         </ButtonGroup>

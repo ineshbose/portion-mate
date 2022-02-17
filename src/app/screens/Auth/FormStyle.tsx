@@ -1,6 +1,9 @@
 import React from 'react';
 import { ImageProps, StyleSheet } from 'react-native';
 import { Button, Icon } from '@ui-kitten/components';
+import { CompositeNavigationProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootAuthParamList, RootStackParamList } from '../../types/navigation';
 
 const formStyle = StyleSheet.create({
   container: {
@@ -57,6 +60,25 @@ export const passwordAccessory = (
     {...props}
     style={formStyle.viewPassword}
   />
+);
+
+export const SwitchForm = ({
+  navigation,
+  page,
+}: {
+  navigation: CompositeNavigationProp<
+    NativeStackNavigationProp<RootAuthParamList, 'Login'>,
+    NativeStackNavigationProp<RootStackParamList, 'Root'>
+  >;
+  page: keyof RootAuthParamList;
+}) => (
+  <Button
+    onPress={() => navigation.navigate(page)}
+    status="warning"
+    style={formStyle.formElement}
+  >
+    {page === 'Register' ? 'create account' : 'log into existing account'}
+  </Button>
 );
 
 export default formStyle;

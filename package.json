@@ -33,7 +33,7 @@
       "eslint docs --fix"
     ],
     "**/pyproject.toml": [
-      "poetry update"
+      "poetry update && git add poetry.lock"
     ]
   }
 }

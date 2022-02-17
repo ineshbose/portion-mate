@@ -1,12 +1,12 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Button, Input, Layout, TopNavigation } from '@ui-kitten/components';
-import FAB from '../../components/FAB';
+import { Input, Layout, TopNavigation } from '@ui-kitten/components';
 import HomePage from '../BottomTab/HomePage';
 import { useAppContext } from '../../contexts';
 import { createJournal } from '../../api/journals';
 import { FormError } from '../../types/api';
 import { NavProps, RootActionParamList } from '../../types/navigation';
+import { ActionButton, renderCancelAccessory } from './utils';
 
 const yesterdayDate = new Date();
 yesterdayDate.setDate(yesterdayDate.getDate() + 1);
@@ -77,19 +77,13 @@ export default function AddJournal({
     goBack();
   };
 
-  const renderCancelAccessory = (props: {} | undefined) => (
-    <Button appearance="ghost" status="basic" {...props} onPress={goBack}>
-      Cancel
-    </Button>
-  );
-
   return (
     <SafeAreaView style={styles.container}>
       <Layout style={styles.container}>
         <TopNavigation
           alignment="start"
           title="Journal Entry"
-          accessoryRight={renderCancelAccessory}
+          accessoryRight={(p) => renderCancelAccessory(p, goBack)}
         />
         <View style={styles.formContainer}>
           <Input
@@ -117,9 +111,7 @@ export default function AddJournal({
         />
       </Layout>
       <HomePage />
-      <FAB
-        floatingIcon="check"
-        color="green"
+      <ActionButton
         onPressMain={() =>
           meal ? logEntry() : setError({ meal: 'This field is required.' })
         }
