@@ -1,5 +1,5 @@
 import axios, { Method } from 'axios';
-import { API_BASE } from 'react-native-dotenv';
+import { API_BASE } from '../../env';
 import { CreateData, FetchData, GenericModel, UpdateData } from '../types/api';
 
 type UnrequiredGM = Partial<GenericModel>;

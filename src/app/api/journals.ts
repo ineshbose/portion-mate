@@ -1,5 +1,5 @@
-import { makeRequest } from '.';
 import { CreateData, Journal, UpdateData } from '../types/api';
+import { makeRequest } from '.';
 
 const API_PATH = '/journals/';
 

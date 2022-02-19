@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { axiosInstance } from '.';
-import { CLIENT_ID, CLIENT_SECRET } from 'react-native-dotenv';
+import { CLIENT_ID, CLIENT_SECRET } from '../../env';
 import { AuthError, AuthToken } from '../types/api';
 import { storeObject, getObject, removeItem } from './store';
+import { axiosInstance } from '.';
 
 const API_PATH = '/auth/o/';
 
@@ -59,7 +59,7 @@ export const getToken = async (
 export const refreshToken = async (authToken?: AuthToken) => {
   try {
     if (!authToken) {
-      authToken = (await getObject('auth_token')) as AuthToken;
+      authToken = await getObject<AuthToken>('auth_token');
     }
 
     const response = await axiosInstance.post<AuthToken>(`${API_PATH}token/`, {
@@ -82,7 +82,7 @@ export const refreshToken = async (authToken?: AuthToken) => {
 export const revokeToken = async (authToken?: AuthToken) => {
   try {
     if (!authToken) {
-      authToken = (await getObject('auth_token')) as AuthToken;
+      authToken = await getObject<AuthToken>('auth_token');
     }
 
     await axiosInstance.post<AuthToken>(`${API_PATH}revoke_token/`, {

@@ -2,9 +2,9 @@ import React from 'react';
 import { Button, CheckBox, Input, Text } from '@ui-kitten/components';
 import { RootAuthScreenProps } from '../../types/navigation';
 import { useAppContext } from '../../contexts';
+import { FormError } from '../../types/api';
 import AuthForm from './AuthForm';
 import styles, { passwordAccessory, SwitchForm } from './FormStyle';
-import { FormError } from '../../types/api';
 
 export default function RegisterForm({
   navigation,

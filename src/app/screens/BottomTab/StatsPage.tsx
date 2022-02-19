@@ -2,8 +2,8 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Calendar, Layout, Tab, TabBar } from '@ui-kitten/components';
 import { LineChart, PieChart } from 'react-native-chart-kit';
-import { useAppContext, useThemeContext } from '../../contexts';
 import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart';
+import { useAppContext, useThemeContext } from '../../contexts';
 import { PortionItem, TrackItem, TrackItems } from '../../types/api';
 import Display from '../../constants/Display';
 

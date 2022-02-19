@@ -1,5 +1,5 @@
-import { makeRequest } from '.';
 import { CreateData, UpdateData, UserLog } from '../types/api';
+import { makeRequest } from '.';
 
 const API_PATH = '/userlogs/';
 
