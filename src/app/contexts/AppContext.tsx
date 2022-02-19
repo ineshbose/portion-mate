@@ -38,11 +38,11 @@ export const ContextProvider = ({ children }: ChildComponents) => {
   React.useEffect(() => {
     const loadToken = async () => {
       try {
-        const authData = (await getObject('auth_token')) as AuthToken;
+        const authData = await getObject<AuthToken>('auth_token');
         if (authData) {
           authData.interceptor = addRefreshInterceptor(signOut);
           await updateAuthHeaderAndStore(authData);
-          const userData = (await getUser()) as User;
+          const userData = await getUser();
           setUser(userData);
         }
         setAuthToken(authData);
@@ -53,12 +53,13 @@ export const ContextProvider = ({ children }: ChildComponents) => {
     };
 
     loadToken().then(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signIn = async (email: string, password: string) => {
     try {
-      const authData = (await getToken(email, password, signOut)) as AuthToken;
-      const userData = (await getUser()) as User;
+      const authData = await getToken(email, password, signOut);
+      const userData = await getUser();
       setUser(userData);
       setAuthToken(authData);
     } catch (e) {

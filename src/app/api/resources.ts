@@ -1,5 +1,5 @@
-import { axiosInstance, makeRequest } from '.';
 import { Resource, UpdateData } from '../types/api';
+import { axiosInstance, makeRequest } from '.';
 
 const API_PATH = '/resources/';
 

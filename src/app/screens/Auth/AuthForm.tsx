@@ -1,10 +1,10 @@
 import React from 'react';
-import Logo from './Logo';
 import { KeyboardAvoidingView, View } from 'react-native';
 import { Button, Input, Layout } from '@ui-kitten/components';
 import { AuthError } from '../../types/api';
-import styles from './FormStyle';
 import { useThemeContext } from '../../contexts';
+import styles from './FormStyle';
+import Logo from './Logo';
 
 type FormProps = {
   children: (Input | JSX.Element | undefined)[];

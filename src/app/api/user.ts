@@ -1,10 +1,10 @@
-import { makeRequest } from '.';
 import { CreateData, UpdateData, User } from '../types/api';
+import { makeRequest } from '.';
 
 const API_PATH = '/users/';
 // const API_PATH = (extraPath: TemplateStringsArray) => `/users/${extraPath}/`;
 
-export const getUser = async () => makeRequest<User>(API_PATH);
+export const getUser = async () => <User>(<unknown>makeRequest<User>(API_PATH));
 
 export const createUser = async (
   props: CreateData<User, 'email'> & { password: string }

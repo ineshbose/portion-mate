@@ -1,6 +1,6 @@
 import { TextProps, TextStyle, ViewStyle } from 'react-native';
-import { IconOptions } from '.';
 import { RootActionParamList } from './navigation';
+import { IconOptions } from '.';
 
 export type Actions = keyof RootActionParamList;
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BottomTabNavigator from './BottomTabNavigator';
-import AuthNavigator from './AuthNavigator';
-import { useAppContext } from '../contexts';
-import { RootLinkParamList } from '../types/navigation';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { Layout, Spinner, Text } from '@ui-kitten/components';
+import { useAppContext } from '../contexts';
+import { RootLinkParamList } from '../types/navigation';
+import BottomTabNavigator from './BottomTabNavigator';
+import AuthNavigator from './AuthNavigator';
 
 const Root = createNativeStackNavigator<RootLinkParamList>();
 

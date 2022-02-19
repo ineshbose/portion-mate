@@ -8,9 +8,9 @@ import {
   View,
 } from 'react-native';
 import { Button, Icon } from '@ui-kitten/components';
-import ActionItem from './ActionItem';
 import { MainButtonProps } from '../../types/FAB';
 import { RootActionParamList } from '../../types/navigation';
+import ActionItem from './ActionItem';
 
 const DEFAULT_SHADOW_PROPS = {
   shadowOpacity: 0.35,
