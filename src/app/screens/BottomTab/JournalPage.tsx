@@ -3,7 +3,6 @@ import {
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   View,
 } from 'react-native';
 import {
@@ -20,6 +19,7 @@ import { useAppContext } from '../../contexts';
 import { deleteJournal, getJournals } from '../../api/journals';
 import { Journal } from '../../types/api';
 import { renderIcon } from '../../constants/helpers';
+import createStyle from '../../constants/Styles';
 
 const TODAY = new Date();
 
@@ -60,7 +60,7 @@ export default function JournalPage() {
 
   const renderItem = (info: ListRenderItemInfo<Journal>) => (
     <Card style={styles.item} onPress={() => setSelectedJournal(info.item)}>
-      <View style={styles.flexRow}>
+      <View style={styles.flexDirectionRow}>
         <Text style={styles.itemDate}>
           {new Date(info.item.entry_time).toLocaleTimeString().slice(0, 5)}
         </Text>
@@ -117,9 +117,15 @@ export default function JournalPage() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.flex1}>
       {isAction ? (
-        <Layout style={[styles.container, styles.centerContent]}>
+        <Layout
+          style={[
+            styles.flex1,
+            styles.alignItemsCenter,
+            styles.justifyContentCenter,
+          ]}
+        >
           <Calendar
             date={date}
             max={TODAY}
@@ -130,7 +136,7 @@ export default function JournalPage() {
           />
         </Layout>
       ) : (
-        <Layout style={styles.container}>
+        <Layout style={styles.flex1}>
           <TopNavigation
             alignment="center"
             title={
@@ -141,33 +147,32 @@ export default function JournalPage() {
           />
           {selectedJournal ? (
             <ScrollView style={styles.selectedJournalContainer}>
-              <View style={[styles.flexRow, styles.journalInfo]}>
+              <View style={[styles.flexDirectionRow, styles.marginTop4]}>
                 <Text category="label">Time</Text>
-                <Text style={styles.horizontalMargin}>
+                <Text style={styles.marginHorizontal1}>
                   {new Date(selectedJournal.entry_time).toDateString()}
                 </Text>
                 <Text>
                   {new Date(selectedJournal.entry_time).toLocaleTimeString()}
                 </Text>
               </View>
-              <View style={styles.flexRow}>
+              <View style={styles.flexDirectionRow}>
                 <Text category="label">Meal</Text>
-                <Text style={styles.horizontalMargin}>
+                <Text style={styles.marginHorizontal1}>
                   {selectedJournal.meal}
                 </Text>
               </View>
-              <Text style={styles.journalContent}>
-                {selectedJournal.content}
-              </Text>
+              <Text style={styles.marginTop4}>{selectedJournal.content}</Text>
             </ScrollView>
           ) : journals && journals.length > 0 ? (
             <List data={journals} renderItem={renderItem} />
           ) : (
             <Layout
               style={[
-                styles.container,
-                styles.centerContent,
-                styles.noJournalContainer,
+                styles.flex1,
+                styles.alignItemsCenter,
+                styles.justifyContentCenter,
+                styles.padding2,
               ]}
             >
               <Text style={styles.noJournalTitle}>{'No journals added'}</Text>
@@ -179,17 +184,7 @@ export default function JournalPage() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  centerContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  noJournalContainer: {
-    padding: 20,
-  },
+const styles = createStyle({
   noJournalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -203,17 +198,5 @@ const styles = StyleSheet.create({
   },
   selectedJournalContainer: {
     padding: 10,
-  },
-  flexRow: {
-    flexDirection: 'row',
-  },
-  journalInfo: {
-    marginTop: 40,
-  },
-  horizontalMargin: {
-    marginHorizontal: 10,
-  },
-  journalContent: {
-    marginTop: 40,
   },
 });

@@ -1,17 +1,24 @@
 import React from 'react';
-import { Platform, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Platform, SafeAreaView, View } from 'react-native';
 import { Layout, Text } from '@ui-kitten/components';
 import { StatusBar } from 'expo-status-bar';
 
 import { useThemeContext } from '../contexts';
 import EditScreenInfo from '../components/EditScreenInfo';
+import createStyle from '../constants/Styles';
 
 export default function ModalScreen() {
   const { ThemeToggle } = useThemeContext();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Layout style={[styles.container, styles.centerContainer]}>
+    <SafeAreaView style={styles.flex1}>
+      <Layout
+        style={[
+          styles.flex1,
+          styles.alignItemsCenter,
+          styles.justifyContentCenter,
+        ]}
+      >
         <Text style={styles.title}>Modal</Text>
         <View style={styles.separator} />
         <EditScreenInfo path="/screens/ModalScreen.tsx" />
@@ -24,14 +31,7 @@ export default function ModalScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  centerContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const styles = createStyle({
   title: {
     fontSize: 20,
     fontWeight: 'bold',

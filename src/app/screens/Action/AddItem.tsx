@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, View } from 'react-native';
 import {
   IndexPath,
   Input,
@@ -12,6 +12,7 @@ import { useAppContext } from '../../contexts';
 import { createTrackItem } from '../../api/items';
 import { NavProps, RootActionParamList } from '../../types/navigation';
 import { FormError, FrequencyDisplay } from '../../types/api';
+import createStyle from '../../constants/Styles';
 import { ActionButton, renderCancelAccessory } from './utils';
 
 const FREQUENCY_OPTIONS: { [f in FrequencyDisplay]: number } = {
@@ -51,14 +52,14 @@ export default function AddItem({
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <Layout style={styles.container}>
+    <KeyboardAvoidingView style={styles.flex1}>
+      <Layout style={styles.flex1}>
         <TopNavigation
           alignment="start"
           title="New Item"
           accessoryRight={(p) => renderCancelAccessory(p, goBack)}
         />
-        <View style={styles.formContainer}>
+        <View style={[styles.alignItemsCenter, styles.justifyContentCenter]}>
           <View style={styles.formInnerContainer}>
             <Input
               placeholder="Enter name"
@@ -68,19 +69,19 @@ export default function AddItem({
               status={error?.name ? 'danger' : 'basic'}
               size="large"
             />
-            <View style={styles.rowForm}>
+            <View style={styles.flexDirectionRow}>
               <Input
                 placeholder="target"
                 value={`${target}`}
                 onChangeText={(t) => setTarget(strToNum(t))}
-                style={[styles.container, styles.formElement]}
+                style={[styles.flex1, styles.formElement]}
                 size="large"
               />
               <Select
                 value={frequencies[selectedFrequency.row].toLowerCase()}
                 selectedIndex={selectedFrequency}
                 onSelect={(index) => setSelectedFrequency(index as IndexPath)}
-                style={[styles.container, styles.formElement]}
+                style={[styles.flex1, styles.formElement]}
                 size="large"
                 disabled
               >
@@ -101,17 +102,7 @@ export default function AddItem({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  formContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  rowForm: {
-    flexDirection: 'row',
-  },
+const styles = createStyle({
   formInnerContainer: {
     maxWidth: 500,
     marginTop: 100,

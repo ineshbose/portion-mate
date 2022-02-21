@@ -4,9 +4,18 @@ import {
   FlexDirectionType,
   FlexStyles,
   JustifyContentType,
+  StyleNumValues,
 } from '../../types/styles';
 
 const flexStyles = <FlexStyles>{};
+
+const NUMS: StyleNumValues[] = [0, 1, 2, 3, 4, 5];
+
+NUMS.forEach((num) => {
+  flexStyles[`flex${num}`] = {
+    flex: num,
+  };
+});
 
 const DIRECTIONS: FlexDirectionType['options'][] = [
   'Row',

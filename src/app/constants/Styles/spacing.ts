@@ -5,7 +5,7 @@ import {
   StyleNumValues,
 } from '../../types/styles';
 
-const NUMS: StyleNumValues[] = [1, 2, 3, 4, 5];
+const NUMS: StyleNumValues[] = [0, 1, 2, 3, 4, 5];
 
 const SPACINGS: SpacingTypes[] = ['margin', 'padding'];
 

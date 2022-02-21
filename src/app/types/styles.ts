@@ -14,7 +14,7 @@ export type StatusOptions =
   | 'warning'
   | 'danger';
 
-export type StyleNumValues = 1 | 2 | 3 | 4 | 5;
+export type StyleNumValues = 0 | 1 | 2 | 3 | 4 | 5;
 
 export type SpacingTypes = 'margin' | 'padding';
 
@@ -73,7 +73,9 @@ export type AlignType<
 
 export type JustifyContentType = StyleType<FlexStyle, 'justifyContent'>;
 
-export type FlexStyles = FlexDirectionType['styles'] &
+export type FlexStyles = {
+  [P in `flex${StyleNumValues}`]: FlexStyleProp<'flex'>;
+} & FlexDirectionType['styles'] &
   AlignType['items']['styles'] &
   AlignType['self']['styles'] &
   AlignType['content']['styles'] &
@@ -102,9 +104,7 @@ export type BorderColorStyles<T extends StatusOptions = StatusOptions> = {
   [P in `border${Capitalize<T>}`]: TextStyleProp<'borderColor'>;
 };
 
-export type CustomStyles = {
-  flexOne: FlexStyleProp<'flex'>;
-};
+export type CustomStyles = {};
 
 export type GlobalStyleSheet = DisplayType['styles'] &
   SpacingStyles &

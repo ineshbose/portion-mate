@@ -8,9 +8,6 @@ const PROVIDED_STYLES = <GlobalStyleSheet>{
   ...spacingStyles,
   ...displayStyles,
   ...flexStyles,
-  flexOne: {
-    flex: 1,
-  },
 };
 
 export default function createStyle<

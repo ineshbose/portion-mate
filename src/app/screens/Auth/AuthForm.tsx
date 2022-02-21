@@ -17,17 +17,23 @@ export default function AuthForm(formProps: FormProps) {
 
   return (
     <>
-      <KeyboardAvoidingView style={styles.container}>
-        <Layout style={styles.formContainer}>
-          <View style={styles.headerContainer}>
+      <KeyboardAvoidingView style={styles.flex1}>
+        <Layout style={[styles.flex1, styles.paddingHorizontal1]}>
+          <View
+            style={[
+              styles.alignItemsCenter,
+              styles.justifyContentCenter,
+              styles.padding2,
+            ]}
+          >
             <Logo />
           </View>
-          <View style={styles.formContainer}>
+          <View style={[styles.flex1, styles.paddingHorizontal1]}>
             {error && (
               <Button
                 status="danger"
                 appearance="outline"
-                style={styles.errorMessage}
+                style={styles.marginVertical1}
               >
                 {error?.error_description}
               </Button>

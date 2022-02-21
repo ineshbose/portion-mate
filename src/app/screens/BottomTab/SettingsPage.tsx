@@ -4,7 +4,6 @@ import {
   PressableProps,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   View,
   ViewProps,
 } from 'react-native';
@@ -28,6 +27,7 @@ import { RootTabScreenProps } from '../../types/navigation';
 import { FormError } from '../../types/api';
 import { passwordAccessory } from '../Auth/FormStyle';
 import { renderIcon } from '../../constants/helpers';
+import createStyle from '../../constants/Styles';
 
 type SettingProps = PressableProps & {
   hint: string;
@@ -46,7 +46,15 @@ function Setting(props: SettingProps) {
 
   return (
     <>
-      <Pressable {...pressableProps} style={styles.setting}>
+      <Pressable
+        {...pressableProps}
+        style={[
+          styles.padding1,
+          styles.flexDirectionRow,
+          styles['justifyContentSpace-between'],
+          styles.alignItemsCenter,
+        ]}
+      >
         <Text {...hintProps} category="s2">
           {hint}
         </Text>
@@ -62,13 +70,29 @@ function SettingSection(props: SettingProps) {
 
   return (
     <>
-      <View style={styles.setting}>
+      <View
+        style={[
+          styles.padding1,
+          styles.flexDirectionRow,
+          styles['justifyContentSpace-between'],
+          styles.alignItemsCenter,
+        ]}
+      >
         <Text {...hintProps} category="s2">
           {hint}
         </Text>
       </View>
       <Divider />
-      <View style={styles.section}>{children}</View>
+      <View
+        style={[
+          styles.alignContentCenter,
+          styles.marginTop2,
+          styles.marginBottom4,
+          styles.marginHorizontal1,
+        ]}
+      >
+        {children}
+      </View>
       <Divider />
     </>
   );
@@ -202,8 +226,8 @@ export default function SettingsPage({
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Layout style={styles.container}>
+    <SafeAreaView style={styles.flex1}>
+      <Layout style={styles.flex1}>
         {user ? (
           <>
             <TopNavigation
@@ -219,7 +243,7 @@ export default function SettingsPage({
                     uri: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp',
                   }}
                   size="giant"
-                  style={styles.avatar}
+                  style={[styles.alignSelfCenter, styles.marginBottom1]}
                 />
                 <Input
                   placeholder="forename"
@@ -296,7 +320,7 @@ export default function SettingsPage({
               >
                 <Card
                   status="danger"
-                  style={[styles.container, styles.cardMargin]}
+                  style={[styles.flex1, styles.cardMargin]}
                   header={cardHeader}
                 >
                   <Button
@@ -320,7 +344,14 @@ export default function SettingsPage({
             </ScrollView>
           </>
         ) : (
-          <Layout style={[styles.container, styles.noSettingsContainer]}>
+          <Layout
+            style={[
+              styles.flex1,
+              styles.alignItemsCenter,
+              styles.justifyContentCenter,
+              styles.padding2,
+            ]}
+          >
             <Text style={styles.noSettingsTitle}>
               {'Something went wrong. Please login.'}
             </Text>
@@ -331,36 +362,12 @@ export default function SettingsPage({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  setting: {
-    padding: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  section: {
-    marginTop: 20,
-    marginBottom: 40,
-    alignContent: 'center',
-    marginHorizontal: 10,
-  },
-  avatar: {
-    alignSelf: 'center',
-    marginBottom: 10,
-  },
+const styles = createStyle({
   cardMargin: {
     margin: 2,
   },
   alertBackdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  noSettingsContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
   },
   noSettingsTitle: {
     fontSize: 20,
