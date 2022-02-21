@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ListRenderItemInfo,
   SafeAreaView,
-  StyleSheet,
   TextProps,
   ViewProps,
 } from 'react-native';
@@ -30,6 +29,7 @@ import {
   UserLogs,
 } from '../../types/api';
 import { renderIcon } from '../../constants/helpers';
+import createStyle from '../../constants/Styles';
 
 const frequencyDisplay: { [frequency: number]: string } = {
   1: 'd',
@@ -219,18 +219,15 @@ export default function HomePage() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Layout style={styles.container}>
+    <SafeAreaView style={styles.flex1}>
+      <Layout style={styles.flex1}>
         <List data={items} renderItem={renderItem} />
       </Layout>
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+const styles = createStyle({
   checkbox: {
     marginRight: 2,
   },

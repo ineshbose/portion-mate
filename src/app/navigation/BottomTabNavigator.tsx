@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ImageProps, Pressable, StyleSheet, View } from 'react-native';
+import { Image, ImageProps, Pressable, View } from 'react-native';
 import {
   getFocusedRouteNameFromRoute,
   ParamListBase,
@@ -36,6 +36,7 @@ import {
   TabConfig,
 } from '../types/navigation';
 import FAB from '../components/FAB';
+import createStyle from '../constants/Styles';
 import ActionNavigator from './ActionNavigator';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
@@ -95,10 +96,11 @@ export default function BottomTabNavigator({
   const navigationLeftAccessory = (props: {} | undefined) => (
     <Pressable
       {...props}
-      style={[styles.topActionsContainer, styles.appIconContainer]}
+      style={[styles.flexDirectionRow, styles.alignItemsCenter]}
       onPress={() => navigation.navigate('Home')}
     >
       <Image
+        // @ts-ignore
         style={styles.appIcon}
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
@@ -137,7 +139,7 @@ export default function BottomTabNavigator({
     props: {} | undefined,
     { route: { name } }: BottomTabHeaderProps
   ) => (
-    <View style={styles.topActionsContainer} {...props}>
+    <View style={styles.flexDirectionRow} {...props}>
       {headerButtonIcons[name] && (
         <Button
           appearance="ghost"
@@ -244,13 +246,7 @@ export default function BottomTabNavigator({
   );
 }
 
-const styles = StyleSheet.create({
-  topActionsContainer: {
-    flexDirection: 'row',
-  },
-  appIconContainer: {
-    alignItems: 'center',
-  },
+const styles = createStyle({
   appIcon: {
     height: 30,
     width: 30,

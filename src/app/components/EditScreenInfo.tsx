@@ -1,6 +1,7 @@
 import React from 'react';
-import { Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Linking, TouchableOpacity, View } from 'react-native';
 import { Text } from '@ui-kitten/components';
+import createStyle from '../constants/Styles';
 import { MonoText } from './StyledText';
 
 export default function EditScreenInfo({ path }: { path: string }) {
@@ -41,7 +42,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = createStyle({
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,

@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Animated, Pressable } from 'react-native';
+import { Animated, Pressable } from 'react-native';
 import { Button, Icon, Layout, Text } from '@ui-kitten/components';
 import { ActionItemProps } from '../../types/FAB';
+import createStyle from '../../constants/Styles';
 
 export default function ActionItem(props: ActionItemProps) {
   const {
@@ -26,10 +27,18 @@ export default function ActionItem(props: ActionItemProps) {
   const animation = React.useRef(new Animated.Value(0)).current;
 
   return (
-    <Pressable style={styles.container} onPress={() => onPress(name)}>
+    <Pressable
+      style={[styles.container, styles.flex1, styles.flexDirectionColumn]}
+      onPress={() => onPress(name)}
+    >
       <Animated.View
         style={[
-          styles.actionContainer,
+          styles.container,
+          styles.flex1,
+          styles.flexDirectionRow,
+          styles.alignItemsCenter,
+          styles.paddingLeft0,
+          styles.paddingRight0,
           animated
             ? {
                 marginBottom: animation.interpolate({
@@ -78,6 +87,8 @@ export default function ActionItem(props: ActionItemProps) {
           onPress={() => onPress(name)}
           style={[
             styles.button,
+            styles.alignItemsCenter,
+            styles.justifyContentCenter,
             {
               backgroundColor: color,
               width: buttonSize,
@@ -93,19 +104,9 @@ export default function ActionItem(props: ActionItemProps) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = createStyle({
   container: {
     elevation: 0,
-    flex: 1,
-    flexDirection: 'column',
-  },
-  actionContainer: {
-    elevation: 0,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 0,
-    paddingRight: 0,
   },
   textContainer: {
     paddingHorizontal: 8,
@@ -125,8 +126,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
     elevation: 5,
   },
 });

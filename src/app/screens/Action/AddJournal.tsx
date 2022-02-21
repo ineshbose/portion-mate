@@ -1,11 +1,12 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { Input, Layout, TopNavigation } from '@ui-kitten/components';
 import HomePage from '../BottomTab/HomePage';
 import { useAppContext } from '../../contexts';
 import { createJournal } from '../../api/journals';
 import { FormError } from '../../types/api';
 import { NavProps, RootActionParamList } from '../../types/navigation';
+import createStyle from '../../constants/Styles';
 import { ActionButton, renderCancelAccessory } from './utils';
 
 const yesterdayDate = new Date();
@@ -78,14 +79,14 @@ export default function AddJournal({
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Layout style={styles.container}>
+    <SafeAreaView style={styles.flex1}>
+      <Layout style={styles.flex1}>
         <TopNavigation
           alignment="start"
           title="Journal Entry"
           accessoryRight={(p) => renderCancelAccessory(p, goBack)}
         />
-        <View style={styles.formContainer}>
+        <View style={[styles.formContainer, styles.flexDirectionRow]}>
           <Input
             placeholder={recommendedMeal() || 'meal'}
             onChangeText={setMeal}
@@ -120,12 +121,8 @@ export default function AddJournal({
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+const styles = createStyle({
   formContainer: {
-    flexDirection: 'row',
     margin: 10,
   },
   timeInput: {
