@@ -1,9 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RootNavigator from './RootNavigator';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import ModalScreen from '../screens/ModalScreen';
 import { RootStackParamList } from '../types/navigation';
+import RootNavigator from './RootNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

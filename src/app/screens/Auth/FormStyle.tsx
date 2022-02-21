@@ -1,26 +1,12 @@
 import React from 'react';
-import { ImageProps, StyleSheet } from 'react-native';
+import { ImageProps } from 'react-native';
 import { Button, Icon } from '@ui-kitten/components';
 import { CompositeNavigationProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootAuthParamList, RootStackParamList } from '../../types/navigation';
+import createStyle from '../../constants/Styles';
 
-const formStyle = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  headerContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  errorMessage: {
-    marginVertical: 10,
-  },
-  formContainer: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
+const formStyle = createStyle({
   formElement: {
     marginVertical: 2,
   },

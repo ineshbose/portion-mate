@@ -4,7 +4,6 @@ import {
   ListRenderItemInfo,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   View,
   ViewProps,
 } from 'react-native';
@@ -23,6 +22,7 @@ import { useAppContext } from '../../contexts';
 import { bookmarkResource, getResources } from '../../api/resources';
 import { Resource, Resources } from '../../types/api';
 import { getItems, renderIcon } from '../../constants/helpers';
+import createStyle from '../../constants/Styles';
 
 export default function ResourcesPage() {
   const { headerAction } = useAppContext();
@@ -92,8 +92,14 @@ export default function ResourcesPage() {
     props: ViewProps | undefined,
     info: ListRenderItemInfo<Resource>
   ) => (
-    <View {...props} style={styles.itemFooter}>
-      <View style={styles.itemAuthoringContainer}>
+    <View {...props} style={[styles.itemFooter, styles.flexDirectionRow]}>
+      <View
+        style={[
+          styles.flex1,
+          styles.justifyContentCenter,
+          styles.marginHorizontal1,
+        ]}
+      >
         <Text category="s2">{info.item.author}</Text>
         <Text appearance="hint" category="c1">
           {info.item.date_published}
@@ -124,8 +130,8 @@ export default function ResourcesPage() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Layout style={styles.container}>
+    <SafeAreaView style={styles.flex1}>
+      <Layout style={styles.flex1}>
         {selectedResource ? (
           <>
             <TopNavigation
@@ -156,7 +162,14 @@ export default function ResourcesPage() {
             renderItem={renderItem}
           />
         ) : (
-          <Layout style={styles.noResourceContainer}>
+          <Layout
+            style={[
+              styles.flex1,
+              styles.alignItemsCenter,
+              styles.justifyContentCenter,
+              styles.padding2,
+            ]}
+          >
             <Text style={styles.noResourceTitle}>
               {'No resources available'}
             </Text>
@@ -167,10 +180,7 @@ export default function ResourcesPage() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+const styles = createStyle({
   contentContainer: {
     paddingHorizontal: 10,
   },
@@ -178,12 +188,6 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: 400,
     margin: 'auto',
-  },
-  noResourceContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
   },
   noResourceTitle: {
     fontSize: 20,
@@ -193,12 +197,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   itemFooter: {
-    flexDirection: 'row',
     marginHorizontal: -8,
-  },
-  itemAuthoringContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 16,
   },
 });

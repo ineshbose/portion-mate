@@ -1,18 +1,26 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BottomTabNavigator from './BottomTabNavigator';
-import AuthNavigator from './AuthNavigator';
+import { SafeAreaView } from 'react-native';
+import { Layout, Spinner, Text } from '@ui-kitten/components';
 import { useAppContext } from '../contexts';
 import { RootLinkParamList } from '../types/navigation';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import { Layout, Spinner, Text } from '@ui-kitten/components';
+import createStyle from '../constants/Styles';
+import BottomTabNavigator from './BottomTabNavigator';
+import AuthNavigator from './AuthNavigator';
 
 const Root = createNativeStackNavigator<RootLinkParamList>();
 
 function LoadingScreen() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Layout style={[styles.container, styles.messageContainer]}>
+    <SafeAreaView style={styles.flex1}>
+      <Layout
+        style={[
+          styles.flex1,
+          styles.alignItemsCenter,
+          styles.justifyContentCenter,
+          styles.padding2,
+        ]}
+      >
         <Spinner size="giant" />
         <Text style={styles.title}>{'Loading...'}</Text>
       </Layout>
@@ -48,15 +56,7 @@ export default function RootNavigator() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  messageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
+const styles = createStyle({
   title: {
     fontSize: 20,
     fontWeight: 'bold',

@@ -1,11 +1,12 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import { Calendar, Layout, Tab, TabBar } from '@ui-kitten/components';
 import { LineChart, PieChart } from 'react-native-chart-kit';
-import { useAppContext, useThemeContext } from '../../contexts';
 import { AbstractChartConfig } from 'react-native-chart-kit/dist/AbstractChart';
+import { useAppContext, useThemeContext } from '../../contexts';
 import { PortionItem, TrackItem, TrackItems } from '../../types/api';
 import Display from '../../constants/Display';
+import createStyle from '../../constants/Styles';
 
 const CHART_CONFIG: AbstractChartConfig = {
   backgroundColor: '#e26a00',
@@ -90,13 +91,19 @@ export default function StatsPage() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.flex1}>
       {isAction ? (
-        <Layout style={[styles.container, styles.centerContainer]}>
+        <Layout
+          style={[
+            styles.flex1,
+            styles.alignItemsCenter,
+            styles.justifyContentCenter,
+          ]}
+        >
           <Calendar max={todayDate} />
         </Layout>
       ) : (
-        <Layout style={styles.container}>
+        <Layout style={styles.flex1}>
           <TabBar selectedIndex={frequency} onSelect={setFrequency}>
             <Tab title="DAILY" />
             <Tab title="WEEKLY" disabled />
@@ -130,14 +137,7 @@ export default function StatsPage() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  centerContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const styles = createStyle({
   lineChart: {
     borderRadius: 15,
     marginTop: 50,

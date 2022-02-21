@@ -24,8 +24,16 @@ module.exports = {
   ignorePatterns: ['backend', 'env'],
   rules: {
     'import/namespace': 'off',
+    'import/order': 'error',
+    'import/extensions': 'off',
+    'import/no-unresolved': [2, { ignore: ['env$'] }],
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
     'prettier/prettier': 'error',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };

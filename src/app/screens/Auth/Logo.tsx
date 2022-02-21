@@ -1,6 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
 import { Text } from '@ui-kitten/components';
+import createStyle from '../../constants/Styles';
 
 export default function Logo() {
   return (
@@ -9,6 +10,7 @@ export default function Logo() {
         source={{
           uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
         }}
+        // @ts-ignore
         style={styles.appLogo}
       />
       <Text>Portion Mate</Text>
@@ -16,7 +18,7 @@ export default function Logo() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = createStyle({
   appLogo: {
     height: 200,
     width: 200,

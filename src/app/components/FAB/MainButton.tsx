@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  StyleSheet,
   Animated,
   LayoutAnimation,
   Keyboard,
@@ -8,9 +7,10 @@ import {
   View,
 } from 'react-native';
 import { Button, Icon } from '@ui-kitten/components';
-import ActionItem from './ActionItem';
 import { MainButtonProps } from '../../types/FAB';
 import { RootActionParamList } from '../../types/navigation';
+import createStyle from '../../constants/Styles';
+import ActionItem from './ActionItem';
 
 const DEFAULT_SHADOW_PROPS = {
   shadowOpacity: 0.35,
@@ -224,7 +224,9 @@ export default function MainButton(Props: MainButtonProps) {
         <Pressable style={[styles.button, sizeStyle]} onPress={animateButton}>
           <Animated.View
             style={[
-              styles.buttonTextContainer,
+              styles.flex1,
+              styles.alignItemsCenter,
+              styles.justifyContentCenter,
               sizeStyle,
               {
                 transform: [
@@ -294,7 +296,7 @@ export default function MainButton(Props: MainButtonProps) {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = createStyle({
   actions: {
     position: 'absolute',
     bottom: 85,
@@ -342,11 +344,6 @@ const styles = StyleSheet.create({
   rightButton: {},
   leftButton: {},
   centerButton: {},
-  buttonTextContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   iconHorizontalContainer: {
     width: 2,
     position: 'absolute',
