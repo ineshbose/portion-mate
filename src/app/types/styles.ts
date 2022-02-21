@@ -1,18 +1,18 @@
 import { FlexStyle, TextStyle } from 'react-native';
 
-export type PickStyleProp<S, T extends keyof S = keyof S> = Pick<S, T>;
+type StringOptions<T> = T extends string ? Capitalize<T> : T;
 
-export type FlexStyleProp<T extends keyof FlexStyle = keyof FlexStyle> =
-  PickStyleProp<FlexStyle, T>;
+type StyleOptions<
+  T extends FlexStyle | TextStyle = FlexStyle,
+  K extends keyof T = keyof T
+> = StringOptions<NonNullable<PickStyleProp<T, K>[K]>>;
 
-export type TextStyleProp<T extends keyof TextStyle = keyof TextStyle> =
-  PickStyleProp<TextStyle, T>;
-
-export type DisplayOptions = NonNullable<FlexStyle['display']>;
-
-export type DisplayStyles<T extends DisplayOptions = DisplayOptions> = {
-  [P in `display${Capitalize<T>}`]: FlexStyleProp<'display'>;
-};
+export type StatusOptions =
+  | 'primary'
+  | 'success'
+  | 'info'
+  | 'warning'
+  | 'danger';
 
 export type StyleNumValues = 1 | 2 | 3 | 4 | 5;
 
@@ -31,18 +31,55 @@ export type SpacingStyles<T extends SpacingTypes = SpacingTypes> = {
   [P in `${T}${SpacingDirections}${StyleNumValues}`]: FlexStyleProp<`${T}${SpacingDirections}`>;
 };
 
-export type FontWeights = NonNullable<TextStyle['fontWeight']>;
+type PickStyleProp<
+  S extends FlexStyle | TextStyle = FlexStyle,
+  T extends keyof S = keyof S
+> = Pick<S, T>;
 
-export type FontWeightStyles<T extends FontWeights = FontWeights> = {
-  [P in `fontWeight${Capitalize<T>}`]: TextStyleProp<'fontWeight'>;
+type FlexStyleProp<T extends keyof FlexStyle = keyof FlexStyle> = PickStyleProp<
+  FlexStyle,
+  T
+>;
+
+type TextStyleProp<T extends keyof TextStyle = keyof TextStyle> = PickStyleProp<
+  TextStyle,
+  T
+>;
+
+type StyleType<
+  T extends FlexStyle | TextStyle = FlexStyle,
+  K extends string & keyof T = string & keyof T,
+  O extends StyleOptions<T, K> = StyleOptions<T, K>
+> = {
+  options: O;
+  styles: {
+    [P in `${K}${Capitalize<string & StyleOptions<T, K>>}`]: PickStyleProp<
+      T,
+      K
+    >;
+  };
 };
 
-export type StatusOptions =
-  | 'primary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'danger';
+export type DisplayType = StyleType<FlexStyle, 'display'>;
+export type FlexDirectionType = StyleType<FlexStyle, 'flexDirection'>;
+export type AlignTypes = 'Items' | 'Self' | 'Content';
+export type AlignType<
+  T extends FlexStyle = FlexStyle,
+  K extends AlignTypes = AlignTypes
+> = {
+  //Record<K, StyleType<T, `align${Capitalize<K>}`>>
+  [P in Lowercase<K>]: StyleType<T, `align${Capitalize<P>}`>;
+};
+
+export type JustifyContentType = StyleType<FlexStyle, 'justifyContent'>;
+
+export type FlexStyles = FlexDirectionType['styles'] &
+  AlignType['items']['styles'] &
+  AlignType['self']['styles'] &
+  AlignType['content']['styles'] &
+  JustifyContentType['styles'];
+
+export type FontWeightType = StyleType<TextStyle, 'fontWeight'>;
 
 export type FontColorStyles<T extends StatusOptions = StatusOptions> = {
   [P in `text${Capitalize<T>}`]: TextStyleProp<'color'>;
@@ -67,8 +104,9 @@ export type BorderColorStyles<T extends StatusOptions = StatusOptions> = {
 
 export type CustomStyles = {
   flexOne: FlexStyleProp<'flex'>;
-  flexDirectionRow: FlexStyleProp<'flexDirection'>;
-  flexCenter: FlexStyleProp<'alignItems' | 'justifyContent'>;
 };
 
-export type GlobalStyleSheet = DisplayStyles & SpacingStyles & CustomStyles;
+export type GlobalStyleSheet = DisplayType['styles'] &
+  SpacingStyles &
+  FlexStyles &
+  CustomStyles;
