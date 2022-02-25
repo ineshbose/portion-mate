@@ -8,7 +8,7 @@ export default function Logo() {
     <>
       <Image
         source={{
-          uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
+          uri: 'https://portion-mate.readthedocs.io/en/latest/assets/logo.png',
         }}
         // @ts-ignore
         style={styles.appLogo}

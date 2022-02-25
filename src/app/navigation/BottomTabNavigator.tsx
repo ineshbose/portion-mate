@@ -103,7 +103,7 @@ export default function BottomTabNavigator({
         // @ts-ignore
         style={styles.appIcon}
         source={{
-          uri: 'https://portion-mate-glasgow.readthedocs.io/en/latest/assets/logo.png',
+          uri: 'https://portion-mate.readthedocs.io/en/latest/assets/logo.png',
         }}
       />
       <Text category="s2">Portion Mate</Text>

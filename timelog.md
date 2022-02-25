@@ -420,3 +420,70 @@ Time taken off to unwind and relax for Christmas and New Year.
 ### 04 February 2022
 
 * *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 20
+
+### 07 February 2022
+
+* *4 hours* Issue [#114](https://github.com/ineshbose/portion-mate/issues/114)
+
+### 08 February 2022
+
+* *1 hour* Issue [#114](https://github.com/ineshbose/portion-mate/issues/114)
+
+### 09 February 2022
+
+* *1 hour* Issue [#118](https://github.com/ineshbose/portion-mate/issues/118)
+
+### 10 February 2022
+
+* *0.5 hours* Issue [#114](https://github.com/ineshbose/portion-mate/issues/114)
+
+### 11 February 2022
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 21
+
+### 14 February 2022
+
+* *0.5 hours* Issue [#118](https://github.com/ineshbose/portion-mate/issues/118)
+
+### 15 February 2022
+
+* *0.5 hours* Issue [#114](https://github.com/ineshbose/portion-mate/issues/114)
+
+### 16 February 2022
+
+* *1 hour* Issue [#114](https://github.com/ineshbose/portion-mate/issues/114)
+
+### 17 February 2022
+
+* *2 hours* Issue [#114](https://github.com/ineshbose/portion-mate/issues/114)
+
+### 18 February 2022
+
+* *3 hours* Issue [#118](https://github.com/ineshbose/portion-mate/issues/118)
+
+## Week 22
+
+### 21 February 2022
+
+* *3 hours* Issue [#116](https://github.com/ineshbose/portion-mate/issues/116)
+
+### 22 February 2022
+
+* *0.5 hours* Issue [#115](https://github.com/ineshbose/portion-mate/issues/115)
+
+### 23 February 2022
+
+* *0.5 hours* Issue [#115](https://github.com/ineshbose/portion-mate/issues/115)
+* *2 hours* Issue [#64](https://github.com/ineshbose/portion-mate/issues/64)
+
+### 24 February 2022
+
+* *5 hours* Issue [#115](https://github.com/ineshbose/portion-mate/issues/115)
+
+### 25 February 2022
+
+* *1 hour* Scheduled meet with supervisor and compiled notes

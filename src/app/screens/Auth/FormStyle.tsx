@@ -27,6 +27,9 @@ const formStyle = createStyle({
   agreedSpacing: {
     marginVertical: 10,
   },
+  agreedTextSpacing: {
+    marginHorizontal: 4,
+  },
 });
 
 const pwAccessoryIcon = (

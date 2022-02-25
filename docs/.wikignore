@@ -9,3 +9,5 @@ README.md
 *.toml
 *.txt
 node_modules
+navigation
+GetStarted.md

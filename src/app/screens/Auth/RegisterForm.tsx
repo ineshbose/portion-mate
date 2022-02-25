@@ -1,4 +1,5 @@
 import React from 'react';
+import { Linking } from 'react-native';
 import { Button, CheckBox, Input, Text } from '@ui-kitten/components';
 import { RootAuthScreenProps } from '../../types/navigation';
 import { useAppContext } from '../../contexts';
@@ -78,7 +79,20 @@ export default function RegisterForm({
         status={error?.agreedTerms && !agreedTerms ? 'danger' : 'primary'}
         style={styles.agreedSpacing}
       >
-        <Text>{'I read and agree to the Terms & Conditions'}</Text>
+        <>
+          <Text style={styles.agreedTextSpacing}>
+            {'I read and agree to the'}
+          </Text>
+          <Text
+            onPress={() =>
+              Linking.openURL(
+                'https://portion-mate.readthedocs.io/en/latest/Terms/'
+              )
+            }
+          >
+            {'Terms & Conditions'}
+          </Text>
+        </>
       </CheckBox>
       <Button
         onPress={() =>

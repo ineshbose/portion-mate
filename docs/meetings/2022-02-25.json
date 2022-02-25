@@ -1,0 +1,44 @@
+{
+  "datetime": "25-02-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Evaluation",
+      "description": ["Final evaluation"]
+    },
+    {
+      "item": "Deployment",
+      "description": ["Progress"]
+    },
+    {
+      "item": "Dissertation",
+      "description": ["Plans", "First draft review"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Code changes",
+      "who": "ineshbose",
+      "notes": "Code was refactored and polished up - this includes updating dependencies, with some breakthrough practices like Bootstrap styles and ngrok activation."
+    },
+    {
+      "item": "Evaluation",
+      "who": "ineshbose",
+      "notes": "Sections were polished based on feedback and all seems good to go. Few opinions on taken for feature questions being replaced with the suggested table format. The app documentation is also ready to compliment that."
+    },
+    {
+      "item": "Deployment",
+      "who": "ineshbose",
+      "notes": "Deployment had hiccups, but committed to finish it this weekend so that evaluations can start on Monday."
+    },
+    {
+      "item": "Dissertation",
+      "who": ["oanaandrei", "ineshbose"],
+      "notes": "The first draft should be turned in on 11 March, and the last meeting would be on 16 March. Next week, there should be a skeleton of the dissertation at the very least."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}
