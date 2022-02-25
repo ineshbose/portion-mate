@@ -4,7 +4,7 @@
   "lang": "en",
   "name": "portion-mate",
   "short_name": "portion-mate",
-  "start_url": "/?utm_source=web_app_manifest",
+  "start_url": "portion-mate/?utm_source=web_app_manifest",
   "orientation": "portrait",
   "icons": [
     {
