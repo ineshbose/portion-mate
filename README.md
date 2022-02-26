@@ -9,6 +9,7 @@
   <!-- BADGES / SHIELDS -->
 
   <p align="center">
+    <a href="https://inesh.xyz/portion-mate" target="_blank"><img alt="GitHub deployments" src="https://img.shields.io/github/deployments/ineshbose/portion-mate/github-pages?style=flat-square"></a>
     <a href="https://app.codacy.com/gh/ineshbose/portion-mate/dashboard" target="_blank"><img alt="Codacy grade" src="https://img.shields.io/codacy/grade/57b01d85bcfa4d8bb96978e1edb2edff?style=flat-square&logo=codacy&logoColor=white"></a>
     <a href="https://codeclimate.com/github/ineshbose/portion-mate" target="_blank"><img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/ineshbose/portion-mate?style=flat-square&logo=codeclimate&logoColor=white"></a>
     <a href="https://portion-mate.readthedocs.io/" target="_blank"><img alt="Read the Docs" src="https://img.shields.io/readthedocs/portion-mate?style=flat-square&logo=readthedocs&logoColor=white"></a>
@@ -66,7 +67,7 @@ Portion Mate is an application that helps keep track of your food intake. This p
 
 _For more information, please refer to the [Wiki](https://github.com/ineshbose/portion-mate/wiki)._
 
-## 🗺 Project Layout
+## 🗺️ Project Layout
 
 - [`.`](/#) Root of repository with directories of different concerns
 - [`package.json`](/package.json) is the repository module handler using [Yarn Workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) and [lint-staged](https://github.com/okonet/lint-staged)

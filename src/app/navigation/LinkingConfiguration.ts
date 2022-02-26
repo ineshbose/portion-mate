@@ -5,15 +5,16 @@
  */
 
 import { LinkingOptions } from '@react-navigation/native';
-import { makeUrl } from 'expo-linking';
+import { createURL } from 'expo-linking';
 
 import { RootStackParamList } from '../types/navigation';
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [makeUrl('/')],
+  prefixes: [createURL('/')],
   config: {
     screens: {
       Root: {
+        path: '/',
         screens: {
           BottomTab: {
             screens: {

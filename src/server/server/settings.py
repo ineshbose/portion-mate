@@ -26,9 +26,14 @@ ADMINS = getaddresses(env("ADMINS", default=[]))
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS", default=["http://127.0.0.1"])
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:19006",
-]
+CORS_ALLOWED_ORIGINS = (
+    [
+        "http://localhost:19006",
+    ]
+    + [host for host in ALLOWED_HOSTS if host.startswith("http")]
+    + [f"http://{host}" for host in ALLOWED_HOSTS if not host.startswith("http")]
+    + [f"https://{host}" for host in ALLOWED_HOSTS if not host.startswith("http")]
+)
 
 # Application definition
 
@@ -55,6 +60,7 @@ AUTH_USER_MODEL = "main.User"
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -142,6 +148,8 @@ STATICFILES_DIR = Path.joinpath(BASE_DIR, "static/")
 STATIC_ROOT = Path.joinpath(BASE_DIR, "static/")
 
 MEDIA_ROOT = Path.joinpath(BASE_DIR, "media/")
+
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Default primary key field type
