@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/portion-mate/static/js/app.a46c8f21.chunk.js",
-    "app.js.map": "/portion-mate/static/js/app.a46c8f21.chunk.js.map",
+    "app.js": "/portion-mate/static/js/app.3d31179f.chunk.js",
+    "app.js.map": "/portion-mate/static/js/app.3d31179f.chunk.js.map",
     "runtime~app.js": "/portion-mate/static/js/runtime~app.4cc94391.js",
     "runtime~app.js.map": "/portion-mate/static/js/runtime~app.4cc94391.js.map",
     "static/js/2.f36dee21.chunk.js": "/portion-mate/static/js/2.f36dee21.chunk.js",
@@ -30,6 +30,6 @@
   "entrypoints": [
     "static/js/runtime~app.4cc94391.js",
     "static/js/2.f36dee21.chunk.js",
-    "static/js/app.a46c8f21.chunk.js"
+    "static/js/app.3d31179f.chunk.js"
   ]
 }
