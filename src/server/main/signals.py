@@ -13,7 +13,7 @@ def load_user_fixture(sender, *args, **kwargs):
     if (
         isinstance(kwargs.get("kwargs"), dict)
         and kwargs["kwargs"].get("email")
-        and kwargs["kwargs"].get("id")  # Comment out when id is not serialized
+        # and kwargs["kwargs"].get("id")  # Comment out when id is not serialized
     ):
         if not kwargs["kwargs"].get("id"):
             kwargs["kwargs"]["id"] = (
