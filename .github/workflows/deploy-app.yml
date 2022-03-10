@@ -50,6 +50,9 @@ jobs:
         with:
           branch: gh-pages
           folder: src/web-build
+      - name: Publish to expo
+        run: |
+          expo publish --non-interactive
       - name: Env file
         run: |
           echo "!server/.env" >> .gitignore
