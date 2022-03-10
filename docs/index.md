@@ -1,7 +1,7 @@
 <br />
 <div align="center">
 <p align="center">
-  <img alt="Portion Mate logo" src="https://portion-mate.readthedocs.io/en/latest/assets/logo.png" height="250px">
+  <img alt="Portion Mate logo" src="https://portion-mate.readthedocs.io/en/latest/assets/logo.svg" height="250px">
 
   <h3 align="center">Portion Mate</h3>
   <h5 align="center">Documentation</h5>
