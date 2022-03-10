@@ -4,8 +4,8 @@
     "app.js.map": "/portion-mate/static/js/app.3d31179f.chunk.js.map",
     "runtime~app.js": "/portion-mate/static/js/runtime~app.4cc94391.js",
     "runtime~app.js.map": "/portion-mate/static/js/runtime~app.4cc94391.js.map",
-    "static/js/2.ea4c8408.chunk.js": "/portion-mate/static/js/2.ea4c8408.chunk.js",
-    "static/js/2.ea4c8408.chunk.js.map": "/portion-mate/static/js/2.ea4c8408.chunk.js.map",
+    "static/js/2.80955c7e.chunk.js": "/portion-mate/static/js/2.80955c7e.chunk.js",
+    "static/js/2.80955c7e.chunk.js.map": "/portion-mate/static/js/2.80955c7e.chunk.js.map",
     "fonts/AntDesign.ttf": "/portion-mate/./fonts/AntDesign.ttf",
     "fonts/Entypo.ttf": "/portion-mate/./fonts/Entypo.ttf",
     "fonts/Feather.ttf": "/portion-mate/./fonts/Feather.ttf",
@@ -25,11 +25,11 @@
     "index.html": "/portion-mate/index.html",
     "manifest.json": "/portion-mate/manifest.json",
     "serve.json": "/portion-mate/serve.json",
-    "static/js/2.ea4c8408.chunk.js.LICENSE.txt": "/portion-mate/static/js/2.ea4c8408.chunk.js.LICENSE.txt"
+    "static/js/2.80955c7e.chunk.js.LICENSE.txt": "/portion-mate/static/js/2.80955c7e.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.4cc94391.js",
-    "static/js/2.ea4c8408.chunk.js",
+    "static/js/2.80955c7e.chunk.js",
     "static/js/app.3d31179f.chunk.js"
   ]
 }

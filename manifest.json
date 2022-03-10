@@ -2,10 +2,18 @@
   "background_color": "#ffffff",
   "display": "standalone",
   "lang": "en",
-  "name": "portion-mate",
-  "short_name": "portion-mate",
+  "name": "Portion Mate",
+  "short_name": "Portion Mate",
   "start_url": "/?utm_source=web_app_manifest",
   "orientation": "portrait",
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "http://play.google.com/store/apps/details?id=portion_mate.app",
+      "id": "portion_mate.app"
+    }
+  ],
+  "prefer_related_applications": true,
   "icons": [
     {
       "src": "/portion-mate/pwa/chrome-icon/chrome-icon-144.png",
