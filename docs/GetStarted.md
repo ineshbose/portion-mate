@@ -1,6 +1,6 @@
 # Get Started
 
-Portion Mate is meant to be accessible from any platform, and not prioritise development on any specific set of devices. You can start using the tracker instantly on a browser by navigating to [#](#). You can also open the link on a mobile browser; however, if you wish you can also download the Portion Mate app on [Google Play Store](#) and [App Store](#).
+Portion Mate is meant to be accessible from any platform, and not prioritise development on any specific set of devices. You can start using the tracker instantly on a browser by navigating to <https://inesh.xyz/portion-mate>. You can also open the link on a mobile browser; however, if you wish you can also download the Portion Mate app on [Google Play Store](#) and [App Store](#). Additionally, if you already have [Expo Go](https://expo.dev/client) installed, you can also build the app by scanning the QR on [Expo Dev](https://expo.dev/@ineshbose/portion-mate).
 
 On opening the app for the first time, you will be presented with a login form. You can create an account by clicking on the appropriate button to switch the form that would ask for your details.
 

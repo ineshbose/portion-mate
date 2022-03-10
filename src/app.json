@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "portion-mate",
+    "name": "Portion Mate",
     "slug": "portion-mate",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "portion_mate.app"
     },
     "web": {
       "favicon": "./app/assets/images/favicon.png"
