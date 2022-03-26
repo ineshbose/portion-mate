@@ -9,10 +9,12 @@ supervisor: Dr. Oana Andrei
 
 <a href="https://github.com/ineshbose/portion-mate/graphs/commit-activity" target="_blank"><img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/ineshbose/portion-mate?style=flat-square"></a>
 <a href="https://github.com/ineshbose/portion-mate/commits/" target="_blank"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ineshbose/portion-mate?style=flat-square"></a>
+<a href="https://wakatime.com/badge/user/2b53df13-8a5f-4c1f-bb92-5aac0c314188/project/a7fbd8ec-177a-4024-b0c5-6c6523873873"><img src="https://wakatime.com/badge/user/2b53df13-8a5f-4c1f-bb92-5aac0c314188/project/a7fbd8ec-177a-4024-b0c5-6c6523873873.svg?style=flat-square" alt="wakatime"></a>
 
 *If the details of this project don't show, please see this markdown in raw.*
 
 ## Guidance
+
 * This file contains the time log for the project and will be submitted along with the final dissertation.
 * **KEEP THIS UP TO DATE AND UNDER VERSION CONTROL.**
 * This timelog should be filled out honestly, regularly (daily) and accurately.
@@ -487,3 +489,98 @@ Time taken off to unwind and relax for Christmas and New Year.
 ### 25 February 2022
 
 * *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 23
+
+### 28 February 2022
+
+* *2 hours* Issue [#11](https://github.com/ineshbose/portion-mate/issues/11)
+* *5 hours* Issue [#64](https://github.com/ineshbose/portion-mate/issues/64)
+* *1 hour* Evaluation survey polishing, formalising
+* *0.5 hours* Evaluations sharing
+
+### 01 March 2022
+
+* *1 hour* Planning & research
+
+### 02 March 2022
+
+* *0.5 hours* Polishing & planning
+
+### 03 March 2022
+
+* *1 hour* Dissertation section planning
+
+### 04 March 2022
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+## Week 24
+
+### 07 March 2022
+
+* *1 hour* Dissertation environment setup (references, LaTeX)
+* *0.5 hours* Final evaluation and closing
+
+### 08 March 2022
+
+* *0.5 hours* Dissertation research
+
+### 09 March 2022
+
+* *0.5 hours* Scheduled meet with supervisor and compiled notes
+
+### 10 March 2022
+
+* *3 hours* Issue [#40](https://github.com/ineshbose/portion-mate/issues/40)
+* *3 hours* Issue [#123](https://github.com/ineshbose/portion-mate/issues/123)
+
+### 11 March 2022
+
+* *1 hour* Dissertation research
+
+## Week 25
+
+### 14 March 2022
+
+* *2 hours* Dissertation writing
+
+### 15 March 2022
+
+* *3 hours* Dissertation writing
+
+### 16 March 2022
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+### 17 March 2022
+
+* *3 hours* Dissertation writing
+
+### 18 March 2022
+
+* *2 hours* Dissertation writing
+
+## Week 26
+
+### 21 March 2022
+
+* *4 hours* Dissertation writing
+
+### 22 March 2022
+
+* *5 hours* Dissertation writing
+
+### 23 March 2022
+
+* *1 hour* Scheduled meet with supervisor and compiled notes
+
+### 24 March 2022
+
+* *3 hours* Timelog parsing & updating wiki docs
+* *4 hours* Dissertation writing
+
+### 25 March 2022
+
+* *1 hour* Issue [#73](https://github.com/ineshbose/portion-mate/issues/73)
+* *4 hours* Issue [#133](https://github.com/ineshbose/portion-mate/issues/133)

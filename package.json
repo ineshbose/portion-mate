@@ -31,9 +31,6 @@
     ],
     "docs/**/*.{js,jsx,ts,tsx}": [
       "eslint docs --fix"
-    ],
-    "**/pyproject.toml": [
-      "poetry update && git add poetry.lock"
     ]
   }
 }

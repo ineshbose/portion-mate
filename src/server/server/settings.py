@@ -48,11 +48,9 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "oauth2_provider",
-    "graphene_django",
     "markdownx",
     "main.apps.MainConfig",
     "rest.apps.RestConfig",
-    "graph.apps.GraphConfig",
 ]
 
 AUTH_USER_MODEL = "main.User"
@@ -177,11 +175,4 @@ OAUTH2_PROVIDER = {
         "groups": "Access to your groups",
     },
     "OAUTH2_BACKEND_CLASS": "oauth2_provider.oauth2_backends.JSONOAuthLibCore",
-}
-
-
-# Graphene
-
-GRAPHENE = {
-    "SCHEMA": "graph.schema.schema",
 }

@@ -8,6 +8,8 @@ README.md
 *.json
 *.toml
 *.txt
+*.py
+*.sh
 node_modules
 navigation
 GetStarted.md
