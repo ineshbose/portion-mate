@@ -85,7 +85,7 @@ class UserSerializer(DynamicFieldsModelSerializer):
         return instance
 
     def update(self, instance, validated_data):
-        password = validated_data.pop("password")
+        password = validated_data.pop("password", None)
         old_password = validated_data.pop("old_password", None)
         instance = super().update(instance, validated_data)
 

@@ -17,8 +17,8 @@ def load_user_fixture(sender, *args, **kwargs):
     ):
         if not kwargs["kwargs"].get("id"):
             kwargs["kwargs"]["id"] = (
-                models.User.objects.aggregate(Max("id")).get("id__max", 0) + 1
-            )
+                models.User.objects.aggregate(Max("id")).get("id__max", 0) or 0
+            ) + 1
 
         if not kwargs["kwargs"].get("password"):
             password = "".join(
