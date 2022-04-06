@@ -1,0 +1,50 @@
+%=============================================================================
+% CONCLUSION
+% Summarise the whole project for a lazy reader who didn't read the rest (e.g. a prize-awarding committee).
+
+% ## Guidance
+
+% -   Summarise briefly and fairly.
+
+% -   You should be addressing the general problem you introduced in the
+%     Introduction.
+
+% -   Include summary of concrete results (“the new compiler ran 2x
+%     faster”)
+
+% -   Indicate what future work could be done, but remember: **you won’t
+%     get credit for things you haven’t done**.
+%=============================================================================
+
+\documentclass[../main.tex]{subfiles}
+% \graphicspath{{\subfix{../images/}}}
+
+\begin{document}
+
+This chapter addresses the problem and their solutions introduced in the previous chapters, along with summarising and closing off the dissertation with final thoughts about the entire project in terms of doing things differently, personal reflection and potential for future projects.
+
+\section{Summary}
+
+Portion Mate was originally an idea for an application to make logging food portions easier, and it was inspired by the NHS and dietitians who help people maintain healthier lifestyles through following simple suggestions such as the Eatwell Guide. However, this became more than that. Portion Mate became a story about learning and developing technologies that considers and dignifies all people, from users to developers, treating them as humans since the decisions were complying the study of Human Computer Interaction; the requirements and design work together to create and solve user expectations that developers could also help improve. The development used specific practices strictly, implemented from scratch if they seemed unfeasible, in a block-structured timeline enabling flexible implementation with rigid progress. With the help of existing technology and packages, the construction of the application went ahead, but also brought ideas to develop more for similar use cases. This enabled creation of a fully-integrated robust and modular system, as evaluated through the usability study with participant-users to get the Acceptable score, showing promising potential for more, that can make a difference in software development and the medical health industry.
+
+\section{Side Projects}
+
+During the early stages of development, there was need for different solutions already. As mentioned throughout the dissertation, issue branching was used, inspired by other code repository hosting services that take advantage of issue tracking (Bitbucket and Jira specifically); this had to be implemented for GitHub, where the remote repository for this project is/was hosted, as, at the time of development, it did not provide this functionality, but instead provide an innovative CI/CD solution called GitHub Actions, and this was used to automate issue branching with project boards on GitHub. Since the code was long and complex, it was best to export it to another repository to only keep appropriate logic of the application in the main monorepo. The new repository was therefore named "Project Card Action" and distributed on GitHub Marketplace for others to use in their GitHub Actions workflow.
+
+In a similar scenario of automating through GitHub and its different features, the platform offers a section to host documentation related to the repository. The wiki is a separate repository itself and therefore changes would need to be committed. Maintaining the main repository as the single source of truth, the documentation would be stored there, and any changes would be reflected to the wiki by automatically committing. However, there are also limitations of configuring a navigation sidebar for wikis on GitHub, therefore a solution was developed to automatically generate this, and commit onto the wiki repository. This package was named "Wiki Action", and also distributed on the marketplace for others.
+
+Following this, some documentation, such as the meeting minutes, would follow a certain format, and maintaining it was difficult at times. Therefore, a possible solution came to be generating the compatible Markdown file by reading data from JSON, which can also then be used for APIs if required. At the time of writing, this is in use in the repository, however, more research and development would be required to establish this as a package.
+
+Before running evaluations, the Ethics Checklist had to be signed. Since the project development was during the COVID-19 pandemic, where work would be remote and online, along with the repository being the central source to hold documents and code, and also being public, there were difficulties to ensure that signatures for both - the student and the supervisor - would be secure, as print-name could be done by anyone, and adding scans of signatures as image assets can allow people to download it. Taking inspiration from metadata badges such as Shields.io and public key encryption, an authenticating API was developed called "Authentica".
+
+The styling problem in React Native was solved in \ref{sec:Challenges} by implementing a Bootstrap-classes equivalent module. Being in TypeScript and aspiring to provide all classes in Bootstrap, more development would be required and then exporting as a separate package. Many more configurations aim to be provided as plugins to developers so that focus can be spent on improving software. More discussion in detail about side projects is in Appendix \ref{sec:Side Projects Appendix}.
+
+\section{Future Work}
+
+Projects mentioned in \ref{sec:Side Projects} require work to refine development over time and help other developers in the community. As for Portion Mate, development can continue since issues have been listed on the repository with a few open at the time of writing. With no time constraint, the application can be perfected and perhaps development could appreciate a team, given the nature of the environment setup and practices used. The evaluation score was promising, and based on feedback from the participants, there would be elements to improve. Since this was the first time working with such a project using such technologies, more experience would help polish all corners, including the interface that required the most time in this project and still needs some, given it is an essential part, as discussed in \ref{sec:Interface Design} and the principles of Human Computer Interaction.
+
+\section{Reflection}
+
+This experience, for me, has been phenomenal. As someone who takes on projects with passion and vision, I aimed for the limitless for Portion Mate since it is the first individual project I would be graded on. I feel blessed with the opportunity to work on this, under the supervision of Dr. Andrei, and over the weeks, I have been nothing but inspired to strive for better. Having pushed myself to learn while I'm a student at a brilliant university, I feel happy to go beyond my comfort zone to use tools I would not know about before this project, even though they were not asked for. My love-hate relationship with being specific about things carried over to this project, as I would focus on nothing but the minor details in order to perfect it, but that consumes a lot of time - an asset that cannot be reversed or bought. The bigger picture can be seen differently from everyone, and it is essential to not lose touch from it. Working on each detail helped, but perfecting them may have led to an incomplete system or sub-system optimisation, whereas the goal was to develop a working application. Having achieved that, with additional features, I am extremely proud of my work and I aspire to be a qualified, professional software developer in the industry.
+
+\end{document}

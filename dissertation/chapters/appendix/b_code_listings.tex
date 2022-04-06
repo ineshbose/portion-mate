@@ -1,0 +1,73 @@
+\documentclass[../main.tex]{subfiles}
+% \graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+
+\begin{lstlisting}[language=typescript, caption={Root definition of the \code{App} component, using Eva Design and UI Kitten components in \citecode{SrcAppTsx}}]
+import { mapping, light, dark } from '@eva-design/eva';
+import {
+  ApplicationProvider,
+  Button,
+  ButtonProps,
+  Icon,
+  IconRegistry,
+} from '@ui-kitten/components';
+import { MaterialIconsPack } from './app/components/AppIcons';
+import { ColorScheme } from './app/types';
+import { ThemeContext } from './app/contexts/ThemeContext';
+import Navigation from './app/navigation';
+import { default as colors } from './app/assets/theme.json';
+import { default as customMapping } from './app/assets/mapping.json';
+
+export default function App() {
+
+  // ...
+
+  return (
+    <>
+      <IconRegistry icons={MaterialIconsPack} />
+      <ThemeContext.Provider
+        value={{ theme, setTheme, switchTheme, ThemeToggle }}
+      >
+        <ApplicationProvider
+          mapping={mapping}
+          customMapping={customMapping}
+          theme={{ ...(isLightTheme ? light : dark), ...colors }}
+        >
+          <Navigation />
+        </ApplicationProvider>
+      </ThemeContext.Provider>
+    </>
+  );
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=yaml, caption={job definitions for checking Python code and style in \citecode{serverchecksyml}}]
+jobs:
+  black_linter:
+    name: Black formatter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: rickstaa/action-black@v1
+        with:
+          black_args: ". --check"
+  django_tests:
+    name: Django tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ./src
+      - name: Run test
+        run: |
+          python run.py migrate
+          python run.py test main rest
+\end{lstlisting}
+
+\end{document}

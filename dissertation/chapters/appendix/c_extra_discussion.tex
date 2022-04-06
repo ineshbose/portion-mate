@@ -1,0 +1,68 @@
+\documentclass[../main.tex]{subfiles}
+% \graphicspath{{\subfix{../../images/}}}
+
+\begin{document}
+
+\section{Usability Survey}
+
+These subsections include the instruction text from each section of the survey.
+
+\subsection{Introduction}
+
+The aim of this experiment is to investigate the scale of usability for an application that is designed for people, such as yourself, to log their food intake. As you could understand, this may require commitment, but this experiment should take no more than 30 minutes. Before you decide whether you want to take part, it is important for you to understand why the research is being done and what your participation will involve. You should only participate if you want to; choosing not to take part will not disadvantage you in any way, and you are welcome to withdraw at any time. If you do so, then it will not be possible for you to be debriefed about the purposes of the experiment. Please take time to read the following information carefully and ask us if there is anything that is not clear or if you would like more information. For questions, you can send an email to Inesh Bose: 2504266b@student.gla.ac.uk
+
+The application "Portion Mate" was created as a Level 4 Dissertation Project with the target to help users keep track of their daily portion count from each food group based on the NHS Eatwell Guide (you can read more on \href{https://portion-mate.readthedocs.io/}{https://portion-mate.readthedocs.io/}). You will see the app in action during this experiment, and in order to evaluate its usability, you will be required to answer this survey. There are three sections in this survey which will also provide further information about the relevance of the questions. You are free to not answer questions that are not required, but the data will help. All responses are anonymous and in compliance with GDPR and the University of Glasgow SoCS Project Ethics.
+
+\subsection{Pre-Activity}
+
+The questions in this section focus on your demographics. These questions are designed in order to understand you, as a user, and to mitigate any bias. This section has no required responses.
+
+\subsection{Interface}
+
+This section would be answered after using the app and focuses on the usability of the application through your experience and journey with the app. The questions here are statements, based on the System Usability Scale, which you can answer on a scale of 1-5 (3 is neutral) going from Strongly disagree and Strongly agree depending on how you feel and agree with the statement. All responses in this section are required.
+
+You are now asked to navigate to the app on your browser (\href{https://inesh.xyz/portion-mate}{https://inesh.xyz/portion-mate}) and follow the tasks given below which are not timed or judging your performance, but helping you go through the app itself. You may choose to evaluate the application without these tasks.
+
+\begin{itemize}
+    \item Create an account, or login if you already have one
+    \item Log your portion items taken so far in the day
+    \item Visualise the graphs for the items logged
+    \item Go to Resources, read about The Eatwell Guide and bookmark it if needed
+    \item Additionally, add a journal entry about your first meal of the day
+\end{itemize}
+
+\subsection{Post-Activity}
+
+This final section is focused on hearing your thoughts and feelings after using the app. This can help open doors to future work that can create a better product for more users. There are no required responses.
+
+\subsection{Debrief}
+
+With this, the survey ends and you will be debriefed about this experiment.
+
+The aim of the experiment was to evaluate the usability of a daily food portion count tracker application (called Portion Mate). This meant navigating through the pages, interacting with elements, visualisation and appeal. Your responses would help point out and understand any frustrations or problems that might have occurred during your experience.
+
+If you would like to know and see more about this project, everything (including the source code) can be found on this GitHub repository: \href{https://github.com/ineshbose/portion-mate}{https://github.com/ineshbose/portion-mate}. This repository acts as the single source of truth for all information regarding Portion Mate. This would also mean participant feedback and data analysis, therefore if you would like to aid this practice, you can confirm your responses being held in this public repository anonymously. By default, your data will not be public and on the repository if you do not agree. It will help more developers gather insight for making better applications for the world in the future.
+
+For more questions and concerns, you can send an email to Inesh Bose: 2504266b@student.gla.ac.uk
+
+\section[Side Projects Appendix]{Side Projects}
+
+These subsections discuss background and development of the side projects born out of this.
+
+\subsection{Project Card Action}
+
+This was the first side project developed, in the early weeks of setup \cite{issue28}. Before exporting to a separate repository, the script was implemented within a workflow YAML, but using \citecode{ActionsGithubscript2022} to execute JavaScript within the job and interact with GitHub API. As mentioned, the code was complex and long, therefore it moved to a separate repository, along with the purpose to distribute it. It is a JavaScript action \cite{CreatingJavaScriptAction}, but written in TypeScript, that compiles to JavaScript in the \code{dist} directory. The repository is on \href{https://github.com/ineshbose/project-card-action}{https://github.com/ineshbose/project-card-action} and open-sourced with the MIT License. However, at the time of writing, GitHub Projects (Beta) has been made public (migration from classic pending) which may already implement such a functionality.
+
+\subsection{Wiki Action}
+
+The reason why deploying on Wiki was important was because on the repository, it is difficult to navigate between documentation and view Markdown. The project knew that the difference between the documentation on Read the Docs would be more public, whereas on the wiki, it would be development related, such as background and meeting notes. GitHub requires a \code{\_Sidebar.md} \cite{CreatingFooterSidebar} with the desired layout and pages listed. If a new file would be added, another change would be made to the sidebar, and as humans, developers may forget this change. Therefore this would be automated through a shell script, hence creating a composite action \cite{CreatingCompositeAction}. There have been very similar solutions, however, some would specialise in one aspect or have limitations like making changes before committing onto the wiki repository. Wiki Action expects the repository to be cloned using \citecode{CheckoutV32022} as most other actions on GitHub, and changes can be made in between. The sidebar generation can have custom elements, or be disabled entirely. Another limitation this solves is not requiring any special token stored in the repository secrets, and rather use the default \code{GITHUB\_TOKEN}. There are still a lot of bugfixes and features implementations that need to be carried out. The repository, \href{https://github.com/ineshbose/wiki-action}{https://github.com/ineshbose/wiki-action}, is open-sourced with the MIT License.
+
+\subsection{Authentica}
+
+The idea for this repository came when the Ethics Checklist had to be signed before starting evaluations \cite{Issue41}. It requires the student's name and university ID - none of these are confidential or require any security. Mainly, it required signatures from the student and the supervisor. Similar to how metadata badges from \citetitle{ShieldsIoQuality} function with other services to display status on elements, a signature method could be implemented, since signatures could be boolean - \code{true} if the signature is supposed to be there, or \code{false} if it hasn't been added by the person. Shields.io provides an endpoint where JSON data can be given to render a badge, but loading this data would pose difficulties. If a server had to be created and hosted, the system would not really innovate. For the Ethics Checklist, the signature was verified by hosting a JSON file onto a personal domain owned by the signee. Dr. Andrei verified her signature by making a commit that produces her print-name as the diff, but wondered with curiosity if she would be able to do this as well. This gave the feeling that such a project could be useful for everyone. Keep in mind that this is similar to services like Eversign, but different - more tailored to the open-source community who aim to keep everything transparent and write documents in Markdown. However, no time could be invested in the implementation of this - until the coursework for \href{https://www.gla.ac.uk/coursecatalogue/course/?code=COMPSCI5060}{Human Centred Security (M)}, taken in the same year of this project, required students to develop a security solutions in groups. Coincidentally, the developers of \href{https://github.com/ineshbose/how-green}{How Green?} united again for this project to use Next.js hosted on Vercel and make the system possible. The source code is on \href{https://github.com/ineshbose/authentica}{https://github.com/ineshbose/authentica}, with the service on \href{https://authentica-io.vercel.app/}{https://authentica-io.vercel.app/}.
+
+\subsection{Template Markdown}
+
+Markdown provides an incredible method to document elements, and could be rendered to HTML or \LaTeX. \citecode{MdxjsMdxMarkdown} extends this to use it in JavaScript libraries such as React to make user interfaces. The supervisor meetings for Portion Mate were regular and documented using a fancy format with tables. Ensuring the tables are error-free and the code style is good becomes really tiring. So a script was developed that would create Markdown documents using JSON data and a template defined as \code{.t.md}. This template would include placeholders in the form of template literal strings for JavaScript to parse and replace values. There are still limitations, like restrictions on functional approaches and nested template strings. More research is required.
+
+\end{document}
