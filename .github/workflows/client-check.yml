@@ -1,4 +1,4 @@
-name: ESLint/Prettier/Airbnb style check
+name: Client code check
 
 on:
   push:
@@ -22,3 +22,16 @@ jobs:
         run: yarn
       - name: Run ESLint
         run: npx eslint src
+  jest_tests:
+    name: Jest testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          yarn
+      - name: Run test
+        run: |
+          yarn test
+        working-directory: src
+
