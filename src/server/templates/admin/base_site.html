@@ -1,0 +1,22 @@
+{% extends 'admin/base.html' %} {% block extrastyle %} {{ block.super }}
+<style>
+  :root {
+    --primary: #fd7e14;
+    --secondary: #ac560e;
+  }
+</style>
+{% endblock %} {% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{
+title }} | Portion Mate Django Admin{% endblock %} {% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}" style="color: #ffffff">
+    <img
+      src="https://portion-mate.readthedocs.io/en/latest/assets/logo.svg"
+      width="30"
+      height="30"
+      style="display: inline-block !important"
+      alt=""
+    />
+    Portion Mate
+  </a>
+</h1>
+{% endblock %}

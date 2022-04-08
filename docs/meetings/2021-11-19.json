@@ -1,0 +1,31 @@
+{
+  "datetime": "19-11-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Actions exported",
+      "description": [
+        "[Wiki Action](https://github.com/ineshbose/wiki-action)",
+        "[Project Card Action](https://github.com/ineshbose/project-card-action)"
+      ]
+    },
+    {
+      "item": "Code progress",
+      "description": [
+        "Backend `main` app almost done",
+        "Backlog with new tasks"
+      ]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Exported Actions",
+      "who": "ineshbose",
+      "notes": "The side-projects to come off of this project are useful - both also being unique (one in TypeScript and other being a composite action). This should be in the dissertation."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}

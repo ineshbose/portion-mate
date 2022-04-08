@@ -1,0 +1,147 @@
+%=============================================================================
+% REQUIREMENTS
+% What is the problem that you want to solve, and how did you arrive at it?
+
+% ## Guidance
+
+% Make it clear how you derived the constrained form of your problem via a clear and logical process.
+%=============================================================================
+
+\documentclass[../main.tex]{subfiles}
+% \graphicspath{{\subfix{../images/}}}
+
+\begin{document}
+
+This chapter discusses the problems, tasks and issues of the project that are intended to be solved. The introduction and reasoning of each requirement, mainly classified as functional \& non-functional, would justify the expectations and the determine the outcome of the project. For each category, five significant requirements are listed, however, every requirement can be found on the repository, the backlog \& boards following the structure discussed in \ref{sec:Planning} with Kanban \cite{anderson2015essential}.
+
+\section{Planning}
+
+As instructed by the supervisor, the project timeline was laid out through six blocks that would start and end at certain weeks\footnote{A week commencing Monday.}. While there was recommendation given for these blocks for progress checkpoints, further planning was done by utilising these periods for specific aspects of the development. The general timeline is of \sout{26} 27 weeks, starting 27 September 2021 (when the project was assigned) and \sout{25 March}\footnote{Date strikeout conveys change of project dates.} 1 April 2022 (when this dissertation is supposed to be handed in). The backlog including issues would be distributed and worked on using these blocks.
+
+\boldheader{Block 1}
+
+The \textit{Planning Period} for the project was from weeks 1 (commencing 27 September) and 4 (commencing 18 October). This would include analysis, requirement gathering and design diagrams. Major research of the development strategy was during this block as the repository (further discussed in \ref{sec:Version Control}) was also being setup.
+
+\boldheader{Block 2}
+
+The \textit{Setup Period} was from weeks 5 (commencing 25 October) to 13 (commencing 20 December). The coding \& implementation had started specially in the development environment setup that would use configurations for future tasks, and application skeleton was being formed after choosing the frameworks (discussed in \ref{chap:Implementation}). All cards on the issue board were linked to concrete tasks related to the repository.
+
+\boldheader{Block 3}
+
+The \textit{Development Period} was from weeks 14 (commencing 27 December) to \sout{15 (commencing 3 January)}. This was when the term at university was off, and therefore more hours spent on the project were expected. A lot of backlog and future tasks were laid out and being completed.
+
+\boldheader{Block 4}
+
+The \textit{Development Period II} was \sout{from weeks 16 (commencing 10 January)} to 19 (commencing 31 January). This block is considered to be same as Block 3 and therefore integrated to believe Block 3 ended on week 19. At this point, main development of core functionalities were near completion, and more were being added and refined.
+
+\boldheader{Block 5}
+
+The \textit{Deployment Period} was from weeks 20 (commencing 7 February) to 23 (commencing 28 February). The application was rigorously tested and deployed onto a server in order to prepare for evaluations. Documentation and survey design (discussed in \ref{sec:Survey Design}) were carried out.
+
+\boldheader{Block 6}
+
+The \textit{Writing Period} was from weeks 24 (commencing 7 March) to \sout{26 (commencing 21 March)} 27 (ending 1 April). The final block wraps up the timeline and project with evaluations running and analysed, and the dissertation coming together.
+
+\section{Prioritisation}
+
+Based on the block an issue is assigned to, further priority planning and timeboxing estimation would be done using the MoSCoW method \cite{kuhn2009decrypting}.
+
+Along with this, GitHub provides default issue labels \cite{ManagingLabels} that were used to classify an issue and determine prioritisation; for example a bug would be prioritised before an enhancement usually.
+
+\boldheader{[M]ust have}
+
+These requirements are critical for the system, and non-negotiable. The user and system expect and require these functionalities. These requirements are to be worked and managed with the highest priority before any other task in a given timebox. Without these in place, the application would not be a completed output and considered a failure.
+
+\boldheader{[S]hould have}
+
+These requirements are important, but not critical. They would add significant functionalities that can add a lot of value, but the system can still work without them (not depending). For example, storing user credentials as a session. Ideally, the system would have these completed, but they do not take priority over critical requirements in the timebox.
+
+\boldheader{[C]ould have}
+
+These requirements are desired possibilities that improve user experience and should only be worked on when important requirements are managed first.
+
+\boldheader{[W]\sout{on't have} ould be nice to have}
+
+These requirements would not be considered in the development of the project in the case of traditional MoSCoW approach. However, for this project, no requirement is being dismissed and being welcomed with an open mind. These would be listed as issues on the repository, and can remain open. It is understood that users vary with different use cases, backgrounds and purposes, and therefore the development believed to take note of every requirement.
+
+\section{User Requirements}
+
+With end-users first in mind, reasonable (and fictional) scenarios as personas and stories are written \cite{wikiUsers} which then helps list the user expectations from the application. The aim is to cause zero frustration to users when they are using the app, and so most requirements are considerate of this therefore given relatively higher priority. Similar requirements are discussed in \ref{subsec:Non-Functional}.
+
+\boldheader{[M1] The software must provide a screen to users where they can input their logs}
+
+This is the core functionality of the application as users would expect and need to log their portion intake, and it is therefore a core requirement. This screen must be easily accessible being the main functionality and not be a difficult task for users as it would rather cause frustration and encourage them to not use the app. Therefore, this screen should be the home screen / dashboard, and it should display the logs on the same page, instead of dedicating it just for input.
+
+\boldheader{[M2] The software must be accessible and available from different platforms and devices}
+
+This ensures that users are not limited from access to the application, and being on mobile is critical as it is much more convenient than PCs (as discussed in \ref{sec:Motivation}) therefore not creating a burden as users would tend to have their mobile devices with them and then log their portion in a few seconds, at their convenience.
+
+\boldheader{[S1] The software should allow users to visualise and summarise their logs}
+
+This means in forms of graphs and statistics, and it should motivate and allow users to be on track with their diet plans. The visualisation can be on a separate page if required, but should not be hidden away from users. The graphs should update immediately after any change in data occurs, like a new log being added or a previous log being deleted.
+
+\boldheader{[S2] The software should provide users with more information and guidance}
+
+This provides users with extra details if they require it, allowing them to learn more and have the correct idea about their diet plan. The application would allow users to not require a dietition\footnote{The app \textbf{cannot} replace professional consultation.} and enable to pick a plan they desire. This could also explain more about the Eatwell Guide.
+
+\boldheader{[C1] The software could provide an option to add more detail to logs}
+
+This is useful as users may want to elaborate and record further about their intakes and use that for the dietitian as well. Since the detail can be vague and different for users, this could be a simple text field and so it can act as diary entries for their meals, and like a diary, it could mention the meal. The system can automatically log based on food mentioned in the entry, but this could be difficult and require expensive parsing, therefore a simple alternative can be allowing logging on the same page so that user would not have to log again on different screens.
+
+\section{System Requirements}
+
+Similar to user expectations, there are expectations from the system generally that should also be considered \cite{wikiRequirements}. Since developer experience is considered as well, the requirements would list positive and negative effects for them. It should be kept in mind that a requirement may also be broken down into sub-requirements therefore there may be glimpses of other tasks, and over time more requirements come up.
+
+\subsection{Functional}
+
+These requirements here outline technical specifications that the system should do in terms of functionality, keeping the system as the main subject. These were decided and adjusted while designing and developing with considerations of what would be feasible with a logical approach using the architecture (discussed in \ref{sec:Software Architecture}) and further prioritised according to difficulty.
+
+\boldheader{[M3] The system must be able to keep a track of logs.}
+
+This is essential as the application revolves around logs, and a log depends on the datetime. Users would expect logs to be used in a certain way with the entry. Therefore, the system must be able to use this and track logs according to their date.
+
+\boldheader{[M4] The system must be able to associate data to persons}
+
+This is important to associate logs to a user, and also ensure privacy for the user. Authentication would need to be in the form of a register (sign up) and login (sign in) that allows a user to create an account and authenticate into the account respectively. Along with this, the system should ensure authentication is secure and users aid their security. This would include storing sensitive information such as passwords safely (as hashes), and also encouraging users to use strong passwords (by requiring special characters, minimum length and more).
+
+\boldheader{[S3] The system should be compatible for platforms}
+
+This is similar, however, on the functional side, it means that the system should use technologies that can run on most platforms and allow development without having to do a lot of platform-specific configuration or code duplication. If the system is incompatible, it restricts access and development for the different circumstance.
+
+\boldheader{[S4] The system should allow customisation of all elements and data}
+
+This allows users to change anything at their will and intention. For example, there may be logs entered accidentally or privacy concerns. Along with that, the interface being adjusted or changed according to user preference (light and dark mode). The system should not have any consequences to these customisations however, and only reflect that for users.
+
+\boldheader{[W1] The system would be nice to filter certain data}
+
+This ties other specifications with additional functionality to manage and visualise data, such as logs, as they could be analysed to produce graphs. It allows searching through data as well through keywords, or sort based on a field. A lot of features could take advantage of this.
+
+\subsection{Non-Functional}
+
+These requirements are similar to user requirements mentioned in \ref{sec:User Requirements}, but specify how a certain function should be achieved. They would have relatively lower priority unless it strongly affects development, and these were decided mostly during setup (mentioned in \ref{sec:Planning}), as the phase relates and inspires on the development process so that it can be guided in the desired direction.
+
+\boldheader{[M5] The system must not perform any loading on logging}
+
+This is to ensure latency remains minimal and not cause frustration to user, since logging is essential feature of the application. For this approach, background changes can be made like updating the log locally, but making an asynchronous request to the server. However, fail safes should also be in place, and if loading is required, users should be displayed and notified about the system status (heuristic 1, \cite{experience10UsabilityHeuristics}), so a loading screen can be made visible for the brief moment.
+
+\boldheader{[C2] The system could use modular components and areas}
+
+This promotes the system to use modular programming, as everything would be considered to be an object through object-oriented approach anyway, but it allows any area to be swapped out and changed if required without reworking anything else. This would be incredibly useful when overtime features and requirements would increase.
+
+\boldheader{[C3] The system could have endpoints to provide desired data}
+
+This extends the system to further modules and enable separation of concerns. Modules can use the endpoints to get data and make use of it, like rendering a fancy interface or graph for users to see. This endpoint would have to be secure, and not require a lot of processing and complexity. Querying and filtering requests would be useful and nice to have.
+
+\boldheader{[C4] The system could not require authentication repeatedly}
+
+This makes usage of the application convenient for user, as they could just open the app, login once for the first time, and then continue logging as usual without having to re-authenticate every time. This still means that security must be considered, and use mechanisms to ensure that the account logged-in is the authenticated user.
+
+\boldheader{[W2] The system would be nice to include a setup for easy replication}
+
+This ensures that other developers that wish to run the application locally can get started as soon as possible, without spending much time on configuring their environment. The dependency and stack management should be compatible to be deployed anywhere and everyone; this would ideally benefit from automation so that developers would not have to manually start each module.
+
+\section*{Summary}
+
+The timeline of the project was divided into five appropriate blocks, such as \textit{Setup}, \textit{Development}, and \textit{Evaluation}, to enable focus on the respective requirements over the 27 weeks. These tasks would be established by understanding and relating to users \& developers through classification, into User and System requirements (sub-classified into Functional and Non-Functional) defining expectations from the system to provide functions like no-latency easy logging, secure authentication and simple developer experience. Further, other estimations, like complexity of the task and the popular MoSCoW method, would be used to prioritise and allow the development to make progress as planned with minimal obstruction and uncertainty.
+
+\end{document}

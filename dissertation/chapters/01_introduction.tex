@@ -1,0 +1,126 @@
+%=============================================================================
+% INTRODUCTION
+% Why should the reader care about what are you doing and what are you actually doing?
+% **Motivate** first, then state the general problem clearly.
+
+% ## Guidance
+
+% ### Who is the reader?
+
+% This is the key question for any writing. Your reader:
+
+% -   is a trained computer scientist: *don’t explain basics*.
+
+% -   has limited time: *keep on topic*.
+
+% -   has no idea why anyone would want to do this: *motivate clearly*
+
+% -   might not know *anything* about your project in particular: *explain
+%     your project*.
+
+% -   but might know precise details and check them: *be precise and
+%     strive for accuracy.*
+
+% -   doesn’t know or care about you: *personal discussions are
+%     irrelevant*.
+
+% Remember, you will be marked by your supervisor and one or more members
+% of staff. You might also have your project read by a prize-awarding
+% committee or possibly a future employer. Bear that in mind.
+
+% ### References and style guides
+
+% There are many style guides on good English writing. You don’t need to
+% read these, but they will improve how you write.
+
+% -   *How to write a great research paper* (**recommended**, even though
+%     you aren’t writing a research paper)
+
+% -   *How to Write with Style* . Short and easy to read. Available
+%     online.
+
+% -   *Style: The Basics of Clarity and Grace* A very popular modern
+%     English style guide.
+
+% -   *Politics and the English Language* A famous essay on effective,
+%     clear writing in English.
+
+% -   *The Elements of Style* Outdated, and American, but a classic.
+
+% -   *The Sense of Style* Excellent, though quite in-depth.
+
+% #### Citation styles
+
+% -   If you are referring to a reference as a noun, then cite it as: “
+%     discusses the role of language in political thought.”
+
+% -   If you are referring implicitly to references, use: “There are many
+%     good books on writing .”
+
+% There is a complete guide on good citation practice by Peter Coxhead
+% available here: <http://www.cs.bham.ac.uk/~pxc/refs/index.html>. If you
+% are unsure about how to cite online sources, please see this guide:
+% <https://student.unsw.edu.au/how-do-i-cite-electronic-sources>.
+
+% ### Plagiarism warning
+
+% <div class="highlight_title">
+
+% WARNING
+
+% If you include material from other sources without full and correct
+% attribution, you are committing plagiarism. The penalties for plagiarism
+% are severe. Quote any included text and cite it correctly. Cite all
+% images, figures, etc. clearly in the caption of the figure.
+
+% </div>
+%=============================================================================
+
+\documentclass[../main.tex]{subfiles}
+% \graphicspath{{\subfix{../images/}}}
+
+\begin{document}
+
+This chapter introduces the dissertation by sharing the motivation and aims of the project of discussion, and providing a high-level summary of the concepts discussed throughout the paper.
+
+\section{Overview}
+
+In this dissertation, we discuss planning and strategies adopted for the development and evaluation of a cross-platform application named "Portion Mate". This project was proposed by Dr. Oana Andrei for the Level 4 Individual Project course \cite{universityofglasgowINDIVIDUALPROJECTSINGLE} at the \href{https://gla.ac.uk/}{University of Glasgow} during the academic year 2021-22, and undertaken by student Inesh Bose.
+
+An interface is a shared boundary between entities allowing information to be exchanged. The research of designing computer interfaces to be used by humans is called Human Computer Interaction (HCI) and it aims to solve problems and innovate with users in mind. Inspired from that, many factors and considerations went into each decision of the project. These are described in detail over the chapters of this dissertation. Since the application is focused on food and health, you will read and learn about food \& culture in the country of development (United Kingdom), and nutrition, along with what similar and competing applications offer. As the development is carried out by a fourth-year university student, the development aspires to use software engineering industry standard agile practices and technologies.
+
+% with the aim to be able to convey the reasoning to a reader that is new to the project
+%  include the current situation with respect to food and tracking applications,
+% Over the chapters, you will learn and read about food \& culture, tracking \& logging, and development \& agile strategies.
+
+\section{Motivation}
+
+Modern life is very different from life two decades ago. Technology is the obvious, biggest change, but there are many lifestyle changes as well. Food is now available cheap and fast - this does not necessarily mean that food is healthier -- the consumption for such items has increased exponentially causing people a lot of health problems \cite{FastFoodEffects2021a,jaworowskaNutritionalChallengesHealth2013}.
+
+Mobile applications have been on the rise and in demand ever since affordable smartphones were introduced with reliable internet connections all over the globe \cite{phamResearchAppStore2018a,venturebeatStudyMobileApp2012,comscoreMobileMarketSamsung}. They can be found in the pockets of most people of different ages now. Since the devices are portable and small, the applications make accessing a service convenient and easy \cite{bohmerFallingAsleepAngry2011a} - this can include healthcare services \cite{ventolaMobileDevicesApps2014a}. A significant example is the usage of "Contact Tracing" and "Vaccine Passport" methods through mobile applications during the COVID-19 pandemic \cite{COVID19App2022,NHSCOVID19App}.
+
+Fitness and food tracking applications exist, however most have not provided a very suitable way of logging activity therefore becoming a burden on users. Food, despite being a very cultural and social element in many lifestyles and regions, should not be overlooked, but rather be monitored and consumed with diet in mind as it is a major factor for personal development and health.
+
+More motivations are discussed in depth in Chapter \ref{chap:Background}.
+
+\section{Aims}
+
+As a product-focused software engineering project, our goal is to make a system that would be reliable and efficient for users, acting as a support through their food journey. This would mean developing a mobile application that can be used by users such as patients, nutritionists and general users to monitor their portion intake which should be part of their diet plan. This application must be well-designed and provide convenience to users; this should be judged by conducting evaluation of the product with the appropriate users.
+
+The minimal viable product must be produced and refined within the timeframe of the project. Additionally, this system should be maintainable, robust and well-documented from the code-side making use of best practices, so that it enables other developers to understand and be inspired by the implementation choices of the project, opening doors to future possibilities.
+
+\section{Outline}
+
+This dissertation is structured into seven chapters, along with appendices that are referred between text. These chapters intend to separate aspects and phases of the projects into categories, and are ordered according to the development sequence.
+
+\begin{itemize}
+    \setlength\itemsep{0.6em}
+    \item \textbf{Chapter 2} \textit{Background} shares the underlying circumstances and work already done related to the area of the project by talking about food, diet and nutrition;
+    \item \textbf{Chapter 3} \textit{Requirements} discusses the expectations, issues and tasks that would outline problems to solve and a plan for the development of the project output;
+    \item \textbf{Chapter 4} \textit{Design} conveys solutions for the problems the project wishes to address with heavy focus on users, and any that may come up during the implementation;
+    \item \textbf{Chapter 5} \textit{Implementation} is about putting everything planned and discussed from previous chapters into practice to create the final product with technical details;
+    \item \textbf{Chapter 6} \textit{Evaluation} evaluates the final implemented product by discussing methods of collecting usability data, and sharing results of the analysis;
+    \item \textbf{Chapter 7} \textit{Conclusion} summarises and looks back on the dissertation, sharing lessons that were learnt, with future work and projects that were inspired by this.
+\end{itemize}
+
+\end{document}

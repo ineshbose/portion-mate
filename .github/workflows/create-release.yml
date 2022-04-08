@@ -1,0 +1,93 @@
+name: Create release
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get PRs
+        id: merged-prs
+        uses: actions/github-script@v6
+        env:
+          BASE: develop
+          HEAD: master
+        with:
+          result-encoding: string
+          script: |
+            const { BASE, HEAD } = process.env;
+            const { data: { created_at: date } } = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            }).catch(async () => {
+              const { data: { created_at } } = await github.rest.repos.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              });
+              return { data: { created_at } };
+            });
+            const { data: pulls } = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} is:pr base:${BASE} -head:${HEAD} is:merged merged:>${date}`,
+              per_page: 100
+            });
+            const list = pulls.items.map((pull) => {
+              const detail = `#${pull.number} ${pull.title}`;
+              if (pull.body) {
+                const matches = pull.body.match("Closes (.*)\n");
+                if (matches && matches.length > 1) {
+                  return `${detail} (${matches[1]})`
+                }
+              }
+              return detail;
+            });
+            return list.join('\n');
+      - name: Get SHA
+        id: sha-substr
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: return context.sha.substring(0, 7);
+      - name: Zip source
+        working-directory: src
+        run: |
+          zip ../source.zip ./*
+      - name: Download last dissertation
+        uses: dawidd6/action-download-artifact@v2
+        continue-on-error: true
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: build-dissertation.yml
+      - name: Check if downloaded
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "Dissertation/Inesh Bose - Portion Mate.pdf"
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        if: ${{ steps.check_files.outputs.files_exists == 'false' }}
+        with:
+          root_file: l4proj.tex
+          latexmk_shell_escape: true
+          working_directory: dissertation
+          extra_system_packages: "inkscape"
+      - name: Rename compiled PDF
+        if: ${{ steps.check_files.outputs.files_exists == 'false' }}
+        run: |
+          mv dissertation/l4proj.pdf "Dissertation/Inesh Bose - Portion Mate.pdf"
+      - name: Rename PDF
+        run: |
+          mv "Dissertation/Inesh Bose - Portion Mate.pdf" dissertation.pdf
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body: ${{ steps.merged-prs.outputs.result }}
+          tag_name: ${{ steps.sha-substr.outputs.result }}
+          draft: true
+          files: |
+            timelog.md
+            source.zip
+            dissertation.pdf

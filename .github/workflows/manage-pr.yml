@@ -1,0 +1,28 @@
+name: Manage Pull Requests
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled]
+
+jobs:
+  group:
+    name: Group PRs for dependencies
+    runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'dependencies' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: bobvanderlinden/combine-pull-requests@v3
+        with:
+          label: dependencies
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+  close:
+    name: Close PRs to master
+    runs-on: ubuntu-latest
+    if: ${{ (github.head_ref != 'develop') && (github.base_ref == 'master') }}
+    steps:
+      - name: Close Pull
+        uses: peter-evans/close-pull@v1
+        with:
+          pull-request-number: ${{ github.event.number }}
+          comment: Direct merge to master restricted.
+          delete-branch: false

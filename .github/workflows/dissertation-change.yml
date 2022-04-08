@@ -1,0 +1,28 @@
+name: Pull Dissertation Changes
+
+on:
+  repository_dispatch:
+    types: [overleaf-push]
+
+jobs:
+  pull-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - name: Remove old files
+        run: |
+          rm -rf dissertation
+      - name: Clone dissertation repository
+        uses: actions/checkout@v3
+        with:
+          repository: ineshbose/portion-mate-tex
+          path: "dissertation"
+      - name: Remove unwanted files
+        run: |
+          find dissertation -type d -name ".git*" -exec rm -rf {} +
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          committer_name: GitHub Actions
+          committer_email: actions@github.com

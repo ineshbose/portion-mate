@@ -1,1 +1,2 @@
-dissertation/* linguist-vendored
+*.example linguist-detectable=false
+*.tex linguist-vendored

@@ -13,13 +13,32 @@ jobs:
     name: Update wiki
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install dependencies and run script
+        run: |
+          yarn
+          npx ts-node docs/meetings/generate.ts docs/meetings/ docs/meetings/meetings.t.md
       - name: Copy file
         run: cp docs/index.md docs/Home.md
+      - name: Change text
+        run: |
+          sed -i '0,/Documentation/s//Wiki/' docs/Home.md
+      - name: Convert status report to MD
+        uses: docker://pandoc/core:2.9
+        with:
+          args: >-
+            --standalone
+            --output=docs/important/Status.md
+            docs/important/status.tex
+      - name: Time logs
+        run: |
+          python3 docs/log_parser.py >> docs/important/LogTable.md
+          ./docs/gitlog.sh >> docs/important/GitLogs.md
       - uses: ineshbose/wiki-action@v1
         with:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WIKI_DIR: "docs"
-          WIKI_IGNORE: "requirements.txt index.md .gitignore README.md"
           AUTO_SIDEBAR: true
           SIDEBAR_IGNORE: "archive assets env Home.md"

@@ -1,0 +1,42 @@
+{
+  "datetime": "08-10-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Initial progress",
+      "description": [
+        "Share [research](research)",
+        "Repository information & setup"
+      ]
+    },
+    {
+      "item": "Confusions",
+      "description": [
+        "Unable to comprehend the paper log",
+        "Get an actual log instead of an example if possible"
+      ]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Technology chosen",
+      "who": "ineshbose",
+      "notes": "The frameworks have been decided to be Django and React Native for backend and frontend respectively, and there will be a slight learning curve. Through the research, some ideas like UI design and elements were discussed."
+    },
+    {
+      "item": "Paper logs",
+      "who": "oanaandrei",
+      "notes": "The \"input table\" indicate how many portions are aimed for each day through the number of cells, and each cell should be crossed off. To understand better, an actual log was requested from Dr. Andrei's diary."
+    }
+  ],
+  "actions": [
+    {
+      "item": "Get actual paper logs",
+      "who": ["oanaandrei"],
+      "done": true
+    }
+  ],
+  "notes": ""
+}

@@ -1,0 +1,57 @@
+{
+  "datetime": "01-10-2021 11:00",
+  "purpose": "Introduction",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Self-introduction",
+      "description": ["Names, pronunciation", "Previous projects/experience"]
+    },
+    {
+      "item": "App discussion",
+      "description": [
+        "Who are the end users?",
+        "Description beyond the text on the project listing"
+      ]
+    },
+    {
+      "item": "Strategy",
+      "description": [
+        "Development strategy",
+        "Priorities",
+        "Meetings scheduling"
+      ]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "App background",
+      "who": "oanaandrei",
+      "notes": "The idea of Portion Mate came from Dr. Andrei trying to keep track of her portion in take on paper and now looking for a mobile app; therefore, she's the end user. There needs to be an input table for the Eatwell Guide, and being able to put in the meals/snacks taken during the day."
+    },
+    {
+      "item": "Essential features",
+      "who": "oanaandrei",
+      "notes": "Some essential features (app should have) are being able to send a reminder to a user at mid-day (around 14:00) and at the end of the day (around 21:00-22:00) to log their portions, being able to display portion statistics weekly/monthly, and sending notifications if the logs do not follow the plan (Eatwell Guide)."
+    },
+    {
+      "item": "Priorities",
+      "who": "oanaandrei",
+      "notes": "There should be priority on ease and convenience rather than functionality and details, otherwise the app becomes too complicated. This means that there should be vague portion sizes for easier understanding (like \"a fist of pasta\") with examples of portion sizes. This will help users to stay committed than to leave after a week."
+    },
+    {
+      "item": "Development Strategy",
+      "who": "ineshbose",
+      "notes": "For the project, issue tracking will be used and shared; this will allow prioritising features. For the meetings, agenda should be sent before hand over email. As for this week, the plan is to research into similar apps and share thoughts."
+    }
+  ],
+  "actions": [
+    {
+      "item": "Schedule regular meeting",
+      "who": ["ineshbose", "oanaandrei"],
+      "done": true
+    }
+  ],
+  "notes": ""
+}

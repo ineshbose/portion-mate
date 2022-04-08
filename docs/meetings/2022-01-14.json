@@ -1,0 +1,35 @@
+{
+  "datetime": "14-01-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Progress over the break",
+      "description": ["Block 3", "Issues closed/opened"]
+    },
+    {
+      "item": "Evaluation and dissertation",
+      "description": ["Gather expectations", "Discuss plans"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Time over the break (relaxation)",
+      "who": ["ineshbose", "oanaandrei"],
+      "notes": "Good change after a long time in isolation."
+    },
+    {
+      "item": "App progress",
+      "who": "ineshbose",
+      "notes": "Lots of issues opened and closed. Big changes in the code. Frontend started, with linting, REST API and OAuth token. Demo failed."
+    },
+    {
+      "item": "Evaluation and dissertation",
+      "who": "oanaandrei",
+      "notes": "Evaluation is very important - necessary. Ideas for survey: [SUS](https://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html), pre-activity and post-activity survey on Eatwell Guide. Start writing ideas for dissertation, and ideally send a draft so that it can be further refined. The background can be 1 paragraph, and mention the app being used by nutritionists."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}

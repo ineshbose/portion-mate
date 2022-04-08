@@ -1,0 +1,50 @@
+{
+  "strict": {
+    "text-font-family": "Roboto"
+  },
+  "components": {
+    "BottomNavigationTab": {
+      "meta": {
+        "scope": "",
+        "parameters": {},
+        "appearances": {},
+        "variantGroups": {},
+        "states": {}
+      },
+      "appearances": {
+        "default": {
+          "mapping": {
+            "iconTintColor": "color-primary-800",
+            "textColor": "color-primary-800",
+            "state": {
+              "hover": {
+                "textColor": "color-primary-200",
+                "iconTintColor": "color-primary-200"
+              },
+              "selected": {
+                "textColor": "color-basic-100",
+                "iconTintColor": "color-basic-100"
+              }
+            }
+          }
+        }
+      }
+    },
+    "BottomNavigation": {
+      "meta": {
+        "scope": "",
+        "parameters": {},
+        "appearances": {},
+        "variantGroups": {},
+        "states": {}
+      },
+      "appearances": {
+        "default": {
+          "mapping": {
+            "backgroundColor": "color-primary-default"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "datetime": "22-10-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Repository automation",
+      "description": ["Workflow setup", "Using GitHub features"]
+    },
+    {
+      "item": "Block 2 plan",
+      "description": []
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Repository setup",
+      "who": "ineshbose",
+      "notes": "The repository was polished more as issue tracking was promised, therefore coding started with the pipelines rather than the app itself. This was displayed with a demonstration of how issues are linked to card on the automated Kanban Boards, along with issue templates and labels, that would be connected to branches created by automation."
+    },
+    {
+      "item": "Current plan",
+      "who": "oanaandrei",
+      "notes": "More specifications were formalised - mostly user stories/personas. By now, Block 1 (as devised by Dr. Andrei, and used as a planning period) should be wrapped, and Block 2 has started (setup & development period). The current task is to work on Block 2 tasks, and finish the few remaining Block 1 tasks (wireframes)."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}

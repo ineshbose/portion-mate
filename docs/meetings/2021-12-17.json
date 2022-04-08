@@ -1,0 +1,36 @@
+{
+  "datetime": "17-12-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Status Report",
+      "description": ["Gather feedback", "Tips on further writing"]
+    },
+    {
+      "item": "Plan over the break",
+      "description": ["Expectations", "Next meeting"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Status Report",
+      "who": "oanaandrei",
+      "notes": "The report was well written and categorised."
+    },
+    {
+      "item": "Aim over the break",
+      "who": "ineshbose",
+      "notes": "Develop the frontend app, and work full-time (40 hours a week). Dr. Andrei also says that taking a break is okay since it's good to unwind."
+    }
+  ],
+  "actions": [
+    {
+      "item": "Share and discuss report",
+      "who": ["ineshbose", "oanaandrei"],
+      "done": true
+    }
+  ],
+  "notes": ""
+}

@@ -1,0 +1,83 @@
+name: Deploy App
+
+on:
+  push:
+    paths:
+      - "src/*"
+    branches:
+      - develop
+defaults:
+  run:
+    working-directory: src
+
+jobs:
+  deploy-app:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+      - uses: expo/expo-github-action@v7
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install modules
+        run: yarn install
+      - name: Write environment data
+        run: |
+          echo "${{ secrets.ENV_DATA }}" > .env
+          mkdir env
+          echo "" > env/index.ts
+      - name: Generate env/index.ts
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const dotenv = require('dotenv');
+            const env = dotenv.parse(fs.readFileSync('${{ github.workspace }}/src/.env', 'utf-8'));
+            fs.writeFileSync(
+              '${{ github.workspace }}/src/env/index.ts',
+              `export const {${Object.keys(env).join(', ')}} = ${JSON.stringify(env)};`
+            );
+      - name: Build web client
+        run: |
+          sed -i "0,/path: '\/'/s//path: '\/portion-mate'/" app/navigation/LinkingConfiguration.ts
+          expo build:web
+      - name: Write README
+        run: echo "## Deployed React App (FOR DEMO ONLY)" >> ./web-build/README.md
+      - name: Deploy react app
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages
+          folder: src/web-build
+      - name: Publish to expo
+        run: |
+          expo publish --non-interactive
+      - name: Env file
+        run: |
+          echo "!server/.env" >> .gitignore
+          cp .env server/.env
+          sed -i '0,/..\/.env/s//.env/' server/server/settings.py
+          cp pyproject.toml server/pyproject.toml
+          echo "." >> server/requirements.txt
+          echo "gunicorn" >> server/requirements.txt
+          echo "whitenoise" >> server/requirements.txt
+          echo "django-heroku" >> server/requirements.txt
+          echo "dj-database-url" >> server/requirements.txt
+          echo "import django_heroku" >> server/server/settings.py
+          echo "django_heroku.settings(locals())" >> server/server/settings.py
+          echo "import dj_database_url" >> server/server/settings.py
+          echo "DATABASES[\"default\"] = dj_database_url.config(conn_max_age=600, ssl_require=True)" >> server/server/settings.py
+          sed -i '0,/# \"whitenoise/s//\"whitenoise/' server/server/settings.py
+          sed -i '0,/# STATICFILES_STORAGE/s//STATICFILES_STORAGE/' server/server/settings.py
+          cp manage.py server/manage.py
+          sed -i '0,/sys.path.append("server")/s//#/' server/manage.py
+          echo "web: gunicorn server.wsgi" >> server/Procfile
+          echo "release: python manage.py migrate" >> server/Procfile
+      - name: Deploy django server
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          appdir: "src/server"

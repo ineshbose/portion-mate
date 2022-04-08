@@ -1,0 +1,16 @@
+index.md
+.gitignore
+README.md
+**/*.t.md
+**/*.ts
+**/*.json
+**/*.tex
+*.json
+*.toml
+*.txt
+*.py
+*.sh
+node_modules
+navigation
+GetStarted.md
+survey

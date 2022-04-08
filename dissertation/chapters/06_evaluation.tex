@@ -1,0 +1,325 @@
+%=============================================================================
+% EVALUATION
+% How good is your solution? How well did you solve the general problem, and what evidence do you have to support that?
+
+% ## Guidance
+
+% -   Ask specific questions that address the general problem.
+
+% -   Answer them with precise evidence (graphs, numbers, statistical
+%     analysis, qualitative analysis).
+
+% -   Be fair and be scientific.
+
+% -   The key thing is to show that you know how to evaluate your work,
+%     not that your work is the most amazing product ever.
+
+% ## Evidence
+
+% Make sure you present your evidence well. Use appropriate
+% visualisations, reporting techniques and statistical analysis, as
+% appropriate.
+
+% If you visualise, follow the basic rules, as illustrated in Figure
+% [\[fig:boxplot\]][1]:
+
+% -   Label everything correctly (axis, title, units).
+
+% -   Caption thoroughly.
+
+% -   Reference in text.
+
+% -   **Include appropriate display of uncertainty (e.g. error bars, Box
+%     plot)**
+
+% -   Minimize clutter.
+
+% See the file `guide_to_visualising.pdf` for further information and
+% guidance.
+
+%   [1]: #fig:boxplot
+%=============================================================================
+
+\documentclass[../main.tex]{subfiles}
+% \graphicspath{{\subfix{../images/}}}
+
+\begin{document}
+
+This chapter shares methods on how the final implemented application was judged for being a qualified, established product that the previous chapters discussed and the development aimed for.
+
+\section{Testing}
+
+The first step of testing the project was by using TypeScript. The languages chosen are runtime, and therefore all bugs and errors would not be detected and caught during compilation and main execution. TypeScript, however, has helped a lot by eliminating the problem of dynamic types in JavaScript, and wherever functions are called or values are updated, it is made sure that the desired datatype is checked and used.
+
+\begin{lstlisting}[language=typescript,caption={Type assertions in \citecode{srchomepagetsx}}]
+const itemCheckBox = (item: TrackItem, idx: number) => (
+  <CheckBox
+    style={styles.checkbox}
+    key={idx}
+    checked={idx < (item.logs as UserLogs).length}  // prop is of type UserLogs
+    onChange={(checked) => updateItemLogs(checked ? 'add' : 'remove', item)}
+  />
+);
+\end{lstlisting}
+
+Testing would also happen manually aided with the desired interface and the browsable API that Django REST Framework offers. This was to establish that all requirements of the project were fulfilled and the application was established as desired. Since automation has been preferred throughout the project, popular testing frameworks for Python and TypeScript are \citetitle{PytestdevPytest2022} and \citetitle{FacebookJest2022} respectively. The application would further be tested with Django. To setup Jest for the interface, however, the API (axios discussed in \ref{subsubsec:Axios}) needs to be mocked which would require a lot of work. Browser activity could also be mocked using frameworks like \citetitle{CypressioCypress2022}, but that as well requires hours to setup. Since the server is tested, interface testing is not as critical.
+
+\begin{lstlisting}[language=python,caption={Testing registration API for security in \citecode{resttestpy}}]
+def test_user_creation(self):
+    """
+    Ensure we can create new users as desired through API.
+    """
+    url = reverse("user-list")
+
+    response = self.client.post(url, data={"email": "test"})
+    self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    self.assertDictContainsSubset(
+        {
+            "email": ["Enter a valid email address."],
+            "password": ["This field is required."],
+        },
+        response.data,
+    )
+\end{lstlisting}
+
+\section{Survey Design}
+
+Finally, the further evaluation of the application would be done by users themselves, and so a questionnaire would also follow this to help understand the usability. There were a few considerations while designing the questionnaire, like gathering sensitive information, and not taking too much time from participants. All questions are in compliance with GDPR \& the Ethics Checklist from the School of Computing Science, University of Glasgow \cite{socsEthics}.
+
+\subsection{Demographics}
+
+Information about the participants is gathered. None of these are personal, identifying questions that a participant may not be comfortable with. The reason for these questions is to understand why a participant may choose a specific response. It gives an idea if a person would be good with technology (which could introduce bias) and therefore not having great difficulty with operating the interface. More importantly, it helps understand a person's dietary habits - as food is the topic of this application - answering questions if they would have the need and motivation for the application. This is pre-activity and entirely optional to participants.
+
+\subsection{Effect}
+
+Aside from the usability, the survey also aims to gather the effect the application made on users post-activity. This would mean if they were able to learn more about the Eatwell Guide, and if they would be motivated about following a diet plan using the app as a means of support.
+
+\subsection{Method}
+
+User Experience (UX) measurement could be difficult, as experiences are intangible and highly subjective. Metrics can be introduced by measuring task completion time/rate - where users would perform specified tasks - and monitoring page analytics - where user sessions would be recorded to learn about page jumps and retention over time with practical usage, however they may not convey experience accurately and not suitable for the project (given the timeline). There are standardised methods of UX Measurement \cite{phdThreeBranchesStandardized}, such as the User Experience Questionnaire (UEQ) that requires 26 linear ratings to measure attractiveness and efficiency of the system. To ensure that participants do not lose focus of the task and their time is respected, the target was 15 questions, requiring 30 minutes in total at most. Therefore, the \citetitle{affairsSystemUsabilityScale2013} was chosen. Being used in over 1300 articles and easy to administer to participants \cite{affairsSystemUsabilityScale2013}, it consists of 10 statements that one can respond easily to using a five point range from Strongly Agree (1) to Strongly disagree (5) with 3 being neutral. The statements vary in the describing the system as positive (denoted by \textsuperscript{+}) or negative (denoted by \textsuperscript{-}) as well, so inverting the meaning ensures that participants do not lose focus by expecting the same answer format.
+
+\begin{enumerate}
+    \item I think that I would like to use this system frequently.\textsuperscript{+}
+    \item I found the system unnecessarily complex.\textsuperscript{-}
+    \item I thought the system was easy to use.\textsuperscript{+}
+    \item I think that I would need the support of a technical person to be able to use this system.\textsuperscript{-}
+    \item I found the various functions in this system were well integrated.\textsuperscript{+}
+    \item I thought there was too much inconsistency in this system.\textsuperscript{-}
+    \item I would imagine that most people would learn to use this system very quickly.\textsuperscript{+}
+    \item \sout{I found the system very cumbersome to use.}\textsuperscript{-}
+    \item I felt very confident using the system.\textsuperscript{+}
+    \item I needed to learn a lot of things before I could get going with this system.\textsuperscript{-}
+\end{enumerate}
+
+\section{Results}
+
+Picking suitable statements from the ones provided from the System Usability Survey\footnote{Only statement 8 was redundant.} (discussed in \ref{subsec:Method}) and deploying the application onto GitHub Pages (for the frontend discussed in \ref{subsec:React Native app}) and Heroku (for the backend discussed in \ref{subsec:Django server}), evaluations started on 28 February 2022 (Monday) through a Google Form and ran for one week, getting responses from 10 participants. To get the usability score, the number mapped to the response for each statement (depending if the statement is negative\textsuperscript{-}, then the number is subtracted from 5 i.e. $5 - x$ or if it is positive\textsuperscript{+}, then 1 is subtracted from the number i.e. $x - 1$) added together for each participant, then multiplied by 2.5 and since the survey used 9 questions instead of 10, divided by 0.9. The mean (or average) score would be 80.0 which makes the application "Acceptable" with a grade of A- \cite{phdWaysInterpretSUS,SystemUsabilityScale}. Given the early stage of the application, the score is impressive and with more time, can be improved.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+			xbar stacked,
+			area legend,
+			legend style={
+				at={(xticklabel cs:0.5)},
+				anchor=north,legend columns=5,
+				draw=none,font=\footnotesize,
+			},
+			ytick=data,
+			tick label style={font=\footnotesize},
+			width=0.8\textwidth,
+			xticklabel={\pgfmathparse{\tick}\pgfmathprintnumber{\pgfmathresult}\%},
+			bar width=6mm,
+			y dir=reverse,
+			yticklabels={%
+				Statement 1\textsuperscript{+},%
+				Statement 2\textsuperscript{-},%
+				Statement 3\textsuperscript{+},%
+				Statement 4\textsuperscript{-},%
+				Statement 5\textsuperscript{+},%
+				Statement 6\textsuperscript{-},%
+				Statement 7\textsuperscript{+},%
+				\sout{Statement 8}\textsuperscript{-},%
+				Statement 9\textsuperscript{+},%
+				Statement 10\textsuperscript{-},%
+			},
+			xmin=0,
+			xmax=100,
+		]
+		% Strongly disagree
+		\addplot[violet,fill=violet,
+			postaction={
+				pattern=horizontal lines
+		}] coordinates
+		{(10,0) (50,1) (0,2) (60,3) (0,4) (50,5) (0,6) (0,7) (0,8) (60,9)};
+		
+		% Disagree
+		\addplot[red,fill=red,
+			postaction={
+				pattern=vertical lines
+		}] coordinates
+		{(10,0) (10,1) (0,2) (30,3) (0,4) (40,5) (0,6) (0,7) (10,8) (30,9)};
+		
+		% Neutral
+		\addplot[lightgray,fill=lightgray,
+			postaction={
+				pattern=north east lines
+		}] coordinates
+		{(40,0) (30,1) (10,2) (10,3) (10,4) (0,5) (10,6) (0,7) (20,8) (0,9)};
+		
+		% Agree
+		\addplot[cyan,fill=cyan,
+			postaction={
+				pattern=north west lines
+		}] coordinates
+		{(20,0) (10,1) (30,2) (0,3) (40,4) (10,5) (50,6) (0,7) (20,8) (10,9)};
+		
+		% Strongly agree
+		\addplot[blue,fill=blue,
+			postaction={
+				pattern=grid
+		}] coordinates
+		{(20,0) (0,1) (60,2) (0,3) (50,4) (0,5) (40,6) (0,7) (50,8) (0,9)};
+		
+		\legend{Strongly disagree,Disagree,Neither,Agree,Strongly agree}
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Responses for each statement}%\label{fig:statement_responses}
+\end{figure}
+
+\begin{table}
+\centering
+\setlength{\tabcolsep}{10pt}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{4cm}|p{2cm}p{2cm}|}
+\hline
+                        & \multicolumn{2}{c|}{\textbf{Score}} \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Participant 1}  & 61.1              & D              \\
+\textbf{Participant 2}  & 52.8              & D              \\
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Participant 3}  & 58.3              & D              \\
+\textbf{Participant 4}  & 94.4              & A+              \\
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Participant 5}  & 91.7              & A+              \\
+\textbf{Participant 6}  & 75.0              & B              \\
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Participant 7}  & 88.9              & A+              \\
+\textbf{Participant 8}  & 97.2              & A+              \\
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Participant 9}  & 88.9              & A+              \\
+\textbf{Participant 10} & 91.7              & A+              \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{System Score} (Mean)        & \textbf{80.0}     & \textbf{A-}     \\ \hline
+\end{tabular}
+\caption{SUS Score for each participant}%\label{fig:participant_scores}
+\end{table}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+			ybar,
+			bar width=.5cm,
+			width=\textwidth,
+			height=.5\textwidth,
+			area legend,
+			legend style={%
+				at={(0.5,1)},
+				anchor=north,legend columns=-1,
+				draw=none,font=\footnotesize,
+			},
+			symbolic x coords={Home Page, Journals, Statistics, Resources},
+			xtick=data,
+			nodes near coords,
+			nodes near coords align={vertical},
+			ymin=0,ymax=10,
+		]
+		\addplot +[
+			white,
+			fill=green!60!black,
+			postaction={
+				pattern=horizontal lines
+			}
+		] coordinates {
+			(Home Page, 5)
+			(Journals, 4)
+			(Statistics, 7)
+			(Resources, 4)
+		};
+		\addplot +[
+			white,
+			fill=cyan,
+			postaction={
+				pattern=vertical lines
+			}
+		] coordinates {
+			(Home Page, 3)
+			(Journals, 4)
+			(Statistics, 2)
+			(Resources, 3)
+		};
+		\addplot +[
+			white,
+			fill=orange,
+			postaction={
+				pattern=north east lines
+			}
+		] coordinates {
+			(Home Page, 2)
+			(Journals, 2)
+			(Statistics, 1)
+			(Resources, 3)
+		};
+		\addplot +[
+			white,
+			fill=red,
+			postaction={
+				pattern=north west lines
+			}
+		] coordinates {
+			(Home Page, 0)
+			(Journals, 0)
+			(Statistics, 0)
+			(Resources, 0)
+		};
+		\legend{%
+			Very useful,%
+			Somewhat useful,%
+			Don't mind,%
+			Not useful at all%
+		}
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Feedback for each screen of the app}%\label{fig:feature_feedback}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		[
+			pie chart,
+			slice type={yesfollow}{cyan}{horizontal lines},
+			slice type={yes}{red}{vertical lines},
+			slice type={mostly}{orange}{north east lines},
+			slice type={barely}{green!60!black}{north west lines},
+			slice type={no}{violet}{grid},
+			slice type={slightly}{brown}{crosshatch},
+			pie values/.style={font={\bfseries}},
+			scale=2
+		]
+		\pie{Pre-activity}{80/no,10/yes,10/mostly}
+		\pie[xshift=3.2cm,values of mostly/.style={pos=1.1}]%
+		{Post-activity}{70/yes,20/no,10/slightly}
+		\legend[shift={(0cm,-1cm)}]{{Yes -- I follow the guide}/yesfollow, {Yes}/yes, {Mostly}/mostly}
+		\legend[shift={(2.5cm,-1cm)}]{{Barely}/barely, {Slightly}/slightly, {No}/no}
+	\end{tikzpicture}
+	\caption{Response to knowing about the Eatwell Guide}%\label{fig:eatwell_awareness}
+\end{figure}
+
+\section*{Summary}
+
+The application was tested manually to verify that initial requirements are met, and automatically to verify functionalities are functioning as intended. With survey planned and designed to gather market demographics and the usability of the app more importantly, the evaluation used the System Usability Survey (SUS) scale, with 10 participants testing the application between 28 February 2022 and 7 March 2022, giving the result of an acceptable system (score 80.0), meaning it is effective, efficient and easy to use.
+
+\end{document}

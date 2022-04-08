@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Close issue
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.update({
@@ -22,7 +22,7 @@ jobs:
               state: 'closed',
             })
       - name: Reopen issue
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.update({
@@ -30,6 +30,7 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
               state: 'open',
+              assignees: [context.payload.comment.user.login],
             })
   create-issue-branch:
     if: startsWith(github.event.comment.body, '/cib') || startsWith(github.event.comment.body, '/create-issue-branch')
@@ -47,31 +48,33 @@ jobs:
     steps:
       - name: Get issue number
         id: get-issue-number
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: return parseInt(context.payload.pull_request.head.ref.split('-')[0].split('/')[1])
           result-encoding: string
       - name: Echo issue number
         run: echo "${{ steps.get-issue-number.outputs.result }}"
       - name: Assign issue
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ steps.get-issue-number.outputs.result }}
         env:
           ISSUE_NUMBER: ${{ steps.get-issue-number.outputs.result }}
+          MAX_DIFF: 1000
         with:
           script: |
-            var { GITHUB_REPOSITORY, ISSUE_NUMBER } = process.env;
+            var { GITHUB_REPOSITORY, ISSUE_NUMBER, MAX_DIFF } = process.env;
             ISSUE_NUMBER = parseInt(ISSUE_NUMBER);
+            MAX_DIFF = parseInt(MAX_DIFF);
             github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number,
               body: `
               ${context.payload.pull_request.body || ''}\n\n${(context.payload.pull_request.body||'').includes(`#${ISSUE_NUMBER}`) ? '' : `Closes #${ISSUE_NUMBER}\n`}
-              <a href="#">
+              <!--<a href="#">
                 <img alt="GitHub pull request check contexts" src="https://img.shields.io/github/status/contexts/pulls/${GITHUB_REPOSITORY}/${context.payload.pull_request.number}??label=PR%20check&style=flat-square">
                 <img alt="GitHub branch checks state" src="https://img.shields.io/github/checks-status/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?label=branch%20check&style=flat-square">
-              </a>
+              </a>-->
               <a href="https://github.com/${GITHUB_REPOSITORY}/commits/${context.payload.pull_request.head.ref}" target="_blank">
                 <img alt="GitHub commit activity (branch)" src="https://img.shields.io/github/commit-activity/w/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?style=flat-square">
                 <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/${GITHUB_REPOSITORY}/${context.payload.pull_request.head.ref}?style=flat-square">
@@ -87,6 +90,22 @@ jobs:
               </a>
               `
             });
+            if ((context.payload.pull_request.additions + context.payload.pull_request.deletions) >= MAX_DIFF) {
+              if (context.repo.owner !== context.payload.pull_request.user.login) {
+                github.rest.pulls.requestReviewers({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: context.payload.pull_request.number,
+                  reviewers: [context.repo.owner],
+                });
+              }
+              github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: `Pull request is too large and therefore requires review of the repository owner (@${context.repo.owner}).`,
+              });
+            }
       - name: Find and update
         uses: ineshbose/project-card-action@v1
         if: ${{ steps.get-issue-number.outputs.result }}

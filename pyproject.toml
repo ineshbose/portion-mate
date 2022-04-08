@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "portion-mate"
+version = "1.0.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+# Commented out to suppress libraries.io warnings
+# Uncomment when working on dependencies
+# python = "^3.8"
+
+portion-mate-src = { path = "./src", develop = true }
+portion-mate-docs = { path = "./docs", develop = true }
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

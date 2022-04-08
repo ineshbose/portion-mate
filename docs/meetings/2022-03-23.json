@@ -1,0 +1,26 @@
+{
+  "datetime": "09-03-2021 13:30",
+  "purpose": "Final catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Dissertation",
+      "description": []
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Dissertation marking",
+      "who": "oanaandrei",
+      "notes": ""
+    },
+    {
+      "item": "Good luck & Goodbyes",
+      "who": ["ineshbose", "oanaandrei"],
+      "notes": ""
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}

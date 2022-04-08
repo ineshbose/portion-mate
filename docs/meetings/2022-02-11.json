@@ -1,0 +1,35 @@
+{
+  "datetime": "11-02-2021 11:00",
+  "purpose": "Catchup",
+  "location": "Zoom",
+  "attendees": ["ineshbose", "oanaandrei"],
+  "agenda": [
+    {
+      "item": "Evaluation questions",
+      "description": ["Plans", "Feedback"]
+    },
+    {
+      "item": "App deployment",
+      "description": ["Research", "Progress"]
+    }
+  ],
+  "discussion": [
+    {
+      "item": "Evaluation",
+      "who": ["ineshbose", "oanaandrei"],
+      "notes": "Some question may seem redundant. The last part makes it tricky for how participants may feel. The interface section is good - inverting scale was not required since the questions themselves are inverted, however there can be a table with feedback for features."
+    },
+    {
+      "item": "Deployment",
+      "who": ["ineshbose"],
+      "notes": "As of now, DigitalOcean seems a good plan - and could make use of GitHub education pack. Something should come in place."
+    },
+    {
+      "item": "Following week plan",
+      "who": "oanaandrei",
+      "notes": "No meeting next week, however communication can happen over email if required. Deployment and evaluation should make good progress."
+    }
+  ],
+  "actions": [],
+  "notes": ""
+}
