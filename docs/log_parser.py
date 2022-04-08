@@ -13,9 +13,13 @@ with open(sys.argv[1] if len(sys.argv) > 1 else "timelog.md") as f:
         if line in ["\n"]:
             continue
 
-        if line.lower().startswith("## week"):
+        if line.startswith("## ") and (
+            line[3:].lower().startswith("week") or len(raw_week_logs) > 0
+        ):
             raw_week_logs.append(week_block)
             week_block = []
+            if (not line[3:].lower().startswith("week")) and len(raw_week_logs) > 0:
+                break
 
         week_block.append(line[:-1] if line.endswith("\n") else line)
 

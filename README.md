@@ -30,7 +30,7 @@ Portion Mate is an application that helps keep track of your food intake. This p
 - [Getting Started](https://github.com/ineshbose/portion-mate/blob/develop/src/manual.md)
 - [App Documentation](https://portion-mate.readthedocs.io/)
 - [Repository Wiki](https://github.com/ineshbose/portion-mate/wiki/)
-- [Dissertation (WIP)](#)
+- [Dissertation](https://ineshbose.github.io/portion-mate/dissertation.pdf)
 
 <table>
 <tbody>
@@ -48,7 +48,7 @@ Portion Mate is an application that helps keep track of your food intake. This p
     <td><b>Dependency managers</b></td>
     <td>
   <a href="https://github.com/yarnpkg/yarn" target="_blank"><img alt="Yarn" src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white"></a>
-  <a href="https://github.com/python-poetry/poetry" target="_blank"><img alt="Poetry" src="https://img.shields.io/badge/Poetry-1f293c?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABHNJREFUWMOtlt1rHFUYxn/ve85ks7vZZCvolZUY0QuvAqLUFi9KsRZRpDdCTUGKV176H7R/QLXxRgRFi6hUexEQvCtZQamorVuLad2UZkvbzTZJm6VWmmabOV7M7O7M7GQ/xAOHOWfPzHmf93nejxUiY88nC25p1zPUfAHnwA+nc+D7nb0f7l1i7yff89PPDz0pLZsaBfDTH2u88FuFx9kKLncOCJ/hMhiu83BEDyIj8o1LO08BgMBceY1d5SvsFD9yQfTSFDBRQ2nfEDsv9QSACqfPrfBieZGd6nckiBlOMEOShe097ssAAniWb35fY/fFKzxhIlq3JUnQ3waXAJq2hnIPABJOIONx6twq+y4vsScbuTzGSIrheHCkMXKhPwMSLnIZPvu5ztN/Vtmdk26P0mKiy+skSNcnBtpAwhsLWT4/W+OpS9fYlY2kZ9IIPejvMFBlZqo6AAN0pBBgPMcXZ28wVbnO87mkHOH9PunSxLNkrncQxlhwHQAqMD7GV2dvMrl4k33jmjC2zYTk/mT/LGg/JU6LUZjI8+0vNQqXb/DGDpMSlEntY/FRYmaq3IeBMAuIyhCRwirkR5k7X6e5cJMDSRB+LyDu2AB1wHWob5MQkQKBjAejHt9fuEXzUo29EyZuyHcpMeJKzEyVBitEpBhvRXErM7IZyHicWVilWVlm97hJNK5k+vHeYJUwmglEmIgia52PemAMP1Zu01ys81LR4glpwXiMw93a92HAJQy6uEytqpnLgAq/Lq3TqNR5rmCwrcgPWCgzM3V08F7QxUKP39pMBCAuXr/LncVbPJtTTACigePgcM2oKwVTOluy0RmBEQ8EKvV7NK6uMpmRBo69HI5XvbRhtz2RNFkkzkTraTS4amuL69duUzhzvjq2sVm9N3Q73jYlXLckyVetQe5vkq1UcVtu2k5MzBcPfV38DwAizV5ajkuC+oQOvsPUb5P/awnP87BjecTqtBidf+Tt08UhALjupdCdAdGfNjbJXK2Rv7aMl89h8jnEGsQYxJppUZ1/9J254pBp2DKWSEcXAdd8iHdjhbGFq2Tv3sOOF9ARD7UG9TzUM6i1qDXTYnX+sXe/Kw4XhABOurXfbOKtrpNZuYMRQUcziGcRVUQEUQWVMJmCXiLCpINJEn/HUgC4uHF1QZ9/2MSu38U2/sb+cx9jTMwwRlBVRALjaAgkwFBGOHLrw1fLfRmQtfWGOIo83ELvb6BbPvpgE7PxAB3xkJERNJcNNdbA69Y0Le8V0VYXlRK4g/UTBxoD1QHvwuW96o3Mi2eL4lnU2MDLQiEw2J4GUYmDCNeB9wIix5bf33+0Xxp2ZXfulY+nxei8GC2KMQmDJgEi9DwCBJWqiBypHX+5NEAdSi8vY699GoIwxZjnahAbGFJjwEgUSENEZmsDeN0XAEDh4Mk2E5r0PM5CQ4zMgpxY/mB/gyFHrwLLxJtfTouGctjA6wiAsqjOojJXnz0wtOGBAADseOtUiwnEaEmM/iBG51Y+er3K/zD+BYzRWKPnTc4MAAAAAElFTkSuQmCC&logoColor=white"></a>
+  <a href="https://github.com/python-poetry/poetry" target="_blank"><img alt="Poetry" src="https://img.shields.io/badge/Poetry-60A5FA?style=for-the-badge&logo=poetry&logoColor=white"></a>
     </td>
   </tr>
   <tr>

@@ -125,17 +125,17 @@
 			\pgfmathsetmacro{\deltaA}{\v/100*360}
 			\pgfmathsetmacro{\nextA}{\curA + \deltaA}
 			\pgfmathsetmacro{\midA}{(\curA+\nextA)/2}
-			
+
 			\path[slice,\s] \c
 			-- +(\curA:\r)
 			arc (\curA:\nextA:\r)
 			-- cycle;
 			\pgfmathsetmacro{\d}{max((\deltaA * -(.5/50) + 1) , .5)}
-			
+
 			\begin{pgfonlayer}{foreground}
 				\path \c -- node[pos=\d,pie values,values of \s]{$\v\%$} +(\midA:\r);
 			\end{pgfonlayer}
-			
+
 			\global\let\curA\nextA
 		}
 	\end{scope}
@@ -305,44 +305,44 @@
 \renewcommand\maketitle{
 	\begin{titlepage}%
 		\definecolor{UniBlue}{HTML}{00355F}
-		
+
 		\let\footnotesize\small
 		\let\footnoterule\relax
 		\let\footnote \thanks
-		
+
 		% the logo, full page width
 		\vspace{1in}
 		\includegraphics[width=\linewidth]{images/CompSci_colour.pdf}
 		\vskip 0.5em
 		\color{UniBlue}
 		{\large \sffamily Honours Individual Project Dissertation}\\
-		
+
 		% title and author
-		
+
 		\vspace{1cm}
 		\Large
 		\vskip 5em%
-		
+
 		\begin{center}
-			
+
 			\color{UniBlue}
 			\noindent
 			{\Huge \scshape  \@title \par}%
-			
-			
-			
-			
-			
+
+
+
+
+
 		\end{center}
 		\vfill
 		{\Large
 			\textbf{\@author}\\
 			\@date}
-		
-		
-		
+
+
+
 	\end{titlepage}%
-	
+
 	\setcounter{footnote}{0}%
 	\global\let\thanks\relax
 	\global\let\maketitle\relax
@@ -351,7 +351,7 @@
 	\global\let\@date\@empty
 	\global\let\@consentname\@empty
 	\global\let\@consentdate\@empty
-	
+
 	\global\let\@title\@empty
 	\global\let\title\relax
 	\global\let\author\relax
@@ -400,12 +400,12 @@
 	\newpage
 	% \let\cleardoublepage\relax
 	\chapter*{Educational Use Consent}
-	
+
 	I hereby grant my permission for this project to be stored, distributed and shown to other
 	University of Glasgow students and staff for educational purposes.
 	\textbf{Please note that you are under no obligation to sign
 	this declaration, but doing so would help future students.}
-	
+
 	\begin{tabular}{@{}llll}
 		           &              &       &              \\
 		           &              &       &              \\
@@ -418,7 +418,7 @@
 	\chapter*{Educational Use Consent}
 	Consent for educational reuse withheld. Do not distribute.
 	\fi
-	
+
 }
 
 % split into files

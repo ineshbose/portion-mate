@@ -584,3 +584,33 @@ Time taken off to unwind and relax for Christmas and New Year.
 
 * *1 hour* Issue [#73](https://github.com/ineshbose/portion-mate/issues/73)
 * *4 hours* Issue [#133](https://github.com/ineshbose/portion-mate/issues/133)
+
+## Week 27
+
+### 28 March 2022
+
+* *6 hours* Dissertation writing
+
+### 29 March 2022
+
+* *8 hours* Dissertation writing
+
+### 30 March 2022
+
+* *8 hours* Dissertation writing
+
+### 31 March 2022
+
+* *10 hours* Dissertation writing
+* *4 hours* Presentation planning
+
+### 01 April 2022
+
+* *5 hours* Dissertation polishing and review
+* *2 hours* Presentation recording
+* *1 hour* Preparing submission in format, uploading and submitting
+* *0.5 hours* Celebration :)
+
+## Total hours: 411
+
+For more information, see the [Git History](https://github.com/ineshbose/portion-mate/wiki/GitLogs) or this timelog in a [table format](https://github.com/ineshbose/portion-mate/wiki/LogTable).

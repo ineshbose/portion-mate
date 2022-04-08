@@ -1,2 +1,2 @@
 *.example linguist-detectable=false
-dissertation/l4proj.tex linguist-vendored
+*.tex linguist-vendored
