@@ -17,7 +17,9 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: l4proj.tex
+          latexmk_shell_escape: true
           working_directory: dissertation
+          extra_system_packages: "inkscape"
       - name: Rename PDF
         run: |
           mv dissertation/l4proj.pdf "Inesh Bose - Portion Mate.pdf"
